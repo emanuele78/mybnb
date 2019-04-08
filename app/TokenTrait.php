@@ -16,8 +16,8 @@
 		private $token_key;
 		
 		public function __construct() {
-			$this->token_expiration_in_minutes = 20;
-			$this->token_key = 'app-token';
+			$this->token_expiration_in_minutes = config('project.token_expiration_time');
+			$this->token_key = config('project.token_key');
 		}
 		
 		public function isValidToken(Request $request): bool {
@@ -75,7 +75,7 @@
 		}
 		
 		private function sendTokenEmail($token, $recipient) {
-			if(config('project.use_test_recipient')){
+			if (config('project.use_test_recipient')) {
 				$recipient = config('project.test_recipient_mail');
 			}
 			$url = route('home', [$this->token_key => $token]);

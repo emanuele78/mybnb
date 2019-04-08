@@ -14,5 +14,8 @@
 			return view('layouts.index')->withHasValidToken($hasValidToken);
 		}
 		
+		public function search(Request $request) {
+			return view('layouts.search_results');
+		}
 		
 	}

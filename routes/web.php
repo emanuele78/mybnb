@@ -11,4 +11,10 @@
 	
 	Route::get('/', 'ApartmentController@index')->name('home');
 	
+	Route::middleware('check_token')->group(
+	  function () {
+		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
+	  }
+	);
+	
 	
