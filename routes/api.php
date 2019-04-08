@@ -18,7 +18,7 @@
 		return $request->user();
 	});
 	
-	Route::namespace('api')->middleware('only_ajax')->group(
+	Route::namespace('Api')->middleware('only_ajax')->group(
 	  function () {
 		  Route::post('/new-token', 'TokenController@requestNewToken');
 	  }
