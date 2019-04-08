@@ -75,9 +75,8 @@
 		}
 		
 		private function sendTokenEmail($token, $recipient) {
-			$useTestRecipient = true;
-			if($useTestRecipient){
-				$recipient = config('mail.test_mail');
+			if(config('project.use_test_recipient')){
+				$recipient = config('project.test_recipient_mail');
 			}
 			$url = route('home', [$this->token_key => $token]);
 			Mail::to($recipient)->send(new TokenMail($token, $this->token_expiration_in_minutes, $url));

@@ -14,8 +14,7 @@ $('#request_token_button').click(function (e) {
 });
 
 function requestToken(email, elementToDisable, loadingElement) {
-    const URL = 'http://127.0.0.1:8000/api/new-token';
-    $.ajax(URL, {
+    $.ajax(TOKEN_ENDPOINT, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
