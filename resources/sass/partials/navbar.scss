@@ -1,0 +1,40 @@
+.my_navbar {
+	position: fixed;
+	top:0;
+	left: 0;
+	height: $navbar_heigh;
+	background-color: #1d2124;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+	padding: 0 20px;
+
+	.my_navbar-left{
+		a {
+			color: white;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.my_logo {
+		display: inline-block;
+		border: 1px solid white;
+		border-radius: 50%;
+		padding: 5px;
+		font-size: 22px;
+	}
+
+	.my_navbar-right{
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.toggler {
+		font-size: 30px;
+		cursor: pointer;
+	}
+}

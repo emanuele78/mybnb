@@ -1,10 +1,5 @@
 <?php
 	
-	Route::get(
-	  '/', function () {
-		return view('welcome');
-	});
-	
 	Route::namespace('Auth')->group(
 	  function () {
 		  Route::post('/registration', 'RegisterController@register');
@@ -13,3 +8,7 @@
 		  Route::get('/login', 'LoginController@showLoginForm')->name('login');
 		  Route::get('/registrazione', 'RegisterController@showRegistrationForm')->name('register');
 	  });
+	
+	Route::get('/', 'ApartmentController@index')->name('home');
+	
+	

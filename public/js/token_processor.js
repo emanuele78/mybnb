@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -36655,26 +36655,68 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/***/ "./resources/js/token_processor.js":
+/*!*****************************************!*\
+  !*** ./resources/js/token_processor.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! ./app */ "./resources/js/app.js");
+
+$('#request_token_button').click(function (e) {
+  e.preventDefault();
+  var emailElement = $('#email');
+  var emailValue = emailElement.val();
+
+  if (isValidEmail(emailValue)) {
+    //do ajax request
+    emailElement.removeClass('is-invalid');
+    requestToken(emailValue, $(this), $('#loading-element'));
+  } else {
+    emailElement.addClass('is-invalid');
+  }
+});
+
+function requestToken(email, elementToDisable, loadingElement) {
+  var URL = 'http://127.0.0.1:8000/api/new-token';
+  $.ajax(URL, {
+    method: 'POST',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    beforeSend: function beforeSend() {
+      loadingElement.collapse('show');
+      elementToDisable.attr('disabled', 'disabled');
+    },
+    success: function success(data) {
+      $('#card-loading').html(data.message);
+    },
+    data: {
+      email: email
+    },
+    error: function error(_error) {
+      elementToDisable.removeAttr('disabled');
+      $('#card-loading').html(_error.responseJSON.message);
+    }
+  });
+}
+
+function isValidEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+/***/ }),
+
+/***/ 1:
+/*!********************************************!*\
+  !*** multi ./resources/js/token_processor ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/token_processor */"./resources/js/token_processor.js");
 
 
 /***/ })
