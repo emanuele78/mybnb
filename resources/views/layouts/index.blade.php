@@ -10,7 +10,7 @@
             @if(app()->environment('local'))
                 <script>const TOKEN_ENDPOINT = '{{config('project.token_endpoint_development')}}'</script>
             @else
-                <script>const TOKEN_ENDPOINT = '{{config('project.token_endpoint_development')}}'</script>
+                <script>const TOKEN_ENDPOINT = '{{config('project.token_endpoint_production')}}'</script>
             @endif
             <script src="{{asset('js/token_processor.js')}}"></script>
         @endpush
