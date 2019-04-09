@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/index.js": "/js/index.js",
     "/js/token_processor.js": "/js/token_processor.js",
     "/css/plain.css": "/css/plain.css"
 }

@@ -1,4 +1,4 @@
-require('./app');
+import PROJECT_MODULE from './app.js';
 
 $('#request_token_button').click(function (e) {
     e.preventDefault();
@@ -14,7 +14,7 @@ $('#request_token_button').click(function (e) {
 });
 
 function requestToken(email, elementToDisable, loadingElement) {
-    $.ajax(TOKEN_ENDPOINT, {
+    $.ajax(PROJECT_MODULE.tokenEndpoint, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

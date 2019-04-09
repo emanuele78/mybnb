@@ -36599,15 +36599,27 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+var LOCAL_PORT = 8000;
+var PROJECT_CONSTANTS = {
+  citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
+  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/new-token'
+};
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (PROJECT_CONSTANTS);
 
 /***/ }),
 
@@ -36659,10 +36671,12 @@ if (token) {
 /*!*****************************************!*\
   !*** ./resources/js/token_processor.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ./app */ "./resources/js/app.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.js */ "./resources/js/app.js");
 
 $('#request_token_button').click(function (e) {
   e.preventDefault();
@@ -36679,7 +36693,7 @@ $('#request_token_button').click(function (e) {
 });
 
 function requestToken(email, elementToDisable, loadingElement) {
-  $.ajax(TOKEN_ENDPOINT, {
+  $.ajax(_app_js__WEBPACK_IMPORTED_MODULE_0__["default"].tokenEndpoint, {
     method: 'POST',
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36709,13 +36723,13 @@ function isValidEmail(email) {
 /***/ }),
 
 /***/ 1:
-/*!********************************************!*\
-  !*** multi ./resources/js/token_processor ***!
-  \********************************************/
+/*!***********************************************!*\
+  !*** multi ./resources/js/token_processor.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/token_processor */"./resources/js/token_processor.js");
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/token_processor.js */"./resources/js/token_processor.js");
 
 
 /***/ })

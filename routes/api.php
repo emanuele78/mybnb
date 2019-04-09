@@ -21,5 +21,6 @@
 	Route::namespace('Api')->middleware('only_ajax')->group(
 	  function () {
 		  Route::post('/new-token', 'TokenController@requestNewToken');
+		  Route::get('/cities', 'ApartmentController@cities');
 	  }
 	);

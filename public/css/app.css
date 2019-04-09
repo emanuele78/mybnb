@@ -10663,6 +10663,7 @@ a.text-dark:focus {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 2;
   height: 70px;
   background-color: #1d2124;
   display: flex;
@@ -10697,5 +10698,16 @@ a.text-dark:focus {
 .my_navbar .toggler {
   font-size: 30px;
   cursor: pointer;
+}
+
+.main_hero {
+  display: flex;
+  background: url("/../img/hero.jpg") no-repeat center center;
+  background-size: cover;
+  height: 500px;
+}
+
+.main_hero .search_form {
+  margin: auto;
 }
 

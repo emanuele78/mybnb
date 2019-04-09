@@ -1,0 +1,10 @@
+.main_hero {
+	display: flex;
+	background: url("/../img/hero.jpg") no-repeat center center;
+	background-size: cover;
+	height: 500px;
+
+	.search_form {
+		margin: auto;
+	}
+}
