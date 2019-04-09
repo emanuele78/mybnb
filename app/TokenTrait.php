@@ -3,8 +3,8 @@
 	namespace App\Traits;
 	
 	use App\Mail\TokenMail;
+	use App\Token;
 	use Illuminate\Http\Request;
-	use Illuminate\Support\Facades\DB;
 	use Carbon\Carbon;
 	use Illuminate\Support\Str;
 	use Validator;
@@ -23,28 +23,27 @@
 		public function isValidToken(Request $request): bool {
 			if ($request->has($this->token_key)) {
 				//check if request har url encoded token
-				$token = $request->get($this->token_key);
+				$user_token = $request->get($this->token_key);
 			} elseif ($request->session()->has($this->token_key)) {
 				//check if session has token
-				$token = $request->session()->get($this->token_key);
+				$user_token = $request->session()->get($this->token_key);
 			} else {
 				return false;
 			}
-			$tokenObject = DB::table('tokens')->where('token', $token)->get()->first();
-			if ($tokenObject == null) {
+			$token = Token::where('token', $user_token)->first();
+			if ($token == null) {
 				//token not present or not valid
 				return false;
 			}
-			if ($tokenObject->expiration == null) {
+			if ($token->expiration == null) {
 				//token need to be activated
-				\DB::table('tokens')
-				  ->where('token', $token)
-				  ->update(['updated_at' => Carbon::now(), 'expiration' => Carbon::now()->addMinutes($this->token_expiration_in_minutes)]);
-				$this->saveTokenInSession($token);
+				$token->expiration = Carbon::now()->addMinutes($this->token_expiration_in_minutes);
+				$token->save();
+				$this->saveTokenInSession($user_token);
 				return true;
 			}
 			//token is valid - need to ckeck expiration
-			$expiration = Carbon::create($tokenObject->expiration);
+			$expiration = Carbon::create($token->expiration);
 			return $expiration->greaterThan(Carbon::now());
 		}
 		
@@ -63,7 +62,7 @@
 				}
 				//creating token and saving it in DB without expiration date-time
 				$token = (string)Str::uuid();
-				DB::table('tokens')->insert(['token' => $token, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
+				Token::create(['token' => $token]);
 				//sending mail
 				$this->sendTokenEmail($token, $validator->validated()['email']);
 				return response()->json(['message' => 'E\' stato inviato un token all\'indirizzo inserito'], 200);

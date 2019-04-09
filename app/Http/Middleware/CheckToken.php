@@ -2,9 +2,9 @@
 	
 	namespace App\Http\Middleware;
 	
+	use App\Token;
 	use Carbon\Carbon;
 	use Closure;
-	use Illuminate\Support\Facades\DB;
 	
 	class CheckToken {
 		/**
@@ -19,7 +19,7 @@
 			if ($request->session()->has($token_key)) {
 				//check if token is expiried
 				$token = $request->session()->get($token_key);
-				if (DB::table('tokens')->where('token', $token)->where('expiration', '>', Carbon::now())->get()->first() == null) {
+				if (Token::where('token', $token)->where('expiration', '>', Carbon::now())->first() == null) {
 					return redirect()->route('home');
 				}
 				return $next($request);

@@ -33,7 +33,6 @@
                     <button type="submit" class="btn btn-success">Inizia a utilizzare l'app</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
