@@ -8,4 +8,7 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/fontawesome/webfonts', 'public/webfonts')
     .copyDirectory('resources/img/', 'public/img/')
     .styles(['resources/fontawesome/style.css'], 'public/css/plain.css')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false
+    });
