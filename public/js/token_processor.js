@@ -36614,7 +36614,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
-  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens'
+  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
+  activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens'
 };
 
 if (false) {}
@@ -36719,6 +36720,18 @@ function isValidEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
+$('#activate_token_button').click(function (e) {
+  e.preventDefault();
+  var tokenInput = $('#token_code');
+
+  if ($.trim(tokenInput.val()) === '') {
+    tokenInput.addClass('is-invalid');
+  } else {
+    $('#activation_form').attr('action', _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].activationTokenEndpoint + '/' + tokenInput.val());
+    $('#activation_form').submit();
+  }
+});
 
 /***/ }),
 

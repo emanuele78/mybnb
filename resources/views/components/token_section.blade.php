@@ -32,9 +32,11 @@
             </div>
             <div class="offset-1 col-10 my-3">
                 <h5>Se già possiedi il token, inseriscilo nel campo sottostante</h5>
-                <form action="#" class="form-inline">
-                    <input type="text" class="form-control mr-2" id="token" placeholder="Token">
-                    <button type="submit" class="btn btn-success">Inizia a utilizzare l'app</button>
+                <form action="#" method="POST" class="form-inline" id="activation_form">
+                    @csrf
+                    @method('PATCH')
+                    <input id="token_code" type="text" class="form-control mr-2" id="token" placeholder="Token" required>
+                    <button id="activate_token_button" type="submit" class="btn btn-success">Inizia a utilizzare l'app</button>
                 </form>
             </div>
         </div>

@@ -43881,7 +43881,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
-  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens'
+  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
+  activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens'
 };
 
 if (false) {}

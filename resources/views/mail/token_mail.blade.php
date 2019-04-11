@@ -108,12 +108,7 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Ti ricordo che nessun tuo dato verrà salvato nel mio server né ceduto a terzi né utilizzato per fini di marketing.
-                                            </td>
-                                        </tr>
-                                        <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                            <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Inoltre, per assicurare un'esperienza ottimale, tutte le eventuali modifiche apportate all'app (es. nuovi utenti, nuovi appartamenti, etc...) verrano ripristinate con i dati di default una volta al giorno.
+                                                Ti ricordo che la tua email non sarà ceduta a terzi né utilizzata per fini di marketing.
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
@@ -124,7 +119,7 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Puoi comodamente accedere al sito convalidando il token cliccando il seguente bottone:
+                                                Puoi comodamente accedere al sito convalidando il token attraverso il seguente bottone:
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

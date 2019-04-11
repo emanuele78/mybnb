@@ -7,19 +7,25 @@
     @push('styles')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @endpush
-    @if($showTokenBanner)
+    @unless($hasValidToken)
         @include('components.token_section')
-    @endif
+    @endunless
     @include('components.hero')
+    @if (session('flash_message'))
+        {{--todo absolute position message--}}
+        <div>
+            {{ session('flash_message') }}
+        </div>
+    @endif
     @push('scripts')
         <script id="cities_list_template" type="text/x-handlebars-template">
             @{{#each this}}
             <option class="city_item" data-id="@{{code}}" value="@{{name}}"></option>
             @{{/each}}
         </script>
-        @if($showTokenBanner)
+        @unless($hasValidToken)
             <script src="{{asset('js/token_processor.js')}}"></script>
-        @endif
+        @endunless
         <script src="{{asset('js/index.js')}}"></script>
     @endpush
 @endsection

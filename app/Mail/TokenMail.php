@@ -11,7 +11,6 @@
 		use Queueable, SerializesModels;
 		
 		private $token;
-		private $time;
 		private $url;
 		
 		/**
@@ -19,10 +18,9 @@
 		 *
 		 * @return void
 		 */
-		public function __construct($token, $time, $url) {
+		public function __construct($token) {
+			
 			$this->token = $token;
-			$this->url = $url;
-			$this->time = $time;
 		}
 		
 		/**
@@ -31,9 +29,12 @@
 		 * @return $this
 		 */
 		public function build() {
-			return $this->from('info@emanuelemazzante.dev', 'Emanuele Mazzante')
-			  ->subject('Ecco il tuo token!')
+			$url = route('activate-token', [config('project.token_key') => $this->token->token_code]);
+			return $this
+			  ->from(config('project.token_email_from_email'), config('project.token_email_from_name'))
+			  ->to(config('project.use_test_recipient') ? config('project.test_recipient_mail') : $this->token->email)
+			  ->subject('Il tuo token')
 			  ->view('mail.token_mail')
-			  ->with(['url' => $this->url, 'token' => $this->token, 'time_length' => $this->time]);
+			  ->with(['url' => $url, 'token' => $this->token->token_code, 'time_length' => config('project.token_expiration_time')]);
 		}
 	}

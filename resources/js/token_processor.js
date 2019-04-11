@@ -40,3 +40,14 @@ function isValidEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+
+$('#activate_token_button').click(function (e) {
+    e.preventDefault();
+    let tokenInput = $('#token_code');
+    if ($.trim(tokenInput.val()) === '') {
+        tokenInput.addClass('is-invalid');
+    } else {
+        $('#activation_form').attr('action', PROJECT_MODULE.activationTokenEndpoint + '/' + tokenInput.val());
+        $('#activation_form').submit();
+    }
+});
