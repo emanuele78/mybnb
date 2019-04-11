@@ -15,12 +15,14 @@
 	
 	Route::middleware('auth:api')->get(
 	  '/user', function (Request $request) {
+		
 		return $request->user();
 	});
 	
-	Route::namespace('Api')->middleware('only_ajax')->group(
+	Route::middleware('only_ajax')->group(
 	  function () {
-		  Route::post('/new-token', 'TokenController@requestNewToken');
-		  Route::get('/cities', 'ApartmentController@cities');
+		  
+		  Route::get('/cities', 'CityController@index');
+		  Route::post('/tokens', 'TokenController@store');
 	  }
 	);

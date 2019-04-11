@@ -1,13 +1,12 @@
 <?php
 	
-	namespace App\Http\Controllers\Api;
+	namespace App\Http\Controllers;
 	
 	use Illuminate\Http\Request;
-	use App\Http\Controllers\Controller;
 	
-	class ApartmentController extends Controller {
+	class CityController extends Controller {
 		
-		function cities() {
+		public function index() {
 			$rawData = \Config::get('cities');
 			$cities = [];
 			foreach ($rawData as $index => $data) {
@@ -18,4 +17,5 @@
 			}
 			return response()->json($cities, 200);
 		}
+		
 	}

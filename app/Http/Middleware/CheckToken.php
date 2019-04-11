@@ -2,27 +2,27 @@
 	
 	namespace App\Http\Middleware;
 	
-	use App\Token;
-	use Carbon\Carbon;
+	use App\Constants;
+	use App\Repositories\Interfaces\TokenRepoInterface;
 	use Closure;
 	
 	class CheckToken {
-		/**
-		 * Handle an incoming request.
-		 *
-		 * @param  \Illuminate\Http\Request $request
-		 * @param  \Closure $next
-		 * @return mixed
-		 */
+
+		protected $tokenRepo;
+		
+		public function __construct(TokenRepoInterface $tokenRepo) {
+			$this->tokenRepo = $tokenRepo;
+		}
+		
 		public function handle($request, Closure $next) {
 			$token_key = config('project.token_key');
 			if ($request->session()->has($token_key)) {
-				//check if token is expiried
-				$token = $request->session()->get($token_key);
-				if (Token::where('token', $token)->where('expiration', '>', Carbon::now())->first() == null) {
-					return redirect()->route('home');
+				//check if token is expired
+				$user_token = $request->session()->get($token_key);
+				if($this->tokenRepo->checkToken($user_token) == Constants::VALID_TOKEN){
+					return $next($request);
 				}
-				return $next($request);
+				return redirect()->route('home');
 			}
 			return redirect()->route('home');
 		}

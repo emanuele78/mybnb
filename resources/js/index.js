@@ -11,11 +11,10 @@ flatpickr('.flatpicker', {
     $.ajax(PROJECT_MODULE.citiesEndpoint, {
         method: 'GET',
         success: function (data) {
-            console.log(data);
             populateDatalist(data);
         },
         error: function (error) {
-            console.log(error);
+            console.log('Unable to load cities');
         }
     });
 

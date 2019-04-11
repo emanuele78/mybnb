@@ -43881,7 +43881,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
-  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/new-token'
+  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens'
 };
 
 if (false) {}
@@ -43960,11 +43960,10 @@ flatpickr__WEBPACK_IMPORTED_MODULE_2___default()('.flatpicker', {
   $.ajax(_app_js__WEBPACK_IMPORTED_MODULE_0__["default"].citiesEndpoint, {
     method: 'GET',
     success: function success(data) {
-      console.log(data);
       populateDatalist(data);
     },
     error: function error(_error) {
-      console.log(_error);
+      console.log('Unable to load cities');
     }
   });
 

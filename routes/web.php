@@ -9,12 +9,17 @@
 		  Route::get('/registrazione', 'RegisterController@showRegistrationForm')->name('register');
 	  });
 	
+	
+//	Route::middleware('check_token')->group(
+//	  function () {
+//		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
+//	  }
+//	);
+	
+//	Route::get('/convalida-token', 'Api\TokenController@activateToken')->name('activate-token');
+	
+	
+	
+	/* NEW ROUTES START HERE */
+	
 	Route::get('/', 'ApartmentController@index')->name('home');
-	
-	Route::middleware('check_token')->group(
-	  function () {
-		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
-	  }
-	);
-	
-	

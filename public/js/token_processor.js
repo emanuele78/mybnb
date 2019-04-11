@@ -36614,7 +36614,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
-  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/new-token'
+  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens'
 };
 
 if (false) {}
@@ -36702,15 +36702,15 @@ function requestToken(email, elementToDisable, loadingElement) {
       loadingElement.collapse('show');
       elementToDisable.attr('disabled', 'disabled');
     },
-    success: function success(data) {
-      $('#card-loading').html(data.message);
+    success: function success() {
+      $('#card-loading').html('Il token è stato inviato');
     },
     data: {
       email: email
     },
-    error: function error(_error) {
+    error: function error() {
       elementToDisable.removeAttr('disabled');
-      $('#card-loading').html(_error.responseJSON.message);
+      $('#card-loading').html('Indirizzo e-mail non valido');
     }
   });
 }

@@ -23,15 +23,15 @@ function requestToken(email, elementToDisable, loadingElement) {
             loadingElement.collapse('show');
             elementToDisable.attr('disabled', 'disabled');
         },
-        success: function (data) {
-            $('#card-loading').html(data.message);
+        success: function () {
+            $('#card-loading').html('Il token è stato inviato');
         },
         data: {
             email: email
         },
-        error: function (error) {
+        error: function () {
             elementToDisable.removeAttr('disabled');
-            $('#card-loading').html(error.responseJSON.message);
+            $('#card-loading').html('Indirizzo e-mail non valido');
         }
     });
 }
