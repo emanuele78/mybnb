@@ -10,6 +10,12 @@
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
+		/**
+		 * Checks if provided user token is valid
+		 *
+		 * @param $user_token
+		 * @return bool
+		 */
 		public static function isValid($user_token): bool {
 			
 			$token = Token::where('token_code', $user_token)->first();
@@ -28,6 +34,12 @@
 			return false;
 		}
 		
+		/**
+		 * Creates a new token
+		 *
+		 * @param array $data
+		 * @return Token|null
+		 */
 		public static function create(array $data): ?self {
 			
 			$data['token_code'] = (string)Str::uuid();
@@ -37,6 +49,12 @@
 			return $token;
 		}
 		
+		/**
+		 * Activates provided token
+		 *
+		 * @param $code
+		 * @return Token|null
+		 */
 		public static function activate($code): ?self {
 			
 			$token = Token::where('token_code', $code)->first();

@@ -8,15 +8,16 @@
 	use Illuminate\Contracts\Queue\ShouldQueue;
 	
 	class TokenMail extends Mailable {
+		
 		use Queueable, SerializesModels;
 		
 		private $token;
 		private $url;
 		
 		/**
-		 * Create a new message instance.
+		 * TokenMail constructor.
 		 *
-		 * @return void
+		 * @param $token
 		 */
 		public function __construct($token) {
 			
@@ -24,11 +25,12 @@
 		}
 		
 		/**
-		 * Build the message.
+		 * Builds a new message
 		 *
-		 * @return $this
+		 * @return TokenMail
 		 */
 		public function build() {
+			
 			$url = route('activate-token', [config('project.token_key') => $this->token->token_code]);
 			return $this
 			  ->from(config('project.token_email_from_email'), config('project.token_email_from_name'))

@@ -9,12 +9,11 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/**
+ * Declaring differents endpoint for development and production
+ */
+
 
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
@@ -84,6 +83,10 @@ if (token) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.js */ "./resources/js/app.js");
 
+/**
+ * Listener for request token button
+ */
+
 $('#request_token_button').click(function (e) {
   e.preventDefault();
   var emailElement = $('#email');
@@ -97,6 +100,12 @@ $('#request_token_button').click(function (e) {
     emailElement.addClass('is-invalid');
   }
 });
+/**
+ * Does an ajax call to request a new token for the provided email address
+ * @param email
+ * @param elementToDisable
+ * @param loadingElement
+ */
 
 function requestToken(email, elementToDisable, loadingElement) {
   $.ajax(_app_js__WEBPACK_IMPORTED_MODULE_0__["default"].tokenEndpoint, {
@@ -120,11 +129,21 @@ function requestToken(email, elementToDisable, loadingElement) {
     }
   });
 }
+/**
+ * Checks if the passed string is a valid email address
+ * @param email
+ * @returns {boolean}
+ */
+
 
 function isValidEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+/**
+ * Listener for the activate token button
+ */
+
 
 $('#activate_token_button').click(function (e) {
   e.preventDefault();

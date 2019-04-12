@@ -7,13 +7,16 @@ flatpickr('.flatpicker', {
     dateFormat: "d-m-Y",
 });
 
+/**
+ * Calls endpoint for get cities list in order to fill the datalist in the search bar
+ */
 (function () {
     $.ajax(PROJECT_MODULE.citiesEndpoint, {
         method: 'GET',
         success: function (data) {
             populateDatalist(data);
         },
-        error: function (error) {
+        error: function () {
             console.log('Unable to load cities');
         }
     });

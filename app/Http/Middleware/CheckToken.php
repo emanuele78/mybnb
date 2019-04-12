@@ -7,11 +7,18 @@
 	
 	class CheckToken {
 		
+		/**
+		 * Sessions without token can visit only home page
+		 *
+		 * @param $request
+		 * @param Closure $next
+		 * @return \Illuminate\Http\RedirectResponse|mixed
+		 */
 		public function handle($request, Closure $next) {
 			
 			$token_key = config('project.token_key');
 			if ($request->session()->has($token_key)) {
-				//check if token is expired
+				//check token expiration
 				if (Token::isValid($request->session()->get($token_key))) {
 					return $next($request);
 				}

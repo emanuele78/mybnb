@@ -6,6 +6,12 @@
 	
 	class ApartmentController extends Controller {
 		
+		/**
+		 * Returns home page view with promoted apartments, links with major cities
+		 * If session doesn't have a valid token, banner is showed
+		 *
+		 * @return mixed
+		 */
 		public function index() {
 			
 			$token_key_name = config('project.token_key');

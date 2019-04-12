@@ -1,5 +1,8 @@
 import PROJECT_MODULE from './app.js';
 
+/**
+ * Listener for request token button
+ */
 $('#request_token_button').click(function (e) {
     e.preventDefault();
     let emailElement = $('#email');
@@ -13,6 +16,12 @@ $('#request_token_button').click(function (e) {
     }
 });
 
+/**
+ * Does an ajax call to request a new token for the provided email address
+ * @param email
+ * @param elementToDisable
+ * @param loadingElement
+ */
 function requestToken(email, elementToDisable, loadingElement) {
     $.ajax(PROJECT_MODULE.tokenEndpoint, {
         method: 'POST',
@@ -36,11 +45,19 @@ function requestToken(email, elementToDisable, loadingElement) {
     });
 }
 
+/**
+ * Checks if the passed string is a valid email address
+ * @param email
+ * @returns {boolean}
+ */
 function isValidEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
 
+/**
+ * Listener for the activate token button
+ */
 $('#activate_token_button').click(function (e) {
     e.preventDefault();
     let tokenInput = $('#token_code');

@@ -9,12 +9,11 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/**
+ * Declaring differents endpoint for development and production
+ */
+
 
 var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
