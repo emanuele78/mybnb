@@ -1,4 +1,4 @@
-<div class="container mb-2">
+<div class="container mb-3 my-3">
     <div class="card">
         <div class="card-header text-center">
             <h3>Informazioni sull'utilizzo della presente web app</h3>
