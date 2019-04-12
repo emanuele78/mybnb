@@ -25,3 +25,6 @@
 	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	//3
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
+	
+	//todo to be deleted
+	Route::get('/test', 'TokenController@store');

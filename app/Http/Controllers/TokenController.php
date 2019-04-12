@@ -12,7 +12,6 @@
 		 * @return \Illuminate\Http\JsonResponse
 		 */
 		public function store() {
-			
 			$data = request()->validate(['email' => 'required|email']);
 			Token::create($data);
 			return response()->json([], 200);

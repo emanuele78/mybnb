@@ -2,35 +2,21 @@
 	
 	namespace App\Events;
 	
-	use App\Token;
 	use Illuminate\Queue\SerializesModels;
 	use Illuminate\Foundation\Events\Dispatchable;
 	use Illuminate\Broadcasting\InteractsWithSockets;
 	
-	class TokenCreated implements Nameable {
+	class TokenActivated implements Nameable {
 		
 		use Dispatchable, InteractsWithSockets, SerializesModels;
 		
-		private $token;
-		
 		/**
-		 * TokenCreated constructor.
+		 * Create a new event instance.
 		 *
-		 * @param Token $token
+		 * @return void
 		 */
-		public function __construct(Token $token) {
-			
-			$this->token = $token;
-		}
-		
-		/**
-		 * Returns the newly created token
-		 *
-		 * @return Token
-		 */
-		public function getToken() {
-			
-			return $this->token;
+		public function __construct() {
+			//
 		}
 		
 		/**
@@ -39,7 +25,6 @@
 		 * @return string
 		 */
 		public function name(): string {
-			
-			return 'TOKEN_CREATED';
+			return 'TOKEN_ACTIVATED';
 		}
 	}

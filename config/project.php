@@ -8,5 +8,7 @@
 	  'token_expiration_time' => env('TOKEN_EXPIRATION_TIME', 20),
 	  'token_email_from_email' => env('TOKEN_EMAIL_FROM_EMAIL'),
 	  'token_email_from_name' => env('TOKEN_EMAIL_FROM_NAME'),
-	
+	  'admin_email' => env('ADMIN_EMAIL'),
+	  'notify_token_request' => env('NOTIFY_TOKEN_REQUEST', false),
+	  'notify_token_activation' => env('NOTIFY_TOKEN_ACTIVATION', false),
 	];

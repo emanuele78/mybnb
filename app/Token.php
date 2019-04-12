@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use App\Events\TokenActivated;
 	use App\Events\TokenCreated;
 	use Illuminate\Database\Eloquent\Model;
 	use Carbon\Carbon;
@@ -13,6 +14,7 @@
 		
 		protected $dispatchesEvents = [
 		  'created' => TokenCreated::class,
+		  'updated' => TokenActivated::class,
 		];
 		
 		/**

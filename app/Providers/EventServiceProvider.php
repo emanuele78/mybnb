@@ -2,7 +2,9 @@
 	
 	namespace App\Providers;
 	
+	use App\Events\TokenActivated;
 	use App\Events\TokenCreated;
+	use App\Listeners\SendAdminNotification;
 	use App\Listeners\SendTokenNotification;
 	use Illuminate\Support\Facades\Event;
 	use Illuminate\Auth\Events\Registered;
@@ -22,7 +24,11 @@
 		  ],
 		  TokenCreated::class => [
 			SendTokenNotification::class,
+			SendAdminNotification::class,
 		  ],
+		  TokenActivated::class => [
+			SendAdminNotification::class,
+		  ]
 		];
 		
 		/**
