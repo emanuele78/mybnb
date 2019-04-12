@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use App\Events\TokenCreated;
 	use Illuminate\Database\Eloquent\Model;
 	use Carbon\Carbon;
 	use Illuminate\Support\Str;
@@ -9,6 +10,10 @@
 	class Token extends Model {
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		
+		protected $dispatchesEvents = [
+		  'created' => TokenCreated::class,
+		];
 		
 		/**
 		 * Checks if provided user token is valid

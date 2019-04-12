@@ -2,9 +2,7 @@
 	
 	namespace App\Http\Controllers;
 	
-	use App\Mail\TokenMail;
 	use App\Token;
-	use Illuminate\Support\Facades\Mail;
 	
 	class TokenController extends Controller {
 		
@@ -16,8 +14,7 @@
 		public function store() {
 			
 			$data = request()->validate(['email' => 'required|email']);
-			$token = Token::create($data);
-			Mail::send(new TokenMail($token));
+			Token::create($data);
 			return response()->json([], 200);
 		}
 		
