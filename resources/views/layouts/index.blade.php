@@ -11,12 +11,14 @@
         @include('components.token_section')
     @endunless
     @include('components.hero')
+    {{--todo absolute position message--}}
     @if (session('flash_message'))
-        {{--todo absolute position message--}}
         <div>
             {{ session('flash_message') }}
         </div>
     @endif
+    @include('components.promoteds_list')
+    @include('components.cards_list')
     @push('scripts')
         <script id="cities_list_template" type="text/x-handlebars-template">
             @{{#each this}}

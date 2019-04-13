@@ -47,7 +47,7 @@
 		 * @param array $data
 		 * @return Token|null
 		 */
-		public static function create(array $data): ?self {
+		public static function generate(array $data): ?self {
 			
 			$data['token_code'] = (string)Str::uuid();
 			$token = new Token();

@@ -13,7 +13,7 @@
 		 */
 		public function store() {
 			$data = request()->validate(['email' => 'required|email']);
-			Token::create($data);
+			Token::generate($data);
 			return response()->json([], 200);
 		}
 		

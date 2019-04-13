@@ -15,25 +15,11 @@
 		 *
 		 * @var array
 		 */
-		protected $fillable = [
-		  'name', 'email', 'password',
-		];
+		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
-		/**
-		 * The attributes that should be hidden for arrays.
-		 *
-		 * @var array
-		 */
-		protected $hidden = [
-		  'password', 'remember_token',
-		];
+		public function apartments() {
+			
+			return $this->hasMany(Apartment::class);
+		}
 		
-		/**
-		 * The attributes that should be cast to native types.
-		 *
-		 * @var array
-		 */
-		protected $casts = [
-		  'email_verified_at' => 'datetime',
-		];
 	}

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900);@charset "UTF-8";
 .base_container {
   padding-top: 70px;
 }
@@ -9738,7 +9738,7 @@ h3 {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 4;
   width: 100%;
   height: 70px;
   background-color: #1d2124;
@@ -9803,4 +9803,235 @@ h3 {
 }
 .main_hero .search_container .search_form {
   margin: auto;
+}
+
+.cities_section .cards_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 200px;
+  grid-gap: 5px;
+  grid-auto-flow: dense;
+}
+.cities_section .cards_wrapper .city_wrapper {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-decoration: none;
+}
+.cities_section .cards_wrapper .city_wrapper.big {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.cities_section .cards_wrapper .city_wrapper.horizontal {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+.cities_section .cards_wrapper .city_wrapper.vertical {
+  grid-row: span 2;
+  grid-column: span 1;
+}
+.cities_section .cards_wrapper .city_wrapper.standard {
+  grid-row: span 1;
+  grid-column: span 1;
+}
+.cities_section .cards_wrapper .city_wrapper .city_name {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  z-index: 2;
+  color: #3490dc;
+  font-size: 40px;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+.cities_section .cards_wrapper .city_wrapper:hover > .city_name {
+  opacity: 1;
+}
+.cities_section .cards_wrapper .city_wrapper:hover > .grey_layer {
+  opacity: 0.7;
+}
+.cities_section .cards_wrapper .city_wrapper:hover > .arrow {
+  opacity: 1;
+}
+.cities_section .cards_wrapper .city_wrapper .grey_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: #2f2f2f;
+}
+.cities_section .cards_wrapper .city_wrapper .arrow {
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #3490dc;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+
+.promoted_apartments_section .cards_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+  grid-gap: 5px;
+  grid-auto-flow: dense;
+}
+.promoted_apartments_section .cards_wrapper .apartment_image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper {
+  position: relative;
+  text-decoration: none;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.big {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.big .apartment_image {
+  height: 445px;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.horizontal {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.horizontal .apartment_image {
+  height: 195px;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.vertical {
+  grid-row: span 2;
+  grid-column: span 1;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.vertical .apartment_image {
+  height: 445px;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.standard {
+  grid-row: span 1;
+  grid-column: span 1;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper.standard .apartment_image {
+  height: 195px;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper .apartment_description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper .apartment_description .info {
+  position: relative;
+  left: 2px;
+  top: 7px;
+  color: #767676;
+  font-size: 14px;
+  font-weight: 700;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper .apartment_description .title {
+  position: relative;
+  left: 2px;
+  color: #484848;
+  font-size: 22px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper .grey_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: #2f2f2f;
+  transition: 0.3s ease;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper .layer_text {
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-weight: 400;
+  font-size: 30px;
+  padding: 10px;
+  color: white;
+  background-color: #3490dc;
+  white-space: nowrap;
+  transition: 0.3s ease;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper:hover .grey_layer {
+  opacity: 0.5;
+}
+.promoted_apartments_section .cards_wrapper .apartment_wrapper:hover .layer_text {
+  opacity: 1;
+}
+
+.title_section {
+  width: 100%;
+  height: 180px;
+  position: relative;
+}
+.title_section .main_title {
+  position: absolute;
+  z-index: -1;
+  bottom: -40px;
+  left: 0;
+  vertical-align: bottom;
+  font-size: 160px;
+  line-height: 160px;
+  font-weight: 700;
+  opacity: 0.5;
+  color: lightgray;
+}
+.title_section .sub_title {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  font-size: 30px;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 900px) {
+  .cities_section .cards_wrapper .city_wrapper.big {
+    grid-row: span 2;
+    grid-column: span 1;
+  }
+}
+@media screen and (max-width: 700px) {
+  .cities_section .cards_wrapper .city_wrapper.big {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+  .cities_section .cards_wrapper .city_wrapper.vertical {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cities_section .cards_wrapper {
+    grid-template-columns: 1fr;
+  }
+  .cities_section .cards_wrapper .city_wrapper.big, .cities_section .cards_wrapper .city_wrapper.vertical, .cities_section .cards_wrapper .city_wrapper.horizontal {
+    grid-row: span 1;
+    grid-column: 1/-1;
+  }
 }

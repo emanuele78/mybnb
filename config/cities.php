@@ -41,7 +41,7 @@
 	  [
 		"sigla" => "AQ",
 		"capoluogo" => true,
-		"provincia" => "L'Aquila",
+		"provincia" => "L' Aquila",
 		"lng" => "13.39843828",
 		"lat" => "42.35122195",
 		"id_regione" => "1"

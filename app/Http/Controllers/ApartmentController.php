@@ -2,6 +2,7 @@
 	
 	namespace App\Http\Controllers;
 	
+	use App\Apartment;
 	use App\Token;
 	
 	class ApartmentController extends Controller {
@@ -14,15 +15,47 @@
 		 */
 		public function index() {
 			
+			$promotedApartmentToShow = 30;
+			return view('layouts.index')
+			  ->withHasValidToken($this->checkToken())
+			  ->withPromotedApartments(Apartment::promoted($promotedApartmentToShow))
+			  ->withCardSizes($this->cardsMatrix())
+			  ->withMajorCities($this->majorCities());
+		}
+		
+		/**
+		 * Check if current session has valid token
+		 *
+		 * @return bool
+		 */
+		private function checkToken(): bool {
+			
 			$token_key_name = config('project.token_key');
-			$validToken = request()->session()->has($token_key_name) ? Token::isValid(request()->session()->get($token_key_name)) : false;
-			//todo send promo apartments and city links
-			return view('layouts.index')->withHasValidToken($validToken);
+			return request()->session()->has($token_key_name) ? Token::isValid(request()->session()->get($token_key_name)) : false;
+		}
+		
+		private function cardsMatrix(): array {
+			
+			return ['big', 'horizontal', 'vertical', 'standard', 'standard', 'standard'];
+		}
+		
+		private function majorCities(): array {
+			
+			$rawData = \Config::get('cities');
+			$cities = [];
+			foreach ($rawData as $index => $data) {
+				if (array_key_exists('capoluogo', $data)) {
+					$cities[] = [
+					  'name' => strtolower($data['provincia']),
+					  'code' => $index
+					];
+				}
+			}
+			return $cities;
 		}
 		
 		public function search() {
 			
 			return view('layouts.search_results');
 		}
-		
 	}
