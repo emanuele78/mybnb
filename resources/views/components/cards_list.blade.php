@@ -6,7 +6,7 @@
         </div>
         <div class="cards_wrapper">
             @foreach($majorCities as $majorCity)
-                <a href="" class="city_wrapper {{$cardSizes[rand(0, count($cardSizes) - 1)]}}" style="background-image: url('../img/cities/{{addslashes($majorCity['name']).'.jpg'}}')">
+                <a href="" class="city_wrapper {{$cardSizes[rand(0, count($cardSizes) - 1)]}}" style="background-image: url('img/cities/{{addslashes($majorCity['name']).'.jpg'}}')">
                     <span class="city_name">{{ucwords($majorCity['name'])}}</span>
                     <div class="grey_layer"></div>
                     <div class="arrow">
