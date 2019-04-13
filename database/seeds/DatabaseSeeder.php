@@ -15,5 +15,6 @@
 			$this->call(ApartmentsTableSeeder::class);
 			$this->call(PromotionPlansTableSeeder::class);
 			$this->call(PromotionsTableSeeder::class);
+			$this->call(ImagesTableSeeder::class);
 		}
 	}

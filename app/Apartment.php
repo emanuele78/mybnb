@@ -31,6 +31,11 @@
 			return $this->hasMany(Promotion::class);
 		}
 		
+		public function images() {
+			
+			return $this->hasMany(Image::class);
+		}
+		
 		public static function promoted($item_count) {
 			
 			return self::where('is_showed', 1)
