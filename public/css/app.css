@@ -9792,6 +9792,27 @@ h3 {
   color: royalblue;
 }
 
+.footer {
+  background-color: #1d2124;
+  padding: 30px 0;
+  margin-top: 60px;
+}
+.footer .footer_section {
+  color: white;
+  list-style-type: none;
+}
+.footer .footer_section .item {
+  cursor: pointer;
+}
+.footer .footer_section .title {
+  color: royalblue;
+  font-size: 20px;
+  font-weight: 400;
+}
+.footer .footer_section .social {
+  font-size: 30px;
+}
+
 .main_hero {
   background: url("../img/hero.jpg") no-repeat center center;
   background-size: cover;

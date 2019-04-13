@@ -19,6 +19,7 @@
     @endif
     @include('components.promoteds_list')
     @include('components.cards_list')
+    @include('components.footer')
     @push('scripts')
         <script id="cities_list_template" type="text/x-handlebars-template">
             @{{#each this}}
