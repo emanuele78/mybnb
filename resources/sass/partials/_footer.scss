@@ -9,6 +9,7 @@
 
 		.item {
 			cursor: pointer;
+			font-size: 16px;
 		}
 
 		.title {
@@ -19,6 +20,25 @@
 
 		.social {
 			font-size: 30px;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		.footer_section {
+			.item {
+				cursor: pointer;
+				font-size: 10px;
+			}
+
+			.title {
+				color: royalblue;
+				font-size: 12px;
+				font-weight: 400;
+			}
+
+			.social {
+				font-size: 26px;
+			}
 		}
 	}
 }

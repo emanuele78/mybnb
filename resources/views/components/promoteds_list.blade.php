@@ -1,7 +1,7 @@
 <div class="container">
     <div class="promoted_apartments_section">
         <div class="title_section">
-            <span class="main_title">Appartamenti</span>
+            <span class="main_title">Alloggi</span>
             <h2 class="sub_title">Scopri gli appartamenti in evidenza</h2>
         </div>
         <div class="cards_wrapper">

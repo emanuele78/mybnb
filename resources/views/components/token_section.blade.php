@@ -18,7 +18,7 @@
                 <h5>Se necessiti di un token, inserisci il tuo indirizzo email nel campo sottostante</h5>
                 <form action="#" class="form-inline">
                     <input type="email" class="form-control mr-2" id="email" placeholder="Indirizzo email" required>
-                    <button id="request_token_button" type="submit" class="btn btn-primary">Richiedi token</button>
+                    <button id="request_token_button" type="submit" class="btn btn-primary my-2">Richiedi token</button>
                 </form>
             </div>
             <div class="offset-1 col-10 my-3">
@@ -36,7 +36,7 @@
                     @csrf
                     @method('PATCH')
                     <input id="token_code" type="text" class="form-control mr-2" id="token" placeholder="Token" required>
-                    <button id="activate_token_button" type="submit" class="btn btn-success">Inizia a utilizzare l'app</button>
+                    <button id="activate_token_button" type="submit" class="btn btn-success my-2">Inizia a utilizzare l'app</button>
                 </form>
             </div>
         </div>
