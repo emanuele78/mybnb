@@ -14,6 +14,7 @@
 	  function () {
 		  
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
+		  Route::get('/appartamenti/{apartment}', 'ApartmentController@show')->name('show');
 	  }
 	);
 	

@@ -12,6 +12,11 @@
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
+		public function getRouteKeyName()
+		{
+			return 'slug';
+		}
+		
 		/**
 		 * Return the sluggable configuration array for this model.
 		 *

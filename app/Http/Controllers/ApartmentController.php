@@ -32,7 +32,7 @@
 		private function checkToken(): bool {
 			
 			$token_key_name = config('project.token_key');
-			return Cookie::has($token_key_name) ? Token::isValid(Cookie::get($token_key_name)):false;
+			return Cookie::has($token_key_name) ? Token::isValid(Cookie::get($token_key_name)) : false;
 		}
 		
 		private function cardsMatrix(): array {
@@ -53,6 +53,11 @@
 				}
 			}
 			return $cities;
+		}
+		
+		public function show(Apartment $apartment) {
+			return view('layouts.show')->withApartment($apartment);
+			
 		}
 		
 		public function search() {
