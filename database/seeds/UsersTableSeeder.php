@@ -14,7 +14,6 @@
 					'email' => $faker->unique()->email,
 					'password' => bcrypt('secret'),
 					'nickname' => $faker->firstName,
-					'date_of_birth' => $faker->dateTime,
 				  ]);
 			}
 			//adding one site admin
@@ -24,7 +23,6 @@
 				'password' => bcrypt('admin'),
 				'nickname' => $faker->firstName,
 				'is_admin' => 1,
-				'date_of_birth' => $faker->dateTime,
 			  ]);
 		}
 	}

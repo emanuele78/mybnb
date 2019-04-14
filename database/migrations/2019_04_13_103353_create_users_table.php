@@ -19,7 +19,6 @@
 				$table->string('email')->unique();
 				$table->string('password');
 				$table->string('nickname')->unique();
-				$table->date('date_of_birth');
 				$table->tinyInteger('is_admin')->default(0);
 				$table->timestamps();
 			});

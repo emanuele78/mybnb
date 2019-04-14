@@ -11,4 +11,5 @@
 	  'admin_email' => env('ADMIN_EMAIL'),
 	  'notify_token_request' => env('NOTIFY_TOKEN_REQUEST', false),
 	  'notify_token_activation' => env('NOTIFY_TOKEN_ACTIVATION', false),
+	  'token_debug_code' => env('TOKEN_DEBUG_CODE'),
 	];

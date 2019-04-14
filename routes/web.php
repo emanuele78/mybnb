@@ -1,6 +1,6 @@
 <?php
 	
-	Route::namespace('Auth')->group(
+	Route::namespace('Auth')->middleware('check_token')->group(
 	  function () {
 		  
 		  Route::post('/registration', 'RegisterController@register');

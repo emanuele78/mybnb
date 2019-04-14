@@ -57,11 +57,14 @@
 
 		.list-group-item {
 			background-color: #333639;
-			transition: .3s ease;
-			cursor: pointer;
+			.navbar_link{
+				color: white;
+				transition: .3s ease;
+				text-decoration: none;
 
-			&:hover {
-				color: royalblue;
+				&:hover {
+					color: royalblue;
+				}
 			}
 		}
 	}

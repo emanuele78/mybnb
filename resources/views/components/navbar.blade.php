@@ -17,10 +17,16 @@
     <div class="collapse" id="navbar_items_wrapper">
         <div class="navbar_items">
             <ul class="list-group list-group-flush text-center">
-                <li class="list-group-item">Login</li>
-                <li class="list-group-item">Registrati</li>
+                <li class="list-group-item">
+                    <a class="navbar_link" href="{{route('login')}}">Login</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="navbar_link" href="">Registrati</a>
+                </li>
                 @auth()
-                    <li class="list-group-item">Logout</li>
+                    <li class="list-group-item">
+                        <a class="navbar_link" href="">Logout</a>
+                    </li>
                 @endauth
             </ul>
         </div>

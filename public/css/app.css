@@ -9785,10 +9785,13 @@ h3 {
 }
 .my_navbar .navbar_items .list-group-item {
   background-color: #333639;
-  transition: 0.3s ease;
-  cursor: pointer;
 }
-.my_navbar .navbar_items .list-group-item:hover {
+.my_navbar .navbar_items .list-group-item .navbar_link {
+  color: white;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+.my_navbar .navbar_items .list-group-item .navbar_link:hover {
   color: royalblue;
 }
 
