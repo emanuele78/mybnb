@@ -13,8 +13,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="email">Indirizo email</label>
-                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" value="{{ old('email') }}" aria-describedby="emailHelp" placeholder="Email" required autofocus>
-                        <small id="emailHelp" class="form-text text-muted">Inserisci un qualsiasi indirizzo, anche finto. Non saranno inviate comunicazioni ed è valido solo ai fini della presente demo</small>
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
                         @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('email') }}</strong>

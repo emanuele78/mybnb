@@ -3,7 +3,7 @@
 	Route::namespace('Auth')->middleware('check_token')->group(
 	  function () {
 		  Route::post('/logout', 'LoginController@logout')->name('logout');
-		  Route::post('/registration', 'RegisterController@register');
+		  Route::post('/registration', 'RegisterController@register')->name('do_registration');
 		  Route::post('/login', 'LoginController@login');
 		  Route::get('/login', 'LoginController@showLoginForm')->name('login');
 		  Route::get('/registrazione', 'RegisterController@showRegistrationForm')->name('register');

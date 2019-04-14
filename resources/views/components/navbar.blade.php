@@ -12,7 +12,7 @@
         </div>
         <div class="my_navbar-right">
             @auth()
-                <span class="navbar_nickname">Bentornato {{auth()->user()->nickname}}</span>
+                <span class="navbar_nickname">Ciao, {{auth()->user()->nickname}}</span>
             @endauth
             <i id="toggler" class="fas fa-bars"></i>
         </div>
@@ -25,7 +25,7 @@
                         <a class="navbar_link" href="{{route('login')}}">Login</a>
                     </li>
                     <li class="list-group-item">
-                        <a class="navbar_link" href="">Registrati</a>
+                        <a class="navbar_link" href="{{route('register')}}">Registrati</a>
                     </li>
                 @endguest
                 @auth()
