@@ -2,8 +2,8 @@
 	
 	namespace App;
 	
+	use App\Events\UserCreated;
 	use Illuminate\Notifications\Notifiable;
-	use Illuminate\Contracts\Auth\MustVerifyEmail;
 	use Illuminate\Foundation\Auth\User as Authenticatable;
 	
 	class User extends Authenticatable {
@@ -16,6 +16,10 @@
 		 * @var array
 		 */
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		
+		protected $dispatchesEvents = [
+		  'created' => UserCreated::class,
+		];
 		
 		public function apartments() {
 			

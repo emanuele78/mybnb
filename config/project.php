@@ -12,5 +12,7 @@
 	  'notify_token_request' => env('NOTIFY_TOKEN_REQUEST', false),
 	  'notify_token_activation' => env('NOTIFY_TOKEN_ACTIVATION', false),
 	  'token_debug_code' => env('TOKEN_DEBUG_CODE'),
-	  'bypass_token' => env('BYPASS_TOKEN', false)
+	  'bypass_token' => env('BYPASS_TOKEN', false),
+	  'notify_user_creation' => env('NOTIFY_USER_CREATION', false),
+	  'use_test_recipient_for_admin' => env('USE_TEST_RECIPIENT_FOR_ADMIN', false),
 	];

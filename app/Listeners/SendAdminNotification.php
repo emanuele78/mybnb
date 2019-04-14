@@ -37,6 +37,12 @@
 						$this->sendMailToAdmin('attivazione token');
 					}
 					break;
+				case 'USER_CREATED':
+					if (config('project.notify_user_creation')) {
+						$this->sendMailToAdmin('creazione di un nuovo utente');
+					}
+					break;
+				
 			}
 		}
 		

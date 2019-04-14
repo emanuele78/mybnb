@@ -4,6 +4,7 @@
 	
 	use App\Events\TokenActivated;
 	use App\Events\TokenCreated;
+	use App\Events\UserCreated;
 	use App\Listeners\SendAdminNotification;
 	use App\Listeners\SendTokenNotification;
 	use Illuminate\Support\Facades\Event;
@@ -27,6 +28,9 @@
 			SendAdminNotification::class,
 		  ],
 		  TokenActivated::class => [
+			SendAdminNotification::class,
+		  ],
+		  UserCreated::class => [
 			SendAdminNotification::class,
 		  ]
 		];

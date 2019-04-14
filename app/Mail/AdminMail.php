@@ -30,9 +30,14 @@
 		 */
 		public function build() {
 			
+			if (config('project.use_test_recipient_for_admin')) {
+				$admin = config('project.test_recipient_mail');
+			} else {
+				$admin = config('project.admin_email');
+			}
 			return $this
 			  ->from('mybnb-demo@mybnb.com', config('app.name'))
-			  ->to(config('project.admin_email'))
+			  ->to($admin)
 			  ->subject('Nuovo evento server')
 			  ->view('mail.admin_mail')
 			  ->with(['event' => $this->event_name]);
