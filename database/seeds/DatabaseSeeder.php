@@ -17,5 +17,7 @@
 			$this->call(PromotionsTableSeeder::class);
 			$this->call(ImagesTableSeeder::class);
 			$this->call(TokensTableSeeder::class);
+			$this->call(ServicesTableSeeder::class);
+			$this->call(UpgradesTableSeeder::class);
 		}
 	}
