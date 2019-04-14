@@ -7,6 +7,7 @@
 	class UsersTableSeeder extends Seeder {
 		
 		public function run(Faker $faker) {
+			
 			$user_count = 10;
 			for ($i = 0; $i < $user_count; $i++) {
 				User::create(
@@ -19,7 +20,7 @@
 			//adding one site admin
 			User::create(
 			  [
-				'email' => 'superadmin@superadmin.admin',
+				'email' => 'admin@admin.admin',
 				'password' => bcrypt('admin'),
 				'nickname' => 'SuperAdmin',
 				'is_admin' => 1,

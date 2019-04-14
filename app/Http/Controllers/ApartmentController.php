@@ -4,6 +4,7 @@
 	
 	use App\Apartment;
 	use App\Token;
+	use Illuminate\Support\Facades\Cookie;
 	
 	class ApartmentController extends Controller {
 		
@@ -31,7 +32,7 @@
 		private function checkToken(): bool {
 			
 			$token_key_name = config('project.token_key');
-			return request()->session()->has($token_key_name) ? Token::isValid(request()->session()->get($token_key_name)) : false;
+			return Cookie::has($token_key_name) ? Token::isValid(Cookie::get($token_key_name)):false;
 		}
 		
 		private function cardsMatrix(): array {

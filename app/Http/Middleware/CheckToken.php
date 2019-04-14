@@ -4,6 +4,7 @@
 	
 	use App\Token;
 	use Closure;
+	use Illuminate\Support\Facades\Cookie;
 	
 	class CheckToken {
 		
@@ -16,14 +17,16 @@
 		 */
 		public function handle($request, Closure $next) {
 			
+			if (config('project.bypass_token')) {
+				return $next($request);
+			}
 			$token_key = config('project.token_key');
-			if ($request->session()->has($token_key)) {
-				//check token expiration
-				if (Token::isValid($request->session()->get($token_key))) {
+			if (Cookie::has($token_key)) {
+				if (Token::isValid(Cookie::get($token_key))) {
 					return $next($request);
 				}
-				return redirect()->route('home');
+				return redirect('/');
 			}
-			return redirect()->route('home');
+			return redirect('/');
 		}
 	}

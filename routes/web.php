@@ -2,10 +2,9 @@
 	
 	Route::namespace('Auth')->middleware('check_token')->group(
 	  function () {
-		  
+		  Route::post('/logout', 'LoginController@logout')->name('logout');
 		  Route::post('/registration', 'RegisterController@register');
 		  Route::post('/login', 'LoginController@login');
-		  Route::post('/logout', 'LoginController@logout')->middleware('auth')->name('logout');
 		  Route::get('/login', 'LoginController@showLoginForm')->name('login');
 		  Route::get('/registrazione', 'RegisterController@showRegistrationForm')->name('register');
 	  });
@@ -26,5 +25,3 @@
 	//3
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
-	//todo to be deleted
-	Route::view('/test', 'TokenController@store');

@@ -9778,6 +9778,9 @@ h3 {
   font-size: 30px;
   cursor: pointer;
 }
+.my_navbar .navbar_wrapper .my_navbar-right .navbar_nickname {
+  padding-right: 20px;
+}
 .my_navbar .navbar_items {
   width: 100%;
   padding: 10px;

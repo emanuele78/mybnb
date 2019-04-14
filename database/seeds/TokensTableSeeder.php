@@ -1,5 +1,6 @@
 <?php
 	
+	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
 	
 	class TokensTableSeeder extends Seeder {
@@ -14,7 +15,9 @@
 			DB::table('tokens')->insert(
 			  [
 				'token_code' => config('project.token_debug_code'),
-				'email' => 'debug@debug.dev'
+				'email' => 'debug@debug.dev',
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now(),
 			  ]);
 		}
 	}

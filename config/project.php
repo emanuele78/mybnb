@@ -12,4 +12,5 @@
 	  'notify_token_request' => env('NOTIFY_TOKEN_REQUEST', false),
 	  'notify_token_activation' => env('NOTIFY_TOKEN_ACTIVATION', false),
 	  'token_debug_code' => env('TOKEN_DEBUG_CODE'),
+	  'bypass_token' => env('BYPASS_TOKEN', false)
 	];

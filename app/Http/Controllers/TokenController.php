@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Token;
+	use Illuminate\Support\Facades\Cookie;
 	
 	class TokenController extends Controller {
 		
@@ -12,6 +13,7 @@
 		 * @return \Illuminate\Http\JsonResponse
 		 */
 		public function store() {
+			
 			$data = request()->validate(['email' => 'required|email']);
 			Token::generate($data);
 			return response()->json([], 200);
@@ -27,7 +29,7 @@
 			
 			$activatedToken = Token::activate($code);
 			if ($activatedToken) {
-				session([config('project.token_key') => $activatedToken->token_code]);
+				Cookie::queue(config('project.token_key'), $activatedToken->token_code, 60);
 				$message = 'Token attivato correttamente';
 			} else {
 				$message = 'Token non valido';
