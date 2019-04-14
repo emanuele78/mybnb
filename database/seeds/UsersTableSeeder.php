@@ -13,15 +13,15 @@
 				  [
 					'email' => $faker->unique()->email,
 					'password' => bcrypt('secret'),
-					'nickname' => $faker->firstName,
+					'nickname' => $faker->unique()->firstName,
 				  ]);
 			}
 			//adding one site admin
 			User::create(
 			  [
-				'email' => $faker->unique()->email,
+				'email' => 'superadmin@superadmin.admin',
 				'password' => bcrypt('admin'),
-				'nickname' => $faker->firstName,
+				'nickname' => 'SuperAdmin',
 				'is_admin' => 1,
 			  ]);
 		}
