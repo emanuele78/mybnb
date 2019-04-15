@@ -8,6 +8,8 @@
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
+		protected $with = ['service'];
+		
 		public function apartment() {
 			
 			return $this->belongsTo(Apartment::class);

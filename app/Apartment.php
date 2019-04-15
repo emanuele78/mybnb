@@ -11,10 +11,16 @@
 		use Sluggable;
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $with = ['images', 'upgrades', 'user'];
 		
-		public function getRouteKeyName()
-		{
+		public function getRouteKeyName() {
+			
 			return 'slug';
+		}
+		
+		public function getUpdatedAtAttribute($value) {
+			
+			return Carbon::create($value)->format('d-m-Y');
 		}
 		
 		/**
@@ -44,6 +50,11 @@
 		public function upgrades() {
 			
 			return $this->hasMany(Upgrade::class);
+		}
+		
+		public function user() {
+			
+			return $this->belongsTo(User::class);
 		}
 		
 		public static function promoted($item_count) {

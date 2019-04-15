@@ -25,8 +25,8 @@
 				$table->tinyInteger('people_count');
 				$table->tinyInteger('bathroom_count');
 				$table->smallInteger('square_meters');
-				$table->float('latitude',8,5);
-				$table->float('longitude',8,5);
+				$table->decimal('latitude',10,7);
+				$table->decimal('longitude',10,7);
 				$table->float('price_per_night',7,2);
 				$table->tinyInteger('sale')->default(0);
 				$table->tinyInteger('is_showed')->default(1);

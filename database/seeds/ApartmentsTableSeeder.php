@@ -58,7 +58,7 @@
 			return [
 			  'user_id' => $this->users[rand(0,count($this->users)-1)]->id,
 			  'title' => $faker->text(rand(50, 100)),
-			  'description' => $faker->text(250),
+			  'description' => $faker->text(1250),
 			  'room_count' => rand(3, 6),
 			  'people_count' => rand(3, 6),
 			  'bathroom_count' => rand(1, 3),
@@ -72,13 +72,13 @@
 		
 		private function getNewLatitude($latitude, $kmToAdd) {
 			
-			$decimal_round = 5;
+			$decimal_round = 7;
 			return round($latitude + ($kmToAdd / 6371) * (180 / pi()), $decimal_round);
 		}
 		
 		private function getNewLongitude($latitude, $longitude, $kmToAdd) {
 			
-			$decimal_round = 5;
+			$decimal_round = 7;
 			return round($longitude + ($kmToAdd / 6371) * (180 / pi()) / cos($latitude * pi() / 180), $decimal_round);
 		}
 	}

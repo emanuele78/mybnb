@@ -2,7 +2,8 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 4;
+	//bootstrap carousel has z-index:15
+	z-index: 16;
 	width: 100%;
 	height: $navbar_heigh;
 	background-color: $navbar_color;

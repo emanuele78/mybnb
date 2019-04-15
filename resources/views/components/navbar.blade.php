@@ -29,6 +29,9 @@
                     </li>
                 @endguest
                 @auth()
+                    <li class="list-group-item">
+                        <a class="navbar_link" href="">Messaggi</a>
+                    </li>
                     <li class="list-group-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <a class="navbar_link" href="{{route('logout')}}">Logout</a>
                     </li>
