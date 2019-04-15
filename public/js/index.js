@@ -19,7 +19,8 @@ var LOCAL_PORT = 8000;
 var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
-  activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens'
+  activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
+  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/'
 };
 
 if (false) {}

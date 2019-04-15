@@ -13,6 +13,7 @@
 		 * @param Faker $faker
 		 */
 		public function run(Faker $faker) {
+			
 			$this->users = User::all();
 			$rawData = \Config::get('cities');
 			$apartmentsPerAxis = 5;
@@ -56,7 +57,7 @@
 		private function getRandomData(Faker $faker, $lat, $lng) {
 			
 			return [
-			  'user_id' => $this->users[rand(0,count($this->users)-1)]->id,
+			  'user_id' => $this->users[rand(0, count($this->users) - 1)]->id,
 			  'title' => $faker->text(rand(50, 100)),
 			  'description' => $faker->text(1250),
 			  'room_count' => rand(3, 6),
@@ -65,6 +66,7 @@
 			  'square_meters' => rand(50, 150),
 			  'price_per_night' => rand(10, 150),
 			  'sale' => (rand(1, 4) === rand(1, 4) ? rand(10, 50) : 0),
+			  'max_stay' => rand(7, 30),
 			  'latitude' => $lat,
 			  'longitude' => $lng
 			];

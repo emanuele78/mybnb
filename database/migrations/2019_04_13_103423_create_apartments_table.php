@@ -28,6 +28,7 @@
 				$table->decimal('latitude',10,7);
 				$table->decimal('longitude',10,7);
 				$table->float('price_per_night',7,2);
+				$table->tinyInteger('max_stay');
 				$table->tinyInteger('sale')->default(0);
 				$table->tinyInteger('is_showed')->default(1);
 				$table->foreign('user_id')->references('id')->on('users');

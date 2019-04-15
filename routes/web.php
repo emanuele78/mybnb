@@ -20,11 +20,14 @@
 	  }
 	);
 	
-	/* NEW ROUTES START HERE */
-	//1
+	/* these routes are not subject to token limitations */
+	
 	Route::get('/', 'ApartmentController@index')->name('home');
-	//2
+	
 	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
-	//3
+	
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
+	
+	//todo test routes
+	Route::get('/test/{apartment}/booking','BookingController@index');
 	

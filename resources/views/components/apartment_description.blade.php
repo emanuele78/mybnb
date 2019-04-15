@@ -22,11 +22,23 @@
         <div class="card offset-1 col-3">
             <div class="card-body">
                 <h5 class="card-title">Verifica disponibilità</h5>
-                <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly">
-                <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly">
-                <div class="">
-                    <button class="btn btn-primary">Verifica</button>
-                    <span>ok</span>
+                <div class="form-group">
+                    <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly">
+                    <span class="invalid-feedback" role="alert">
+                    <strong>Verifica la data del check-in</strong>
+                </span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly">
+                    <span class="invalid-feedback" role="alert">
+                    <strong>Verifica la data del check-out</strong>
+                </span>
+                </div>
+                <div class="form-group my-2">
+                    <button id="check_availability" data-apartment="{{$apartment->slug}}" class="btn btn-primary col">Verifica</button>
+                </div>
+                <div id="loading_block" class="form-group my-3 text-center collapse">
+                    <span id="result"><i class="fas fa-spinner fa-pulse loading_availability"></i></span>
                 </div>
             </div>
         </div>
@@ -34,7 +46,39 @@
 </div>
 <div class="container my-3">
     <div class="row">
-        <div class="card col-5">
+        <div class="card col-4">
+            <div class="card-body">
+                <h5 class="card-title">Dati dell'allggio</h5>
+                <ul>
+                    <li>
+                        <strong>Persone ospitabili:</strong> {{$apartment->people_count}}
+                    </li>
+                    <li>
+                        <strong>Metri quadri:</strong> {{$apartment->square_meters}}
+                    </li>
+                    <li>
+                        <strong>Numero stanze:</strong> {{$apartment->room_count}}
+                    </li>
+                    <li>
+                        <strong>Numero bagni:</strong> {{$apartment->bathroom_count}}
+                    </li>
+                    <li>
+                        <strong>Massima permanenza:</strong> {{$apartment->max_stay}} {{$apartment->max_stay==1?'giorno':'giorni'}}
+                    </li>
+                    <li>
+                        <strong>Prezzo a notte:</strong> Euro
+                        <span class="apartment_price{{$apartment->sale>0? ' in_sale':''}}">{{number_format($apartment->price_per_night,2,',','.')}}</span>
+                    </li>
+                    @if($apartment->sale>0)
+                        <li>
+                            <strong>Prezzo scontato:</strong> Euro
+                            <span class="text-danger"><strong>{{number_format($apartment->price_per_night - $apartment->price_per_night * $apartment->sale / 100,2,',','.')}}</strong></span>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+        <div class="card col-4">
             <div class="card-body">
                 <h5 class="card-title">Servizi disponibili</h5>
                 <ul>
@@ -46,7 +90,7 @@
                 </ul>
             </div>
         </div>
-        <div class="card offset-2 col-5">
+        <div class="card col-4">
             <div class="card-body">
                 <h5 class="card-title">Servizi con supplemento</h5>
                 <ul>

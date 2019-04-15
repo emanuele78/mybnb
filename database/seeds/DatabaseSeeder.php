@@ -19,5 +19,7 @@
 			$this->call(TokensTableSeeder::class);
 			$this->call(ServicesTableSeeder::class);
 			$this->call(UpgradesTableSeeder::class);
+			$this->call(ReservedDaysTableSeeder::class);
+			$this->call(BookingsTableSeeder::class);
 		}
 	}

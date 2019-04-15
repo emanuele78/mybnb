@@ -62,6 +62,16 @@
 			return $this->hasMany(Message::class);
 		}
 		
+		public function reservedDays() {
+			
+			return $this->hasMany(ReservedDay::class);
+		}
+		
+		public function bookings() {
+			
+			return $this->hasMany(Booking::class);
+		}
+		
 		public static function promoted($item_count) {
 			
 			return self::where('is_showed', 1)
