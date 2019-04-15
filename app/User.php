@@ -26,4 +26,9 @@
 			return $this->hasMany(Apartment::class);
 		}
 		
+		public function messages() {
+			
+			return $this->hasMany(Message::class);
+		}
+		
 	}

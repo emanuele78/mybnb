@@ -2,6 +2,7 @@
 	
 	Route::namespace('Auth')->middleware('check_token')->group(
 	  function () {
+		  
 		  Route::post('/logout', 'LoginController@logout')->name('logout');
 		  Route::post('/registration', 'RegisterController@register')->name('do_registration');
 		  Route::post('/login', 'LoginController@login');
@@ -15,6 +16,7 @@
 		  
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  Route::get('/appartamenti/{apartment}', 'ApartmentController@show')->name('show');
+		  Route::post('/messages', 'MessageController@store')->middleware('auth')->name('send_message');
 	  }
 	);
 	

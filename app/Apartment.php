@@ -57,6 +57,11 @@
 			return $this->belongsTo(User::class);
 		}
 		
+		public function messages() {
+			
+			return $this->hasMany(Message::class);
+		}
+		
 		public static function promoted($item_count) {
 			
 			return self::where('is_showed', 1)
