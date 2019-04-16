@@ -1,6 +1,6 @@
 <?php
 	
-	use App\User;
+	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
 	use Faker\Generator as Faker;
 	
@@ -8,6 +8,8 @@
 		
 		public function run(Faker $faker) {
 			
+			$birthday = Carbon::now()->addYears(-25);
+			$now = Carbon::now();
 			//adding one site admin
 			DB::table('users')->insert(
 			  [
@@ -15,6 +17,9 @@
 				'password' => bcrypt('admin'),
 				'nickname' => 'SuperAdmin',
 				'is_admin' => 1,
+				'date_of_birth' => $birthday,
+				'created_at' => $now,
+				'updated_at' => $now,
 			  ]);
 			//fake users
 			$user_count = 10;
@@ -24,6 +29,9 @@
 					'email' => $faker->unique()->email,
 					'password' => bcrypt('secret'),
 					'nickname' => $faker->unique()->firstName,
+					'date_of_birth' => $birthday,
+					'created_at' => $now,
+					'updated_at' => $now,
 				  ]);
 			}
 		}

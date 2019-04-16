@@ -1,7 +1,3 @@
-@extends('layouts.base')
-@push('meta')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush
 @section('content')
     <div class="container">
         <div class="row">
@@ -29,15 +25,6 @@
                                 @if ($errors->has('last_name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('last_name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label for="date_of_birth">Data di nascita</label>
-                                <input type="text" class="form-control flatpicker flatpickr-input text-center{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="date_of_birth" name="date_of_birth" placeholder="dd-mm-aaaa" value="{{ old('date_of_birth') }}">
-                                @if ($errors->has('date_of_birth'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('date_of_birth') }}</strong>
                                     </span>
                                 @endif
                             </div>

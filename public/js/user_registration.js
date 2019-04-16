@@ -1,9 +1,9 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/customer_registration"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/user_registration"],{
 
-/***/ "./resources/js/customer_registration.js":
-/*!***********************************************!*\
-  !*** ./resources/js/customer_registration.js ***!
-  \***********************************************/
+/***/ "./resources/js/user_registration.js":
+/*!*******************************************!*\
+  !*** ./resources/js/user_registration.js ***!
+  \*******************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21,13 +21,13 @@ flatpickr__WEBPACK_IMPORTED_MODULE_0___default()('.flatpicker', {
 /***/ }),
 
 /***/ 5:
-/*!*****************************************************!*\
-  !*** multi ./resources/js/customer_registration.js ***!
-  \*****************************************************/
+/*!*************************************************!*\
+  !*** multi ./resources/js/user_registration.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/customer_registration.js */"./resources/js/customer_registration.js");
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/user_registration.js */"./resources/js/user_registration.js");
 
 
 /***/ })

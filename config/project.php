@@ -15,4 +15,10 @@
 	  'notify_user_creation' => env('NOTIFY_USER_CREATION', false),
 	  'use_test_recipient_for_admin' => env('USE_TEST_RECIPIENT_FOR_ADMIN', false),
 	  'tomtom_api_key' => env('TOMTOM_API_KEY'),
+	  'braintree' => [
+		'environment' => env('ENVIRONMENT', null),
+		'merchantId' => env('MERCHANT_ID', null),
+		'publicKey' => env('PUBLIC_KEY', null),
+		'privateKey' => env('PRIVATE_KEY', null)
+	  ]
 	];

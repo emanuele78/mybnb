@@ -41,7 +41,7 @@
 			return response()->json(['available' => true], 200);
 		}
 		
-		public function create() {
+		public function create(Apartment $apartment) {
 			
 			if (!Auth::check()) {
 				return redirect()->route('login');
@@ -49,7 +49,12 @@
 			if (!Auth::user()->customer()->exists()) {
 				return redirect()->route('register_customer');
 			}
-			return view('layouts.booking_create');
+			//user is loggend and registered as a customer
+			//need to check if tries to book own apartment
+			if ($apartment->user_id == Auth::id()) {
+				return redirect()->route('home');
+			}
+			return view('layouts.booking_create')->withApartment($apartment);
 			
 		}
 	}

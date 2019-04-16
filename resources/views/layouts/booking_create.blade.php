@@ -5,5 +5,6 @@
 @section('content')
     <div class="container">
         I'm the future page for booking
+        @dd($apartment)
     </div>
 @endsection

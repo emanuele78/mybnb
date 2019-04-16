@@ -22,7 +22,6 @@
 				$table->string('first_name', 100);
 				$table->string('last_name', 100);
 				$table->string('street_address');
-				$table->date('date_of_birth');
 				$table->string('locality');
 				$table->integer('postal_code');
 				$table->timestamps();

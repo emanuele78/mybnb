@@ -56,9 +56,6 @@
                 <div id="loading_block" class="form-group my-3 text-center collapse">
                     <span id="result"><i class="fas fa-spinner fa-pulse loading_availability"></i></span>
                 </div>
-                <div class="form-group my-2">
-                    <a href="{{route('booking',['apartment'=>$apartment->slug])}}" class="btn btn-success col">Prenota</a>
-                </div>
             </div>
         </div>
     </div>
@@ -119,6 +116,13 @@
                         @endif
                     @endforeach
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="card col">
+            <div class="card-body my-2 mb-2">
+                <a id="book_apartment" href="{{route('booking',['apartment'=>$apartment->slug])}}" class="btn btn-success col">Vai alla pagina di prenotazione</a>
             </div>
         </div>
     </div>

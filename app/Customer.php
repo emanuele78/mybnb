@@ -12,4 +12,9 @@
 			
 			return $this->belongsTo(User::class);
 		}
+		
+		public static function add($data) {
+			
+			Customer::create($data);
+		}
 	}
