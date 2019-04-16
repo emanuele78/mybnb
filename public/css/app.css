@@ -10210,3 +10210,18 @@ h3 {
 #result.unknown {
   color: blue;
 }
+
+.apartment_map {
+  position: relative;
+  display: inline-block;
+}
+
+#marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: red;
+  font-size: 30px;
+}

@@ -6,32 +6,31 @@
 	
 	class Message extends Model {
 		
-		protected $guarded = ['id', 'created_at'];
-		protected $with = ['apartment', 'user'];
+		protected $guarded = ['id', 'created_at', 'updated_at'];
+//		protected $with = ['apartment', 'user'];
 		
 		public function user() {
 			
-			return $this->belongsTo(User::class);
+			return $this->belongsTo('App\User', 'sender_user_id');
 		}
 		
 		public function apartment() {
 			
-			return $this->belongsTo(Apartment::class);
+			return $this->belongsTo('App\Apartment','recipient_apartment_id');
 		}
 		
 		public static function add($data) {
-			unset($data['recipient_id']);
-			$data['updated_at'] = null;
 			Message::create($data);
 		}
 		
-		public function setApartmentIdAttribute($value) {
+		public function setRecipientApartmentIdAttribute($value) {
 			
-			$this->attributes['apartment_id'] = Apartment::where('slug', $value)->first()->id;
+			$this->attributes['recipient_apartment_id'] = Apartment::where('slug', $value)->first()->id;
 		}
 		
-		public function setUserIdAttribute($value) {
+		public function setSenderUserIdAttribute($value) {
 			
-			$this->attributes['user_id'] = User::where('nickname', $value)->first()->id;
+			$this->attributes['sender_user_id'] = User::where('nickname', $value)->first()->id;
 		}
+		
 	}

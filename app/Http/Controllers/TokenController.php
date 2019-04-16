@@ -29,7 +29,7 @@
 			
 			$activatedToken = Token::activate($code);
 			if ($activatedToken) {
-				Cookie::queue(config('project.token_key'), $activatedToken->token_code, config('project.bypass_token') ? 3600 : config('project.token_expiration_time'));
+				Cookie::queue(config('project.token_key'), $activatedToken->token_code, config('project.token_expiration_time'));
 				$message = 'Token attivato correttamente';
 			} else {
 				$message = 'Token non valido';

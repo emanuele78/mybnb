@@ -9,9 +9,9 @@
                     <p>Gentile Utente,</p>
                     <p>sono lieto che tu abbia intenzione di utilizzare questa app. Affinché tu possa continuare è necessario un token.
                     <p>Per ricevere il token basta inserire una mail valida nel campo sottostante ed entro qualche secondo riceverai lo riceverai all'indirizzo indicato.</p>
-                    <p>Il token ti consente di utilizzare la mia web app in piena libertà per 15 minuti dopodiché sarà necessario richiederne uno nuovo. Ricorda, l'indirizzo e-mail inserito non sarà utilizzato per fini di marketing né ceduto a terzi.</p>
+                    <p>Il token ti consente di utilizzare la mia web app in piena libertà per {{config('project.token_expiration_time')}} minuti dopodiché sarà necessario richiederne uno nuovo. Ricorda, l'indirizzo e-mail inserito non sarà utilizzato per fini di marketing né ceduto a terzi.</p>
                     <p>Questa web app è stata realizzata a solo scopo dimostrativo e fa parte del mio portfolio. I contenuti in essa presenti non sono veri.</p>
-                    <p>Per garantire un'esperienza ottimale, periodicamente eventuali dati inseriti come nuovi appartamenti o utenti creati saranno automaticamente distrutti e ripristinati quelli di default</p>
+                    <p>Per garantire un'esperienza ottimale, ogni giorno eventuali dati inseriti come nuovi appartamenti o utenti creati saranno automaticamente distrutti e ripristinati quelli di default</p>
                 </div>
             </div>
             <div class="offset-1 col-10 my-3">

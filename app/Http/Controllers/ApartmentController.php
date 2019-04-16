@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Apartment;
+	use App\Services\Geolocation;
 	use App\Token;
 	use Illuminate\Support\Facades\Cookie;
 	
@@ -15,7 +16,6 @@
 		 * @return mixed
 		 */
 		public function index() {
-			
 			$promotedApartmentToShow = 30;
 			return view('layouts.index')
 			  ->withHasValidToken($this->checkToken())
@@ -55,13 +55,18 @@
 			return $cities;
 		}
 		
-		public function show(Apartment $apartment) {
-			return view('layouts.show')->withApartment($apartment);
+		public function show(Apartment $apartment, Geolocation $geolocation) {
+			
+			return view('layouts.show')
+			  ->withApartment($apartment)
+			  ->withAddress($geolocation->getAddress($apartment->latitude, $apartment->longitude))
+			  ->withMap($geolocation->getMap($apartment->latitude, $apartment->longitude));
 			
 		}
 		
 		public function search() {
-			
 			return view('layouts.search_results');
 		}
+		
+		
 	}

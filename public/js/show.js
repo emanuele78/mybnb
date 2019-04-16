@@ -306,7 +306,8 @@ var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
   activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
-  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/'
+  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/',
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages'
 };
 
 if (false) {}
@@ -480,6 +481,53 @@ function printResult(result) {
 
   $('#result').removeClass().addClass(classColor).text(message);
 }
+
+$('#submit_message').click(function (e) {
+  e.preventDefault();
+  var textArea = $('#body');
+
+  if (textArea.val().length < 10) {
+    textArea.addClass('is-invalid');
+    return;
+  }
+
+  textArea.removeClass('is-invalid');
+  var apartment_slug = $("#message_apartment_slug").val();
+  var sender_nickname = $("#message_sender_nickname").val();
+  var recipient_nickname = $("#message_recipient_nickname").val();
+  console.log(apartment_slug);
+  console.log(sender_nickname);
+  console.log(recipient_nickname);
+  console.log(textArea.val());
+  $.ajax(_app__WEBPACK_IMPORTED_MODULE_1__["default"].messagesEndpoint, {
+    method: 'POST',
+    beforeSend: function beforeSend() {
+      $(this).attr('disabled', 'disabled');
+    },
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success() {
+      $('#message_wrapper').removeClass('alert-danger');
+      $('#message_wrapper').addClass('alert-success');
+      $('#message_response').text('Messaggio inviato correttamente');
+    },
+    data: {
+      'apartment_slug': apartment_slug,
+      'sender_nickname': sender_nickname,
+      'recipient_nickname': recipient_nickname,
+      'body': textArea.val()
+    },
+    error: function error() {
+      $('#message_wrapper').removeClass('alert-success');
+      $('#message_wrapper').addClass('alert-danger');
+      $('#message_response').text('Errore durante l\'invio del messaggio');
+    },
+    complete: function complete() {
+      $('#submit_message').removeAttr('disabled');
+    }
+  });
+});
 
 /***/ }),
 

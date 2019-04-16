@@ -56,7 +56,7 @@ function isIntervalValid(inputElementBefore, inputElementAfter) {
 }
 
 function isCheckInBeforeToday(inputElement) {
-    return parseDate(inputElement.val()).isBefore(moment(),"day");
+    return parseDate(inputElement.val()).isBefore(moment(), "day");
 }
 
 function parseDate(stringDate) {
@@ -103,3 +103,48 @@ function printResult(result) {
     }
     $('#result').removeClass().addClass(classColor).text(message);
 }
+
+$('#submit_message').click(function (e) {
+    e.preventDefault();
+    let textArea = $('#body');
+    if (textArea.val().length < 10) {
+        textArea.addClass('is-invalid');
+        return;
+    }
+    textArea.removeClass('is-invalid');
+    let apartment_slug = $("#message_apartment_slug").val();
+    let sender_nickname = $("#message_sender_nickname").val();
+    let recipient_nickname = $("#message_recipient_nickname").val();
+    console.log(apartment_slug);
+    console.log(sender_nickname);
+    console.log(recipient_nickname);
+    console.log(textArea.val());
+    $.ajax(PROJECT_MODULE.messagesEndpoint, {
+        method: 'POST',
+        beforeSend: function () {
+            $(this).attr('disabled', 'disabled');
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function () {
+            $('#message_wrapper').removeClass('alert-danger');
+            $('#message_wrapper').addClass('alert-success');
+            $('#message_response').text('Messaggio inviato correttamente');
+        },
+        data: {
+            'apartment_slug': apartment_slug,
+            'sender_nickname': sender_nickname,
+            'recipient_nickname': recipient_nickname,
+            'body': textArea.val(),
+        },
+        error: function () {
+            $('#message_wrapper').removeClass('alert-success');
+            $('#message_wrapper').addClass('alert-danger');
+            $('#message_response').text('Errore durante l\'invio del messaggio');
+        },
+        complete: function () {
+            $('#submit_message').removeAttr('disabled');
+        }
+    });
+});

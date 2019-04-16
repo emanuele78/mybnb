@@ -40,4 +40,3 @@
 			return response()->json(['available' => true], 200);
 		}
 	}
-	//http://127.0.0.1:8000/test/nisi-totam-voluptates-unde-aut-aliquid-tempore-dolores/booking?check-in=01-04-2019&check-out=02-04-2019

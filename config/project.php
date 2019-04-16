@@ -15,4 +15,5 @@
 	  'bypass_token' => env('BYPASS_TOKEN', false),
 	  'notify_user_creation' => env('NOTIFY_USER_CREATION', false),
 	  'use_test_recipient_for_admin' => env('USE_TEST_RECIPIENT_FOR_ADMIN', false),
+	  'tomtom_api_key' => env('TOMTOM_API_KEY'),
 	];

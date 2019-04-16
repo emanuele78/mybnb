@@ -23,7 +23,9 @@
 	  function () {
 		  
 		  Route::get('/cities', 'CityController@index');
-		  Route::get('/apartments/{apartment}/booking', 'BookingController@index');
 		  Route::post('/tokens', 'TokenController@store');
+		  Route::get('/apartments/{apartment}/booking', 'BookingController@index');
+		  Route::post('/messages', 'MessageController@store');
 	  }
 	);
+	

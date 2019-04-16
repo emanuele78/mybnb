@@ -1,3 +1,12 @@
+@auth()
+    @php
+        $unreadedMessage = auth()->user()->messages()->get()->filter(
+          function ($value) {
+
+              return $value->unreaded;
+          })->count();
+    @endphp
+@endauth
 <div class="my_navbar container-fluid">
     <div class="navbar_wrapper">
         <div class="my_navbar-left">
@@ -30,7 +39,8 @@
                 @endguest
                 @auth()
                     <li class="list-group-item">
-                        <a class="navbar_link" href="">Messaggi <span class="badge badge-pill badge-info">4</span></a>
+                        <a class="navbar_link" href="">Messaggi
+                            <span class="badge badge-pill badge-info">{{$unreadedMessage>0?$unreadedMessage:null}}</span></a>
                     </li>
                     <li class="list-group-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <a class="navbar_link" href="{{route('logout')}}">Logout</a>

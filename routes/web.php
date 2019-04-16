@@ -16,7 +16,6 @@
 		  
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  Route::get('/appartamenti/{apartment}', 'ApartmentController@show')->name('show');
-		  Route::post('/messages', 'MessageController@store')->middleware('auth')->name('send_message');
 	  }
 	);
 	
@@ -27,7 +26,6 @@
 	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
+
 	
-	//todo test routes
-	Route::get('/test/{apartment}/booking','BookingController@index');
 	

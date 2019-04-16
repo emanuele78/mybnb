@@ -1,9 +1,25 @@
 <div class="container my-3">
     <div class="row">
-        <div class="card col-8">
+        <div class="card col-9">
             <div class="row no-gutters">
                 <div class="col-4">
-                    <img src="" class="card-img" alt="">
+                    <div class="">
+                        <div class="apartment_map my-4">
+                            <img id="tomtom_map" class="card-img" src="data:image/png;charset=binary;base64,{!! $map !!}">
+                            <i id="marker" class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="">
+                            @if($address['response'])
+                                <small>
+                                    {{$address['streetName']}} {{$address['postal_code']}}
+                                    <br>
+                                    {{$address['municipality']}} - {{$address['province']}}
+                                </small>
+                            @else
+                                <span>Indirizzo non disponibile</span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="col-8">
                     <div class="card-body">
@@ -19,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="card offset-1 col-3">
+        <div class="card col-3">
             <div class="card-body">
                 <h5 class="card-title">Verifica disponibilità</h5>
                 <div class="form-group">
@@ -39,6 +55,9 @@
                 </div>
                 <div id="loading_block" class="form-group my-3 text-center collapse">
                     <span id="result"><i class="fas fa-spinner fa-pulse loading_availability"></i></span>
+                </div>
+                <div class="form-group my-2">
+                    <a href="" class="btn btn-success col">Prenota</a>
                 </div>
             </div>
         </div>
@@ -109,24 +128,26 @@
                 <div class="card col">
                     <div class="card-body">
                         <div class="row">
-                            <form class="col-12" action="{{route('send_message')}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="apartment_id" value="{{$apartment->slug}}">
-                                <input type="hidden" name="user_id" value="{{auth()->user()->nickname}}">
-                                <input type="hidden" name="recipient_id" value="{{$apartment->user->nickname}}">
+                            <div class="col-12">
+                                <input type="hidden" id="message_apartment_slug" value="{{$apartment->slug}}">
+                                <input type="hidden" id="message_sender_nickname" value="{{auth()->user()->nickname}}">
+                                <input type="hidden" id="message_recipient_nickname" value="{{$apartment->user->nickname}}">
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Invia un messaggio al proprietario, {{$apartment->user->nickname}}</label>
-                                    <textarea class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}" id="exampleFormControlTextarea1" rows="6" name="body" required {{ $errors->has('body') ? 'autofocus' : '' }} placeholder="Scrivi il tuo messaggio">{{ old('body') }}</textarea>
-                                    @if ($errors->has('body'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Il messaggio deve essere compreso tra 10 e 4000 caratteri</strong>
-                                        </span>
-                                    @endif
+                                    <label for="body">Invia un messaggio al proprietario, {{$apartment->user->nickname}}</label>
+                                    <textarea class="form-control" id="body" rows="6" name="body" required placeholder="Scrivi il tuo messaggio"></textarea>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Il messaggio deve essere compreso tra 10 e 4000 caratteri</strong>
+                                    </span>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Invia</button>
-                            </form>
+                                <button id="submit_message" class="btn btn-primary">Invia</button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div id="message_wrapper" class="alert col">
+                    <span id="message_response"></span>
                 </div>
             </div>
         @endif
@@ -136,17 +157,4 @@
             Devi essere autenticato per inviare messaggi al proprietario
         </div>
     @endguest
-    @if (session()->has('status'))
-        <div class="row my-2">
-            @if(session('status'))
-                <div class="alert alert-success col">
-                    Messaggio inviato
-                </div>
-            @else
-                <div class="alert alert-danger col">
-                    Errore durante l'invio del messaggio
-                </div>
-            @endif
-        </div>
-    @endif
 </div>

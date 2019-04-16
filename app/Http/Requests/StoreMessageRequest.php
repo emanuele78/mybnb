@@ -24,9 +24,9 @@
 		public function rules() {
 			
 			return [
-			  'apartment_id' => 'bail|required|exists:apartments,slug',
-			  'user_id' => 'bail|required|exists:users,nickname',
-			  'recipient_id' => 'bail|required|exists:users,nickname|different:user_id',
+			  'apartment_slug' => 'bail|required|exists:apartments,slug',
+			  'sender_nickname' => 'bail|required|exists:users,nickname',
+			  'recipient_nickname' => 'bail|required|exists:users,nickname|different:sender_nickname',
 			  'body' => 'bail|required|min:10|max:4000',
 			];
 		}

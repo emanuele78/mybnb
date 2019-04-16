@@ -9,12 +9,16 @@
 		
 		public function store(StoreMessageRequest $request) {
 			
-			try {
-				$validatedData = $request->validated();
-				Message::add($validatedData);
-				return back()->with('status', true);
-			} catch (\Exception $e) {
-				return back()->with('status', false);
-			}
+			$data = $request->validated();
+			Message::add(
+			  [
+				'recipient_apartment_id' => $data['apartment_slug'],
+				'sender_user_id' => $data['sender_nickname'],
+				'body' => $data['body'],
+			  ]);
+			return response()->json(['status' => true], 200);
+			
 		}
 	}
+	
+	//http://127.0.0.1:8000/test?apartment_slug=perspiciatis-eum-ut-odit&sender_nickname=Anissa&recipient_nickname=Madge&body=ciao-come-stai
