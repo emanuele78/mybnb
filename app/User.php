@@ -18,7 +18,7 @@
 		 */
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
-//		protected $with = ['messages'];
+		//		protected $with = ['messages'];
 		
 		protected $dispatchesEvents = [
 		  'created' => UserCreated::class,
@@ -31,8 +31,7 @@
 		
 		public function messages() {
 			
-//			return $this->hasMany(Message::class);
-			return $this->hasManyThrough('App\Message', 'App\Apartment','user_id', 'recipient_apartment_id','id','id');
+			return $this->hasManyThrough('App\Message', 'App\Apartment', 'user_id', 'recipient_apartment_id', 'id', 'id');
 		}
 		
 		public function bookings() {
@@ -40,4 +39,8 @@
 			return $this->hasMany(Booking::class);
 		}
 		
+		public function customer() {
+			
+			return $this->hasOne(Customer::class);
+		}
 	}

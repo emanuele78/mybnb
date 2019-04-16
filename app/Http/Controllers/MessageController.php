@@ -5,7 +5,6 @@
 	use App\Http\Requests\StoreMessageRequest;
 	use App\Message;
 	use App\Services\TokenUtil;
-	use Illuminate\Support\Facades\Cookie;
 	
 	class MessageController extends Controller {
 		
@@ -29,5 +28,3 @@
 			
 		}
 	}
-	
-	//http://127.0.0.1:8000/test?apartment_slug=perspiciatis-eum-ut-odit&sender_nickname=Anissa&recipient_nickname=Madge&body=ciao-come-stai

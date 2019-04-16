@@ -16,6 +16,9 @@
 		  
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  Route::get('/appartamenti/{apartment}', 'ApartmentController@show')->name('show');
+		  Route::get('/appartamenti/{apartment}/prenota', 'BookingController@create')->name('booking');
+		  Route::get('/clienti/registrazione', 'CustomerController@create')->name('register_customer');
+		  Route::post('/clienti/registrazione', 'CustomerController@store')->name('save_customer');
 	  }
 	);
 	
@@ -27,5 +30,6 @@
 	
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 
+	
 	
 	

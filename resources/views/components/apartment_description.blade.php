@@ -41,14 +41,14 @@
                 <div class="form-group">
                     <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly">
                     <span class="invalid-feedback" role="alert">
-                    <strong>Verifica la data del check-in</strong>
-                </span>
+                        <strong>Verifica la data del check-in</strong>
+                    </span>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control col-sm my-2 mr-2 flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly">
                     <span class="invalid-feedback" role="alert">
-                    <strong>Verifica la data del check-out</strong>
-                </span>
+                        <strong>Verifica la data del check-out</strong>
+                    </span>
                 </div>
                 <div class="form-group my-2">
                     <button id="check_availability" data-apartment="{{$apartment->slug}}" class="btn btn-primary col">Verifica</button>
@@ -57,7 +57,7 @@
                     <span id="result"><i class="fas fa-spinner fa-pulse loading_availability"></i></span>
                 </div>
                 <div class="form-group my-2">
-                    <a href="" class="btn btn-success col">Prenota</a>
+                    <a href="{{route('booking',['apartment'=>$apartment->slug])}}" class="btn btn-success col">Prenota</a>
                 </div>
             </div>
         </div>

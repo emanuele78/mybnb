@@ -7,6 +7,7 @@
 	use App\Http\Requests\ApartmentAvailabilityRequest;
 	use App\ReservedDay;
 	use Carbon\Carbon;
+	use Illuminate\Support\Facades\Auth;
 	
 	class BookingController extends Controller {
 		
@@ -38,5 +39,17 @@
 				}
 			}
 			return response()->json(['available' => true], 200);
+		}
+		
+		public function create() {
+			
+			if (!Auth::check()) {
+				return redirect()->route('login');
+			}
+			if (!Auth::user()->customer()->exists()) {
+				return redirect()->route('register_customer');
+			}
+			return view('layouts.booking_create');
+			
 		}
 	}

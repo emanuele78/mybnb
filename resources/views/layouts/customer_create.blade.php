@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 @section('content')
-    @include('components.carousel')
-    @include('components.apartment_description')
-    @include('components.footer')
+    @include('components.customer_create_content')
 @endsection
 @push('scripts')
-    <script src="{{asset('js/show.js')}}"></script>
+    <script src="{{asset('js/customer_registration.js')}}"></script>
 @endpush
