@@ -25,7 +25,12 @@
 		  Route::get('/cities', 'CityController@index');
 		  Route::post('/tokens', 'TokenController@store');
 		  Route::get('/apartments/{apartment}/booking', 'BookingController@index');
-		  Route::post('/messages', 'MessageController@store');
 	  }
 	);
 	
+	Route::middleware('auth:api')->group(
+	  function () {
+		  
+		  Route::post('/messages', 'MessageController@store');
+		  
+	  });

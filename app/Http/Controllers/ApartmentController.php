@@ -4,10 +4,16 @@
 	
 	use App\Apartment;
 	use App\Services\Geolocation;
-	use App\Token;
-	use Illuminate\Support\Facades\Cookie;
+	use App\Services\TokenUtil;
 	
 	class ApartmentController extends Controller {
+		
+		private $tokenUtil;
+		
+		public function __construct(TokenUtil $tokenUtil) {
+			
+			$this->tokenUtil = $tokenUtil;
+		}
 		
 		/**
 		 * Returns home page view with promoted apartments, links with major cities
@@ -16,23 +22,13 @@
 		 * @return mixed
 		 */
 		public function index() {
+			
 			$promotedApartmentToShow = 30;
 			return view('layouts.index')
-			  ->withHasValidToken($this->checkToken())
+			  ->withHasValidToken($this->tokenUtil->is_allowed())
 			  ->withPromotedApartments(Apartment::promoted($promotedApartmentToShow))
 			  ->withCardSizes($this->cardsMatrix())
 			  ->withMajorCities($this->majorCities());
-		}
-		
-		/**
-		 * Check if current session has valid token
-		 *
-		 * @return bool
-		 */
-		private function checkToken(): bool {
-			
-			$token_key_name = config('project.token_key');
-			return Cookie::has($token_key_name) ? Token::isValid(Cookie::get($token_key_name)) : false;
 		}
 		
 		private function cardsMatrix(): array {
@@ -65,8 +61,8 @@
 		}
 		
 		public function search() {
+			
 			return view('layouts.search_results');
 		}
-		
 		
 	}

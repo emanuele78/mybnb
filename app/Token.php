@@ -6,6 +6,8 @@
 	use App\Events\TokenCreated;
 	use Illuminate\Database\Eloquent\Model;
 	use Carbon\Carbon;
+	use Illuminate\Support\Facades\Crypt;
+	use Illuminate\Support\Facades\Log;
 	use Illuminate\Support\Str;
 	
 	class Token extends Model {

@@ -125,12 +125,14 @@ $('#submit_message').click(function (e) {
             $(this).attr('disabled', 'disabled');
         },
         headers: {
+            'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function () {
             $('#message_wrapper').removeClass('alert-danger');
             $('#message_wrapper').addClass('alert-success');
             $('#message_response').text('Messaggio inviato correttamente');
+            textArea.val('');
         },
         data: {
             'apartment_slug': apartment_slug,
@@ -138,7 +140,8 @@ $('#submit_message').click(function (e) {
             'recipient_nickname': recipient_nickname,
             'body': textArea.val(),
         },
-        error: function () {
+        error: function (error) {
+            console.log(error);
             $('#message_wrapper').removeClass('alert-success');
             $('#message_wrapper').addClass('alert-danger');
             $('#message_response').text('Errore durante l\'invio del messaggio');
