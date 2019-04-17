@@ -12,5 +12,6 @@
     @include('components.footer')
 @endsection
 @push('scripts')
-    <script src="{{asset('js/show.js')}}"></script>
+    <script src="{{asset('js/show_availability.js')}}"></script>
+    <script src="{{asset('js/show_apartment.js')}}"></script>
 @endpush

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/show"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/check_availability"],{
 
 /***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
 /*!**************************************************!*\
@@ -306,8 +306,10 @@ var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
   activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
-  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages'
+  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
+  mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
+  addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address'
 };
 
 if (false) {}
@@ -360,97 +362,57 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/show.js":
-/*!******************************!*\
-  !*** ./resources/js/show.js ***!
-  \******************************/
-/*! no exports provided */
+/***/ "./resources/js/check_availability.js":
+/*!********************************************!*\
+  !*** ./resources/js/check_availability.js ***!
+  \********************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/flatpickr.js");
-/* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flatpickr__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
-
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
 
 
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-flatpickr__WEBPACK_IMPORTED_MODULE_0___default()('.flatpicker', {
-  clickOpens: true,
-  dateFormat: "d-m-Y"
-});
-$('#check_availability').click(function () {
-  var checkIn = $('#check_in');
-  var checkOut = $('#check_out');
+var HANDLE_AVAILABILITY = {
+  check: function check(checkIn, checkOut, apartment, callback) {
+    if (!isDateValid(checkIn) || isDateBeforeToday(checkIn)) {
+      callback('INVALID_CHECK_IN');
+      return;
+    }
 
-  if (!isDateValid(checkIn)) {
-    checkIn.addClass('is-invalid');
-    return;
-  } else {
-    checkIn.removeClass('is-invalid');
+    if (!isDateValid(checkOut) || !isIntervalValid(checkIn, checkOut)) {
+      callback('INVALID_CHECK_OUT');
+      return;
+    }
+
+    performCheck(checkIn, checkOut, apartment, callback);
   }
+};
 
-  if (isCheckInBeforeToday(checkIn)) {
-    checkIn.addClass('is-invalid');
-    return;
-  } else {
-    checkIn.removeClass('is-invalid');
-  }
-
-  if (!isDateValid(checkOut)) {
-    checkOut.addClass('is-invalid');
-    return;
-  } else {
-    checkOut.removeClass('is-invalid');
-  }
-
-  if (!isIntervalValid(checkIn, checkOut)) {
-    checkIn.addClass('is-invalid');
-    checkOut.addClass('is-invalid');
-    return;
-  } else {
-    checkIn.removeClass('is-invalid');
-    checkOut.removeClass('is-invalid');
-  }
-
-  $('#loading_block').collapse('show');
-  var requestButton = $('#check_availability');
-  requestButton.attr('disabled', 'disabled');
-  sendRequest(checkIn.val(), checkOut.val(), requestButton.data().apartment, printResult);
-});
-
-function isDateValid(inputElement) {
-  return parseDate(inputElement.val()).isValid();
-}
-
-function isIntervalValid(inputElementBefore, inputElementAfter) {
-  return parseDate(inputElementBefore.val()).isBefore(parseDate(inputElementAfter.val()));
-}
-
-function isCheckInBeforeToday(inputElement) {
-  return parseDate(inputElement.val()).isBefore(moment(), "day");
-}
-
-function parseDate(stringDate) {
-  return moment(stringDate, "DD-MM-YYYY");
-}
-
-function sendRequest(checkIn, checkOut, apartment, callback) {
-  var result = null;
-  $.ajax(_app__WEBPACK_IMPORTED_MODULE_1__["default"].apartmentAvailabilityEndpoint + apartment + "/booking", {
+function performCheck(checkIn, checkOut, apartment, callback) {
+  var result;
+  var URL = _app__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
+  $.ajax(URL, {
     method: 'GET',
     success: function success(data) {
       console.log(data);
-      result = data.available;
+
+      if (data.available) {
+        result = 'AVAILABLE';
+      } else {
+        result = 'NOT_AVAILABLE';
+      }
+    },
+    error: function error(e) {
+      console.log(e);
+      result = 'SERVER_ERROR';
     },
     data: {
       'check-in': checkIn,
       'check-out': checkOut
-    },
-    error: function error(e) {
-      console.log(e);
     },
     complete: function complete() {
       callback(result);
@@ -458,92 +420,36 @@ function sendRequest(checkIn, checkOut, apartment, callback) {
   });
 }
 
-function printResult(result) {
-  $('#check_availability').removeAttr('disabled');
-  var message;
-  var classColor;
-
-  switch (result) {
-    case true:
-      message = "Disponibile";
-      classColor = "available";
-      break;
-
-    case false:
-      message = "Non disponibile";
-      classColor = "not_available";
-      break;
-
-    default:
-      message = "Dato non disponibile - riprovare più tardi";
-      classColor = "unknown";
-  }
-
-  $('#result').removeClass().addClass(classColor).text(message);
+function isDateValid(string_date) {
+  return parseDate(string_date).isValid();
 }
 
-$('#submit_message').click(function (e) {
-  e.preventDefault();
-  var textArea = $('#body');
+function isIntervalValid(string_date_before, string_date_after) {
+  return parseDate(string_date_before).isBefore(parseDate(string_date_after));
+}
 
-  if (textArea.val().length < 10) {
-    textArea.addClass('is-invalid');
-    return;
-  }
+function isDateBeforeToday(string_date) {
+  return parseDate(string_date).isBefore(moment(), "day");
+}
 
-  textArea.removeClass('is-invalid');
-  var apartment_slug = $("#message_apartment_slug").val();
-  var sender_nickname = $("#message_sender_nickname").val();
-  var recipient_nickname = $("#message_recipient_nickname").val();
-  console.log(apartment_slug);
-  console.log(sender_nickname);
-  console.log(recipient_nickname);
-  console.log(textArea.val());
-  $.ajax(_app__WEBPACK_IMPORTED_MODULE_1__["default"].messagesEndpoint, {
-    method: 'POST',
-    beforeSend: function beforeSend() {
-      $(this).attr('disabled', 'disabled');
-    },
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    success: function success() {
-      $('#message_wrapper').removeClass('alert-danger');
-      $('#message_wrapper').addClass('alert-success');
-      $('#message_response').text('Messaggio inviato correttamente');
-      textArea.val('');
-    },
-    data: {
-      'apartment_slug': apartment_slug,
-      'sender_nickname': sender_nickname,
-      'recipient_nickname': recipient_nickname,
-      'body': textArea.val()
-    },
-    error: function error(_error) {
-      console.log(_error);
-      $('#message_wrapper').removeClass('alert-success');
-      $('#message_wrapper').addClass('alert-danger');
-      $('#message_response').text('Errore durante l\'invio del messaggio');
-    },
-    complete: function complete() {
-      $('#submit_message').removeAttr('disabled');
-    }
-  });
-});
+function parseDate(string_date) {
+  return moment(string_date, "DD-MM-YYYY");
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (HANDLE_AVAILABILITY);
 
 /***/ }),
 
-/***/ 4:
-/*!************************************!*\
-  !*** multi ./resources/js/show.js ***!
-  \************************************/
+/***/ 8:
+/*!**************************************************!*\
+  !*** multi ./resources/js/check_availability.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/show.js */"./resources/js/show.js");
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/check_availability.js */"./resources/js/check_availability.js");
 
 
 /***/ })
 
-},[[4,"/js/manifest","/js/vendor"]]]);
+},[[8,"/js/manifest","/js/vendor"]]]);

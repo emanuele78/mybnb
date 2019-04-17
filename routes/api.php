@@ -24,7 +24,9 @@
 		  
 		  Route::get('/cities', 'CityController@index');
 		  Route::post('/tokens', 'TokenController@store');
-		  Route::get('/apartments/{apartment}/booking', 'BookingController@index');
+		  Route::get('/apartments/{apartment}/booking', 'AvailabilityController@index');
+		  Route::get('/apartments/{apartment}/map', 'MapController@show');
+		  Route::get('/apartments/{apartment}/address', 'AddressController@show');
 	  }
 	);
 	

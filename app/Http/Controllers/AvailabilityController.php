@@ -7,11 +7,9 @@
 	use App\Http\Requests\ApartmentAvailabilityRequest;
 	use App\ReservedDay;
 	use Carbon\Carbon;
-	use Illuminate\Support\Facades\Auth;
 	
-	class BookingController extends Controller {
+	class AvailabilityController extends Controller {
 		
-		//todo to be removed
 		public function index(Apartment $apartment, ApartmentAvailabilityRequest $request) {
 			
 			$check_in = Carbon::createFromFormat('d-m-Y', $request->validated()['check-in']);
@@ -40,22 +38,5 @@
 				}
 			}
 			return response()->json(['available' => true], 200);
-		}
-		
-		public function create(Apartment $apartment) {
-			
-			if (!Auth::check()) {
-				return redirect()->route('login');
-			}
-			if (!Auth::user()->customer()->exists()) {
-				return redirect()->route('register_customer');
-			}
-			//user is loggend and registered as a customer
-			//need to check if tries to book own apartment
-			if ($apartment->user_id == Auth::id()) {
-				return redirect()->route('home');
-			}
-			return view('layouts.booking_create')->withApartment($apartment);
-			
 		}
 	}

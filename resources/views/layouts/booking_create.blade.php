@@ -1,10 +1,14 @@
 @extends('layouts.base')
+
 @push('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
 @section('content')
-    <div class="container">
-        I'm the future page for booking
-        @dd($apartment)
-    </div>
+    @include('components.booking_content')
 @endsection
+@push('scripts')
+    <script src="{{asset('js/booking.js')}}"></script>
+@endpush

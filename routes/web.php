@@ -26,7 +26,7 @@
 	
 	Route::get('/', 'ApartmentController@index')->name('home');
 	
-	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
+//	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 

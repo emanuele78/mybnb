@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/app"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/load_map"],{
 
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
@@ -76,28 +76,55 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/load_map.js":
+/*!**********************************!*\
+  !*** ./resources/js/load_map.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+
+var HANDLE_MAP = {
+  getMap: function getMap(apartment, callback) {
+    performRequest(apartment, callback);
+  }
+};
+
+function performRequest(apartment, callback) {
+  var URL = _app__WEBPACK_IMPORTED_MODULE_0__["default"].mapEndpoint.replace('{apartment}', apartment);
+  $.ajax(URL, {
+    method: 'GET',
+    success: function success(data) {
+      callback({
+        'success': true,
+        'data': data
+      });
+    },
+    error: function error() {
+      callback({
+        'success': false
+      });
+    }
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (HANDLE_MAP);
 
 /***/ }),
 
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/***/ 10:
+/*!****************************************!*\
+  !*** multi ./resources/js/load_map.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/load_map.js */"./resources/js/load_map.js");
 
 
 /***/ })
 
-},[[0,"/js/manifest","/js/vendor"]]]);
+},[[10,"/js/manifest","/js/vendor"]]]);

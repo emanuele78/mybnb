@@ -20,8 +20,10 @@ var PROJECT_CONSTANTS = {
   citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
   activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
-  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages'
+  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
+  mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
+  addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address'
 };
 
 if (false) {}

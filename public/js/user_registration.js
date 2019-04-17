@@ -20,7 +20,7 @@ flatpickr__WEBPACK_IMPORTED_MODULE_0___default()('.flatpicker', {
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!*************************************************!*\
   !*** multi ./resources/js/user_registration.js ***!
   \*************************************************/
@@ -32,4 +32,4 @@ module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirector
 
 /***/ })
 
-},[[5,"/js/manifest","/js/vendor"]]]);
+},[[6,"/js/manifest","/js/vendor"]]]);

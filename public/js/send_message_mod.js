@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/app"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/send_message_mod"],{
 
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
@@ -76,28 +76,64 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/send_message_mod.js":
+/*!******************************************!*\
+  !*** ./resources/js/send_message_mod.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+
+var HANDLE_MESSAGE = {
+  send: function send(apartment, sender, recipient, message, token, callback) {
+    performRequest(apartment, sender, recipient, message, token, callback);
+  }
+};
+
+function performRequest(apartment, sender, recipient, message, token, callback) {
+  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint, {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-TOKEN': token
+    },
+    success: function success() {
+      callback({
+        'success': true
+      });
+    },
+    data: {
+      'apartment_slug': apartment,
+      'sender_nickname': sender,
+      'recipient_nickname': recipient,
+      'body': message
+    },
+    error: function error(_error) {
+      console.log(_error);
+      callback({
+        'success': false
+      });
+    }
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (HANDLE_MESSAGE);
 
 /***/ }),
 
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/***/ 4:
+/*!************************************************!*\
+  !*** multi ./resources/js/send_message_mod.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/emanuelemazzante/WorkingDirectory/Esercizi_Boolean/apache_default_portfolio/mybnb/resources/js/send_message_mod.js */"./resources/js/send_message_mod.js");
 
 
 /***/ })
 
-},[[0,"/js/manifest","/js/vendor"]]]);
+},[[4,"/js/manifest","/js/vendor"]]]);

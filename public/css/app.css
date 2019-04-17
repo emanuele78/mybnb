@@ -3,6 +3,10 @@
   padding-top: 70px;
 }
 
+.full_height {
+  height: 100%;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10199,29 +10203,24 @@ h3 {
   font-size: 30px;
 }
 
-#result.available {
-  color: green;
-}
-
-#result.not_available {
-  color: red;
-}
-
-#result.unknown {
-  color: blue;
-}
-
 .apartment_map {
   position: relative;
   display: inline-block;
 }
 
-#marker {
+#marker, .loading_map {
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  color: red;
   font-size: 30px;
+}
+
+#marker {
+  color: red;
+}
+
+.loading_map {
+  color: #1b4b72;
 }

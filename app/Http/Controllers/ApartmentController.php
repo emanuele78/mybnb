@@ -51,12 +51,9 @@
 			return $cities;
 		}
 		
-		public function show(Apartment $apartment, Geolocation $geolocation) {
+		public function show(Apartment $apartment) {
 			
-			return view('layouts.show')
-			  ->withApartment($apartment)
-			  ->withAddress($geolocation->getAddress($apartment->latitude, $apartment->longitude))
-			  ->withMap($geolocation->getMap($apartment->latitude, $apartment->longitude));
+			return view('layouts.show')->withApartment($apartment);
 			
 		}
 		
