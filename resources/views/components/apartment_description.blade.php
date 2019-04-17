@@ -13,15 +13,7 @@
                                 </div>
                             </div>
                             <div class="">
-                                {{--@if($address['response'])--}}
-                                {{--<small>--}}
-                                {{--{{$address['streetName']}} {{$address['postal_code']}}--}}
-                                {{--<br>--}}
-                                {{--{{$address['municipality']}} - {{$address['province']}}--}}
-                                {{--</small>--}}
-                                {{--@else--}}
                                 <span id="apartment_address"></span>
-                                {{--@endif--}}
                             </div>
                         </div>
                     </div>

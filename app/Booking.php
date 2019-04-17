@@ -22,4 +22,10 @@
 			
 			return $this->belongsTo(Apartment::class);
 		}
+		
+		public function bookedServices() {
+			
+			return $this->hasMany(BookedService::class);
+		}
+		
 	}

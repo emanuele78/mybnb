@@ -394,6 +394,7 @@ var HANDLE_AVAILABILITY = {
 
 function performCheck(checkIn, checkOut, apartment, callback) {
   var result;
+  var DAY_COUNT = dayCount(checkIn, checkOut);
   var URL = _app__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
   $.ajax(URL, {
     method: 'GET',
@@ -412,7 +413,7 @@ function performCheck(checkIn, checkOut, apartment, callback) {
       'check-out': checkOut
     },
     complete: function complete() {
-      callback(result);
+      callback(result, DAY_COUNT);
     }
   });
 }
@@ -431,6 +432,10 @@ function isDateBeforeToday(string_date) {
 
 function parseDate(string_date) {
   return moment(string_date, "DD-MM-YYYY");
+}
+
+function dayCount(check_in, check_out) {
+  return parseDate(check_out).diff(parseDate(check_in), 'days');
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (HANDLE_AVAILABILITY);

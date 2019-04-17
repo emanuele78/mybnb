@@ -19,6 +19,7 @@ const HANDLE_AVAILABILITY = {
 
 function performCheck(checkIn, checkOut, apartment, callback) {
     let result;
+    const DAY_COUNT = dayCount(checkIn, checkOut);
     const URL = PROJECT_MODULE.apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
     $.ajax(URL, {
         method: 'GET',
@@ -37,7 +38,7 @@ function performCheck(checkIn, checkOut, apartment, callback) {
             'check-out': checkOut,
         },
         complete: function () {
-            callback(result);
+            callback(result, DAY_COUNT);
         }
     });
 }
@@ -56,6 +57,10 @@ function isDateBeforeToday(string_date) {
 
 function parseDate(string_date) {
     return moment(string_date, "DD-MM-YYYY");
+}
+
+function dayCount(check_in, check_out) {
+    return parseDate(check_out).diff(parseDate(check_in), 'days');
 }
 
 export default HANDLE_AVAILABILITY;

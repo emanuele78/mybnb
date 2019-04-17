@@ -34,5 +34,6 @@
 	  function () {
 		  
 		  Route::post('/messages', 'MessageController@store');
+		  Route::get('/payments/token', 'PaymentTokenController@show');
 		  
 	  });

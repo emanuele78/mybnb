@@ -24,7 +24,7 @@
 				}
 			}
 			//reserved days check passed
-			//check for booking
+			//check for other bookings
 			$bookings = Booking::where('apartment_id', $apartment->id)->get();
 			foreach ($bookings as $booking) {
 				if ($check_in->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out)) {
@@ -36,6 +36,11 @@
 				} elseif ($booking->check_in->greaterThan($check_in) && $booking->check_out->lessThan($check_out)) {
 					return response()->json(['available' => false], 200);
 				}
+			}
+			//other bookings check passed
+			//check for max stay
+			if ($check_out->diffInDays($check_in) > $apartment->max_stay) {
+				return response()->json(['available' => false], 200);
 			}
 			return response()->json(['available' => true], 200);
 		}

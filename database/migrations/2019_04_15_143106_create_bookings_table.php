@@ -17,6 +17,7 @@
 			  'bookings', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
+				$table->string('status', 20);
 				$table->unsignedBigInteger('apartment_id');
 				$table->unsignedBigInteger('user_id');
 				$table->string('apartment_title');

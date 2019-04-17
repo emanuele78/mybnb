@@ -13,16 +13,17 @@
 			$this->gateway = new Braintree_Gateway($braintree_config);
 		}
 		
-		public function createCustomer($data)  {
+		public function createCustomer($data) :array {
+			
 			$newCustomer = $this->gateway->customer()->create();
 			$newCustomerId = $newCustomer->customer->id;
 			$data['customerId'] = $newCustomerId;
 			$result = $this->gateway->address()->create($data);
 			if ($result->success) {
-				return $newCustomerId;
+				return ['success' => true, 'customer_id' => $newCustomerId];
 			} else {
 				//something went wrong
-				return null;
+				return ['success' => false, 'message' => $result->message];
 			}
 		}
 		

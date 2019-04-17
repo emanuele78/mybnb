@@ -4,7 +4,7 @@
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
 	
-	class CreateServicesTable extends Migration {
+	class CreateBookedServicesTable extends Migration {
 		
 		/**
 		 * Run the migrations.
@@ -14,11 +14,13 @@
 		public function up() {
 			
 			Schema::create(
-			  'services', function (Blueprint $table) {
+			  'booked_services', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
-				$table->string('name', 40)->unique();
-				$table->string('slug')->unique();
+				$table->unsignedBigInteger('booking_id');
+				$table->string('name',40);
+				$table->float('price_per_night', 5, 2);
+				$table->string('price');
 				$table->timestamps();
 			});
 		}
@@ -30,6 +32,6 @@
 		 */
 		public function down() {
 			
-			Schema::dropIfExists('services');
+			Schema::dropIfExists('booked_services');
 		}
 	}

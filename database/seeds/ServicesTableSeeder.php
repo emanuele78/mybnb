@@ -1,5 +1,6 @@
 <?php
 	
+	use App\Service;
 	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
 	
@@ -37,7 +38,7 @@
 			$now = Carbon::now();
 			foreach ($services as $service) {
 				
-				DB::table('services')->insert(
+				Service::create(
 				  [
 					'name' => $service,
 					'created_at' => $now,

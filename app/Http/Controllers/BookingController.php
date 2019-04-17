@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Apartment;
+	use App\Http\Requests\StoreBookingRequest;
 	use Illuminate\Support\Facades\Auth;
 	
 	class BookingController extends Controller {
@@ -20,7 +21,19 @@
 			if ($apartment->user_id == Auth::id()) {
 				return redirect()->route('home');
 			}
+			
 			return view('layouts.booking_create')->withApartment($apartment);
 			
+		}
+		
+		public function store(StoreBookingRequest $request) {
+			
+			$validated = $request->validated();
+			//todo user_id must be different of apartment_owner_id
+			//todo check availability validity
+			//todo check if upgrades belong to apartment
+			
+			//todo after this -> create with status pending
+			//todo need to check if exists a pending status for the same user|apartment and replace it
 		}
 	}

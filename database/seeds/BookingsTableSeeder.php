@@ -23,6 +23,7 @@
 				$random_user = $users[rand(0, $users->count() - 1)];
 				Booking::create(
 				  [
+					'status' => 'confirmed',
 					'user_id' => $random_user->id,
 					'apartment_id' => $apartment->id,
 					'apartment_title' => $apartment->title,

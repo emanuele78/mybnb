@@ -6,7 +6,6 @@
 	use App\Http\Requests\StoreCustomerRequest;
 	use App\Services\BraintreeGateway;
 	use Illuminate\Support\Facades\Auth;
-	use Illuminate\Support\Facades\Redirect;
 	
 	class CustomerController extends Controller {
 		
@@ -32,15 +31,15 @@
 			  'postalCode' => $validated['street_address']
 			];
 			
-			$braintree_customer_id = $braintreeGateway->createCustomer($data);
+			$response = $braintreeGateway->createCustomer($data);
 			
-			if ($braintree_customer_id) {
-				$validated['customer_id'] = $braintree_customer_id;
+			if ($response['success']) {
+				$validated['customer_id'] = $response['customer_id'];
 				$validated['user_id'] = Auth::id();
 				Customer::add($validated);
-				Redirect::intended();
+				return redirect()->route('home');
 			}
-			dd('errore');
+			return back()->withErrors(['braintree_message' => $response['message']]);
 		}
 		
 	}

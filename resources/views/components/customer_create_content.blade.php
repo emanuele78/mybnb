@@ -61,5 +61,9 @@
                 </div>
             </div>
         </div>
+        @if($errors->any())
+            {{--todo style this--}}
+            @dd($errors)
+        @endif
     </div>
 @endsection
