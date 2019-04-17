@@ -10,7 +10,7 @@
 	
 	class AvailabilityController extends Controller {
 		
-		public function index(Apartment $apartment, ApartmentAvailabilityRequest $request) {
+		public function show(Apartment $apartment, ApartmentAvailabilityRequest $request) {
 			
 			$check_in = Carbon::createFromFormat('d-m-Y', $request->validated()['check-in']);
 			$check_in->setTime(0, 0, 0);

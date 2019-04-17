@@ -29,7 +29,7 @@ function performCheck(checkIn, checkOut, apartment, callback) {
                 result = 'NOT_AVAILABLE';
             }
         },
-        error: function (e) {
+        error: function () {
             result = 'SERVER_ERROR';
         },
         data: {

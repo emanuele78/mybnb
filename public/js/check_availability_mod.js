@@ -404,7 +404,7 @@ function performCheck(checkIn, checkOut, apartment, callback) {
         result = 'NOT_AVAILABLE';
       }
     },
-    error: function error(e) {
+    error: function error() {
       result = 'SERVER_ERROR';
     },
     data: {
