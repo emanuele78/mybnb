@@ -50,7 +50,7 @@
                             @if($apartment->sale>0)
                                 <li>
                                     <strong>Prezzo scontato:</strong> Euro
-                                    <span data-apartment_sale_price="{{$apartment->price_per_night - $apartment->price_per_night * $apartment->sale / 100}}" class="apartment_sale_price text-danger"><strong>{{number_format($apartment->price_per_night - $apartment->price_per_night * $apartment->sale / 100,2,',','.')}}</strong></span>
+                                    <span data-apartment_sale_price="{{$apartment->calcCurrentPrice()}}" class="apartment_sale_price text-danger"><strong>{{number_format($apartment->calcCurrentPrice(),2,',','.')}}</strong></span>
                                 </li>
                             @endif
                         </ul>
@@ -103,13 +103,13 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly">
+                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')}}">
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-in</strong>
                     </span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly">
+                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')}}">
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-out</strong>
                     </span>
@@ -154,7 +154,7 @@
                         <h5 class="card-title">Richieste speciali</h5>
                     </div>
                     <div class="card-body">
-                        <textarea class="form-control" id="body" rows="6" name="special_requests" placeholder="Scrivi il tuo messaggio"></textarea>
+                        <textarea class="form-control" id="body" rows="6" name="special_requests" placeholder="Scrivi il tuo messaggio">{{ old('special_requests') }}</textarea>
                     </div>
                 </div>
             </div>

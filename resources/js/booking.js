@@ -45,9 +45,9 @@ function check() {
         $('.loading_block').hide();
         $('#result').text(message);
         calc(days, valid);
-        if(valid){
+        if (valid) {
             $('#proceed_to_booking').removeClass('btn-secondary btn-success').addClass('btn-success')
-        }else{
+        } else {
             $('#proceed_to_booking').removeClass('btn-secondary btn-success').addClass('btn-secondary')
         }
     });

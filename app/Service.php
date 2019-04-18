@@ -29,4 +29,8 @@
 			  ]
 			];
 		}
+		
+		public static function findBySlug($slug){
+			return Service::where('slug',$slug)->first();
+		}
 	}

@@ -24,11 +24,11 @@
 		public function rules() {
 			
 			return [
-			  'first_name' => 'bail|required|string|between:2,100',
-			  'last_name' => 'bail|required|string|between:2,100',
-			  'street_address' => 'bail|required|string|between:2,100',
+			  'firstName' => 'bail|required|string|between:2,100',
+			  'lastName' => 'bail|required|string|between:2,100',
+			  'streetAddress' => 'bail|required|string|between:2,100',
 			  'locality' => 'bail|required|string|between:2,100',
-			  'postal_code' => 'bail|required|numeric',
+			  'postalCode' => 'bail|required|numeric',
 			];
 		}
 	}

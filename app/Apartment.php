@@ -47,20 +47,10 @@
 			return $this->hasMany(Image::class);
 		}
 		
-		public function upgrades() {
-			
-			return $this->hasMany(Upgrade::class);
-		}
-		
 		public function user() {
 			
 			return $this->belongsTo(User::class);
 		}
-		
-		//		public function messages() {
-		//
-		//			return $this->hasMany(Message::class);
-		//		}
 		
 		public function reservedDays() {
 			
@@ -81,5 +71,34 @@
 				  $query->where('start_at', '<=', Carbon::now())->where('end_at', '>=', Carbon::now());
 			  })
 			  ->take($item_count)->get();
+		}
+		
+		public static function findBySlug($slug) {
+			
+			return Apartment::where('slug', $slug)->first();
+		}
+		
+		public function hasUpgrade($service_slug): bool {
+			
+			foreach ($this->upgrades()->get() as $upgrade) {
+				if ($upgrade->service->slug == $service_slug) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public function upgrades() {
+			
+			return $this->hasMany(Upgrade::class);
+		}
+		
+		public function calcCurrentPrice() {
+			
+			if ($this->sale > 0) {
+				
+				return $this->price_per_night - $this->price_per_night * $this->sale / 100;
+			}
+			return $this->price_per_night;
 		}
 	}

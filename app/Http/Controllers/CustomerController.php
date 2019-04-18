@@ -23,21 +23,10 @@
 		public function store(StoreCustomerRequest $request, BraintreeGateway $braintreeGateway) {
 			
 			$validated = $request->validated();
-			
-			$data = [
-			  'firstName' => $validated['first_name'],
-			  'lastName' => $validated['last_name'],
-			  'streetAddress' => $validated['street_address'],
-			  'locality' => $validated['street_address'],
-			  'postalCode' => $validated['street_address']
-			];
-			
-			$response = $braintreeGateway->createCustomer($data);
+			$response = $braintreeGateway->createCustomer($validated);
 			
 			if ($response['success']) {
-				$validated['customer_id'] = $response['customer_id'];
-				$validated['user_id'] = Auth::id();
-				Customer::add($validated);
+				Customer::add($validated, $response['customer_id'], Auth::id());
 				if (request()->session()->has('desired_path')) {
 					return redirect()->to(request()->session()->get('desired_path'));
 				}

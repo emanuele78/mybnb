@@ -5,6 +5,7 @@
 	use App\Apartment;
 	use App\Services\Geolocation;
 	use App\Services\TokenUtil;
+	use Illuminate\Support\Facades\Config;
 	
 	class ApartmentController extends Controller {
 		
@@ -38,7 +39,7 @@
 		
 		private function majorCities(): array {
 			
-			$rawData = \Config::get('cities');
+			$rawData = Config::get('cities');
 			$cities = [];
 			foreach ($rawData as $index => $data) {
 				if (array_key_exists('capoluogo', $data)) {

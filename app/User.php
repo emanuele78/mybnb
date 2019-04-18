@@ -39,8 +39,20 @@
 			return $this->hasMany(Booking::class);
 		}
 		
+		public function isCustomer(): bool {
+			
+			return $this->customer()->exists();
+		}
+		
 		public function customer() {
 			
 			return $this->hasOne(Customer::class);
+		}
+		
+		public function customerId() {
+			
+			return $this->customer->customer_id;
+			//todo to be removed
+			//		    return $this->customer()->first()->customerId;
 		}
 	}

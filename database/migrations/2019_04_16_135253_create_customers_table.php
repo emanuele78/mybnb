@@ -19,11 +19,11 @@
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('user_id');
 				$table->string('customer_id')->unique();
-				$table->string('first_name', 100);
-				$table->string('last_name', 100);
-				$table->string('street_address');
+				$table->string('firstName', 100);
+				$table->string('lastName', 100);
+				$table->string('streetAddress');
 				$table->string('locality');
-				$table->integer('postal_code');
+				$table->integer('postalCode');
 				$table->timestamps();
 				$table->foreign('user_id')->references('id')->on('users');
 			});

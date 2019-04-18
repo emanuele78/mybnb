@@ -10,13 +10,10 @@
 		public function show(BraintreeGateway $braintreeGateway) {
 			
 			$user = Auth::user();
-			if (!$user->customer()->exists()) {
+			if (!$user->isCustomer()) {
 				return response()->json(['success' => false, 'message' => 'not a customer'], 413);
 			}
-			$clientToken = $braintreeGateway->clientToken()->generate(
-			  [
-				"customerId" => $user->customer()->first()->customerId
-			  ]);
+			$clientToken = $braintreeGateway->customerToken($user->customerId());
 			return response()->json(['success' => true, 'token' => $clientToken], 200);
 		}
 	}

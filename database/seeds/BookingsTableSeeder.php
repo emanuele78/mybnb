@@ -5,6 +5,7 @@
 	use App\User;
 	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
+	use Illuminate\Support\Str;
 	
 	class BookingsTableSeeder extends Seeder {
 		
@@ -24,6 +25,7 @@
 				Booking::create(
 				  [
 					'status' => 'confirmed',
+					'reference' => (string)Str::uuid(),
 					'user_id' => $random_user->id,
 					'apartment_id' => $apartment->id,
 					'apartment_title' => $apartment->title,

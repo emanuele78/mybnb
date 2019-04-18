@@ -20,5 +20,6 @@
 		'merchantId' => env('MERCHANT_ID', null),
 		'publicKey' => env('PUBLIC_KEY', null),
 		'privateKey' => env('PRIVATE_KEY', null)
-	  ]
+	  ],
+	  'pending_booking_max_life' => env('PENDING_BOOKING_MAX_LIFE'),
 	];

@@ -13,8 +13,9 @@
 			return $this->belongsTo(User::class);
 		}
 		
-		public static function add($data) {
-			
+		public static function add($data, $customerId, $userId) {
+			$data['customer_id'] = $customerId;
+			$data['user_id'] = $userId;
 			Customer::create($data);
 		}
 	}
