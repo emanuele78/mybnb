@@ -16,6 +16,7 @@
 		
 		public function create() {
 			
+			request()->session()->has('desired_path') ? request()->session()->flash('desired_path', request()->session()->get('desired_path')) : null;
 			return view('layouts.customer_create');
 		}
 		
@@ -37,6 +38,9 @@
 				$validated['customer_id'] = $response['customer_id'];
 				$validated['user_id'] = Auth::id();
 				Customer::add($validated);
+				if (request()->session()->has('desired_path')) {
+					return redirect()->to(request()->session()->get('desired_path'));
+				}
 				return redirect()->route('home');
 			}
 			return back()->withErrors(['braintree_message' => $response['message']]);

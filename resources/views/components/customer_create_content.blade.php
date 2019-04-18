@@ -61,9 +61,20 @@
                 </div>
             </div>
         </div>
-        @if($errors->any())
-            {{--todo style this--}}
-            @dd($errors)
+        @if ($errors->any())
+            <div class="row">
+                <div class="wrapper col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 @endsection

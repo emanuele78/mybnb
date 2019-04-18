@@ -4,13 +4,20 @@
         <input type="hidden" name="apartment_slug" value="{{$apartment->slug}}">
         <div class="row">
             <div class="wrapper col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Stai effettuando una prenotazione all'appartamento</h5>
-                        <p class="card-text text-primary">{{$apartment->title}}</p>
-                        <p class="card-text">
-                            <small class="text-muted">Proprietario {{$apartment->user->nickname}}</small>
-                        </p>
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <img src="{{asset('img/apartments')}}/{{$apartment->images()->first()->name}}" class="card-img" alt="">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title">Stai effettuando una prenotazione all'appartamento</h5>
+                                <p class="card-text text-primary">{{$apartment->title}}</p>
+                                <p class="card-text">
+                                    <small class="text-muted">Proprietario {{$apartment->user->nickname}}</small>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

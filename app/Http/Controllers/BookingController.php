@@ -14,6 +14,7 @@
 				return redirect()->route('login');
 			}
 			if (!Auth::user()->customer()->exists()) {
+				request()->session()->flash('desired_path', request()->fullUrl());
 				return redirect()->route('register_customer');
 			}
 			//user is loggend and registered as a customer
