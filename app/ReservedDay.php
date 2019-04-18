@@ -18,4 +18,9 @@
 			
 			return $this->belongsTo(Apartment::class);
 		}
+		
+		public static function forApartment($apartment_id) {
+			
+			return ReservedDay::where('apartment_id', $apartment_id)->get();
+		}
 	}

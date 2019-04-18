@@ -96,4 +96,9 @@
 			$this->save();
 		}
 		
+		public static function forApartment($apartment_id) {
+			
+			return Booking::where('apartment_id', $apartment_id)->get();
+		}
+		
 	}

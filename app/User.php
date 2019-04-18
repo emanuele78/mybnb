@@ -52,7 +52,5 @@
 		public function customerId() {
 			
 			return $this->customer->customer_id;
-			//todo to be removed
-			//		    return $this->customer()->first()->customerId;
 		}
 	}

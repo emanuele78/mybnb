@@ -15,7 +15,7 @@
 			$check_in->setTime(0, 0, 0);
 			$check_out->setTime(0, 0, 0);
 			//check for reserved days set by the host
-			$reserved_days = ReservedDay::where('apartment_id', $apartment->id)->get();
+			$reserved_days = ReservedDay::forApartment($apartment->id);
 			foreach ($reserved_days as $reserved_day) {
 				if ($reserved_day->day->isBetween($check_in, $check_out, true)) {
 					return false;
@@ -23,7 +23,7 @@
 			}
 			//reserved days check passed
 			//check for other bookings
-			$bookings = Booking::where('apartment_id', $apartment->id)->get();
+			$bookings = Booking::forApartment($apartment->id);
 			$max_life_pending_booking = config('project.pending_booking_max_life');
 			foreach ($bookings as $booking) {
 				if ($check_in->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out)) {
