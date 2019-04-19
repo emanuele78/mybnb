@@ -28,7 +28,7 @@
                                 <div class="form-control" id="cvv"></div>
                             </div>
                             <div class="form-group col-6">
-                                <label class="control-label">Zipcode</label>
+                                <label class="control-label">Codice postale</label>
                                 <!--  Hosted Fields div container -->
                                 <div class="form-control" id="postal-code"></div>
                             </div>

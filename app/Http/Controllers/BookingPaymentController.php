@@ -9,6 +9,14 @@
 	
 	class BookingPaymentController extends Controller {
 		
+		/**
+		 * Save the payment for a booking if not expired
+		 *
+		 * @param Request $request
+		 * @param BraintreeGateway $braintreeGateway
+		 * @return \Illuminate\Http\JsonResponse
+		 * @throws \Illuminate\Validation\ValidationException
+		 */
 		public function store(Request $request, BraintreeGateway $braintreeGateway) {
 			
 			$validator = Validator::make(

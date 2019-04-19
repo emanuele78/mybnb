@@ -13,8 +13,15 @@
 		
 		use AvailabilityTrait;
 		
+		/**
+		 * Return the form for the booking
+		 *
+		 * @param Apartment $apartment
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
 		public function create(Apartment $apartment) {
 			
+			//need some check before proceed
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
@@ -32,8 +39,15 @@
 			
 		}
 		
+		/**
+		 * Save the created booking in pending until payment done
+		 *
+		 * @param StoreBookingRequest $request
+		 * @param Apartment $apartment
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
 		public function store(StoreBookingRequest $request, Apartment $apartment) {
-
+			
 			$validated = $request->validated();
 			$user = Auth::user();
 			
@@ -48,7 +62,7 @@
 				return back()->withErrors(['disponibilità' => 'periodo non disponibile']);
 			}
 			//check if upgrades belong to apartment - maybe user tryed some hack
-			if (array_key_exists('upgrades',$validated)) {
+			if (array_key_exists('upgrades', $validated)) {
 				foreach ($validated['upgrades'] as $upgrade) {
 					if (!$apartment->hasUpgrade($upgrade)) {
 						return redirect()->route('home');

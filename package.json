@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "flatpickr": "^4.5.7",
-        "handlebars": "^4.1.1",
+        "handlebars": "^4.1.2",
         "moment": "^2.24.0"
     }
 }

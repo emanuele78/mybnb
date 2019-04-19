@@ -4,7 +4,6 @@
 	
 	use App\Token;
 	use Illuminate\Support\Facades\Cookie;
-	use Illuminate\Support\Facades\Log;
 	
 	class TokenUtil {
 		

@@ -8,17 +8,17 @@
 @endpush
 @section('content')
     @unless($hasValidToken)
-        @include('components.token_section')
+        @include('components.index_token_content')
     @endunless
-    @include('components.hero')
+    @include('components.index_hero_content')
     {{--todo absolute position message--}}
     @if (session('flash_message'))
         <div>
             {{ session('flash_message') }}
         </div>
     @endif
-    @include('components.promoteds_list')
-    @include('components.cards_list')
+    @include('components.index_promotions_content')
+    @include('components.index_cities_content')
     @include('components.footer')
 @endsection
 @push('scripts')

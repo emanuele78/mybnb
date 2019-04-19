@@ -13,6 +13,13 @@
 			$this->gateway = new Braintree_Gateway($braintree_config);
 		}
 		
+		/**
+		 * Create a new braintree customer
+		 *
+		 * @param $data
+		 * @return array
+		 * @throws \Braintree\Exception\NotFound
+		 */
 		public function createCustomer($data): array {
 			
 			$newCustomer = $this->gateway->customer()->create();
@@ -27,6 +34,12 @@
 			}
 		}
 		
+		/**
+		 * Generate a token for a customer
+		 *
+		 * @param $customerId
+		 * @return string
+		 */
 		public function customerToken($customerId) {
 			
 			return $this->gateway->clientToken()->generate(
@@ -35,6 +48,13 @@
 			  ]);
 		}
 		
+		/**
+		 * Perform the transaction
+		 *
+		 * @param $amount
+		 * @param $nonce
+		 * @return bool
+		 */
 		public function performPayment($amount, $nonce): bool {
 			
 			$result = $this->gateway->transaction()->sale(

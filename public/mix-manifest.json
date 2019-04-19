@@ -9,11 +9,12 @@
     "/js/manifest.js": "/js/manifest.js?id=844cdbfe9e6b6b56ae8f",
     "/js/navbar.js": "/js/navbar.js?id=d7b65ead378ab54002c1",
     "/js/payment.js": "/js/payment.js?id=996388289f5f1398cc42",
-    "/js/send_message_mod.js": "/js/send_message_mod.js?id=912f1122335dca6cdd64",
-    "/js/show_apartment.js": "/js/show_apartment.js?id=7bc39e6a9060e9f04227",
+    "/js/send_message_mod.js": "/js/send_message_mod.js?id=08b84a9a8c01d4ed799f",
+    "/js/show_apartment.js": "/js/show_apartment.js?id=841de3485ba08b23a815",
     "/js/show_availability.js": "/js/show_availability.js?id=0631f990177d75aff5b3",
+    "/js/threads_index.js": "/js/threads_index.js?id=7e6821ff89c121dd60a3",
     "/js/token_processor.js": "/js/token_processor.js?id=8ac872cc30a10170d06f",
     "/js/user_registration.js": "/js/user_registration.js?id=63e6180fb9efe88e0ae4",
-    "/js/vendor.js": "/js/vendor.js?id=c8b5f41fc61f80716474",
+    "/js/vendor.js": "/js/vendor.js?id=e0e46f8b421b8957654e",
     "/css/plain.css": "/css/plain.css?id=e4c542a7f6bf6f74fdd8"
 }

@@ -8,6 +8,11 @@
 		
 		protected $fillable = ['name', 'apartment_id'];
 		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+		 */
 		public function apartment() {
 			
 			return $this->belongsTo(Apartment::class);

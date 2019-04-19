@@ -10,21 +10,44 @@
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
+		/**
+		 * Casting for the following fields
+		 *
+		 * @var array
+		 */
 		protected $casts = [
 		  'check_in' => 'date',
 		  'check_out' => 'date',
 		];
 		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+		 */
 		public function user() {
 			
 			return $this->belongsTo(User::class);
 		}
 		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+		 */
 		public function apartment() {
 			
 			return $this->belongsTo(Apartment::class);
 		}
 		
+		/**
+		 * Create and save new booking with pending state. If pending booking exists for the same  user/apartmente, it will be removed
+		 *
+		 * @param $data
+		 * @param $user
+		 * @param $apartment
+		 * @return Booking
+		 */
 		public static function addPendingBooking($data, $user, $apartment) {
 			
 			//if a pending booking exists for the same $user and $apartment, it will be deleted
@@ -57,6 +80,12 @@
 			return $booking;
 		}
 		
+		/**
+		 * Remove a pending booking for user/apartment if exists
+		 *
+		 * @param $user
+		 * @param $apartment
+		 */
 		public static function removePending($user, $apartment) {
 			
 			$pendigBooking = Booking::where('status', 'pending')->where('apartment_id', $apartment->id)->where('user_id', $user->id)->first();
@@ -65,17 +94,35 @@
 			}
 		}
 		
-		public static function isExpired($reference, $expireTime) {
+		/**
+		 * Check if a booking in pending state is expired
+		 *
+		 * @param $reference
+		 * @param $expireTime
+		 * @return bool
+		 */
+		public static function isExpired($reference, $expireTime): bool {
 			
 			$booking = self::findByReference($reference);
 			return Carbon::now()->diffInMinutes($booking->created_at) > $expireTime;
 		}
 		
+		/**
+		 * Return a booking given the reference number
+		 *
+		 * @param $reference
+		 * @return mixed
+		 */
 		public static function findByReference($reference) {
 			
 			return Booking::where('reference', $reference)->first();
 		}
 		
+		/**
+		 * Calc the amount for a booking
+		 *
+		 * @return float|int
+		 */
 		public function bookingAmount() {
 			
 			$baseAmount = $this->apartment_amount;
@@ -85,17 +132,31 @@
 			return $baseAmount * $this->check_out->diffInDays($this->check_in);
 		}
 		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
 		public function bookedServices() {
 			
 			return $this->hasMany(BookedService::class);
 		}
 		
+		/**
+		 * Change the status of a pending booking to confirmed
+		 */
 		public function confirm() {
 			
 			$this->status = 'confirmed';
 			$this->save();
 		}
 		
+		/**
+		 * Return all the booking for a given apartment
+		 *
+		 * @param $apartment_id
+		 * @return mixed
+		 */
 		public static function forApartment($apartment_id) {
 			
 			return Booking::where('apartment_id', $apartment_id)->get();

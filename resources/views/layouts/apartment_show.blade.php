@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 @section('content')
-    @include('components.carousel')
-    @include('components.apartment_description')
+    @include('components.apartment_show_carousel')
+    @include('components.apartment_show_content')
     @include('components.footer')
 @endsection
 @push('scripts')

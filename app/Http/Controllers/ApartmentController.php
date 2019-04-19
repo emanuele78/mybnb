@@ -3,7 +3,6 @@
 	namespace App\Http\Controllers;
 	
 	use App\Apartment;
-	use App\Services\Geolocation;
 	use App\Services\TokenUtil;
 	use Illuminate\Support\Facades\Config;
 	
@@ -28,15 +27,25 @@
 			return view('layouts.index')
 			  ->withHasValidToken($this->tokenUtil->is_allowed())
 			  ->withPromotedApartments(Apartment::promoted($promotedApartmentToShow))
-			  ->withCardSizes($this->cardsMatrix())
+			  ->withCitiesCardSizes($this->cardsMatrix())
 			  ->withMajorCities($this->majorCities());
 		}
 		
+		/**
+		 * Weight distribution for citis cards
+		 *
+		 * @return array
+		 */
 		private function cardsMatrix(): array {
 			
 			return ['big', 'horizontal', 'vertical', 'standard', 'standard', 'standard'];
 		}
 		
+		/**
+		 * Return the 20 majors italian cities
+		 *
+		 * @return array
+		 */
 		private function majorCities(): array {
 			
 			$rawData = Config::get('cities');
@@ -52,12 +61,19 @@
 			return $cities;
 		}
 		
+		/**
+		 * Return the view apartment show
+		 *
+		 * @param Apartment $apartment
+		 * @return mixed
+		 */
 		public function show(Apartment $apartment) {
 			
-			return view('layouts.show')->withApartment($apartment);
+			return view('layouts.apartment_show')->withApartment($apartment);
 			
 		}
 		
+		//todo to be implemented
 		public function search() {
 			
 			return view('layouts.search_results');

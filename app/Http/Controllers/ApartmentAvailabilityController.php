@@ -7,10 +7,17 @@
 	use Carbon\Carbon;
 	use App\Traits\AvailabilityTrait;
 	
-	class AvailabilityController extends Controller {
+	class ApartmentAvailabilityController extends Controller {
 		
 		use AvailabilityTrait;
 		
+		/**
+		 * Return the availability for an appartment
+		 *
+		 * @param Apartment $apartment
+		 * @param ApartmentAvailabilityRequest $request
+		 * @return \Illuminate\Http\JsonResponse
+		 */
 		public function show(Apartment $apartment, ApartmentAvailabilityRequest $request) {
 			
 			$check_in = Carbon::createFromFormat('d-m-Y', $request->validated()['check-in']);

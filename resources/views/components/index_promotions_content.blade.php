@@ -6,8 +6,8 @@
         </div>
         <div class="cards_wrapper">
             @foreach($promotedApartments as $promotedApartment)
-                <a href="{{route('show',$promotedApartment->slug)}}" class="apartment_wrapper {{$promotedApartment->promotions->first()->promotion_plan->card_type}}">
-                    <div class="apartment_image" style="background-image: url('img/apartments/{{$promotedApartment->images()->first()->name}}')"></div>
+                <a href="{{route('show',$promotedApartment->slug)}}" class="apartment_wrapper {{$promotedApartment->activePromotionPlan()}}">
+                    <div class="apartment_image" style="background-image: url('img/apartments/{{$promotedApartment->mainImage()}}')"></div>
                     <span class="apartment_description">
                         <div class="info">{{$promotedApartment->people_count}} PERSONE - {{$promotedApartment->room_count}} STANZE</div>
                         <div class="title">{{$promotedApartment->title}}</div>

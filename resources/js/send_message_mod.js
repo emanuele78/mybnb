@@ -18,9 +18,9 @@ function performRequest(apartment, sender, recipient, message, token, callback) 
             callback({'success': true});
         },
         data: {
-            'apartment_slug': apartment,
-            'sender_nickname': sender,
-            'recipient_nickname': recipient,
+            'apartment_id': apartment,
+            'sender_user_id': sender,
+            'recipient_user_id': recipient,
             'body': message,
         },
         error: function (error) {

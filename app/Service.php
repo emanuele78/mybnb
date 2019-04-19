@@ -11,6 +11,11 @@
 		
 		protected $fillable = ['name'];
 		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
 		public function upgrades() {
 			
 			return $this->hasMany(Upgrade::class);
@@ -30,7 +35,14 @@
 			];
 		}
 		
-		public static function findBySlug($slug){
-			return Service::where('slug',$slug)->first();
+		/**
+		 * Return a service by the slug
+		 *
+		 * @param $slug
+		 * @return mixed
+		 */
+		public static function findBySlug($slug) {
+			
+			return Service::where('slug', $slug)->first();
 		}
 	}

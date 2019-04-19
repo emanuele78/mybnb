@@ -11,6 +11,9 @@
 	class Token extends Model {
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $casts = [
+		  'expiration' => 'datetime'
+		];
 		
 		protected $dispatchesEvents = [
 		  'created' => TokenCreated::class,
@@ -34,8 +37,7 @@
 				return false;
 			}
 			//token is valid - need to check expiration
-			$expiration = Carbon::create($token->expiration);
-			if ($expiration->greaterThan(Carbon::now())) {
+			if ($token->expiration->greaterThan(Carbon::now())) {
 				return true;
 			}
 			return false;

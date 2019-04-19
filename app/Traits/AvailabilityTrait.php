@@ -9,9 +9,16 @@
 	
 	trait AvailabilityTrait {
 		
+		/**
+		 * Check if the given interval is available for the passed apartment
+		 *
+		 * @param Carbon $check_in
+		 * @param Carbon $check_out
+		 * @param Apartment $apartment
+		 * @return bool
+		 */
 		public function isPeriodAvailable(Carbon $check_in, Carbon $check_out, Apartment $apartment): bool {
 			
-			//todo replace eloquent DB methods
 			$check_in->setTime(0, 0, 0);
 			$check_out->setTime(0, 0, 0);
 			//check for reserved days set by the host
@@ -56,7 +63,14 @@
 			return true;
 		}
 		
-		private function isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking) {
+		/**
+		 * Check if a booking is confirmed or if the pending status is not yet expired
+		 *
+		 * @param $booking
+		 * @param $max_life_pending_booking
+		 * @return bool
+		 */
+		private function isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking): bool {
 			
 			return ($booking->status == 'confirmed' || ($booking->status == 'pending' && (Carbon::now()->diffInMinutes($booking->created_at)) <= $max_life_pending_booking));
 			

@@ -4,9 +4,19 @@
 	
 	use Illuminate\Database\Eloquent\Model;
 	
-	class Upgrade extends Model {
+	class Thread extends Model {
 		
-		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $fillable = ['started_by', 'apartment_id'];
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+		 */
+		public function startedBy() {
+			
+			return $this->belongsTo('App\User', 'started_by', 'id');
+		}
 		
 		/**
 		 * Eloquent relationship
@@ -16,15 +26,5 @@
 		public function apartment() {
 			
 			return $this->belongsTo(Apartment::class);
-		}
-		
-		/**
-		 * Eloquent relationship
-		 *
-		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-		 */
-		public function service() {
-			
-			return $this->belongsTo(Service::class);
 		}
 	}

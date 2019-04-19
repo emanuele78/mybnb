@@ -4,26 +4,16 @@
 	
 	use App\Http\Requests\StoreMessageRequest;
 	use App\Message;
-	use App\Services\TokenUtil;
 	
+	//todo need to think about it
 	class MessageController extends Controller {
 		
-		private $tokenUtil;
-		
-		public function __construct(TokenUtil $tokenUtil) {
-			
-			$this->tokenUtil = $tokenUtil;
-		}
-		
+		//todo move this to thread controller in api namespace
+		//todo the endpoint could be
+		//todo /threads/{apartment}/messages
 		public function store(StoreMessageRequest $request) {
 			
-			$data = $request->validated();
-			Message::add(
-			  [
-				'recipient_apartment_id' => $data['apartment_slug'],
-				'sender_user_id' => $data['sender_nickname'],
-				'body' => $data['body'],
-			  ]);
+			Message::add($request->validated());
 			return response()->json(['success' => true], 200);
 			
 		}

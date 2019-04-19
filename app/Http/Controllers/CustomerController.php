@@ -14,6 +14,13 @@
 			$this->middleware('auth');
 		}
 		
+		/**
+		 * Return the form for create new customer
+		 * To perform actions like promote apartments or book apartment, logged user has to be a customer providing additional data
+		 * These data map the ones stored in braintree server
+		 *
+		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+		 */
 		public function create() {
 			
 			request()->session()->has('desired_path') ? request()->session()->flash('desired_path', request()->session()->get('desired_path')) : null;

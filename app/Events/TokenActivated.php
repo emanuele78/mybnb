@@ -25,6 +25,7 @@
 		 * @return string
 		 */
 		public function name(): string {
+			
 			return 'TOKEN_ACTIVATED';
 		}
 	}

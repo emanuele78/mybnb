@@ -18,6 +18,14 @@
 			  ]);
 		}
 		
+		/**
+		 * Return the tomtom map for the given coordinates
+		 *
+		 * @param $lat
+		 * @param $lon
+		 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|string
+		 * @throws \GuzzleHttp\Exception\GuzzleException
+		 */
 		public function getMap($lat, $lon) {
 			
 			$center = "$lon,$lat";
@@ -48,6 +56,14 @@
 			return base64_encode($data);
 		}
 		
+		/**
+		 * Return the reverse-address for the given coordinates
+		 *
+		 * @param $lat
+		 * @param $lon
+		 * @return array
+		 * @throws \GuzzleHttp\Exception\GuzzleException
+		 */
 		public function getAddress($lat, $lon) {
 			
 			$address = [

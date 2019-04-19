@@ -7,6 +7,12 @@
 	
 	class PaymentTokenController extends Controller {
 		
+		/**
+		 * Send to the client a token related to a braintree customer for a transaction
+		 *
+		 * @param BraintreeGateway $braintreeGateway
+		 * @return \Illuminate\Http\JsonResponse
+		 */
 		public function show(BraintreeGateway $braintreeGateway) {
 			
 			$user = Auth::user();
