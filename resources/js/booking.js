@@ -1,6 +1,9 @@
 import flatpickr from "flatpickr";
 import CHECK_AVAILABILITY_MODULE from "./check_availability_mod";
 
+/**
+ * Flatpicker initialization
+ */
 flatpickr('.flatpicker', {
     clickOpens: true,
     dateFormat: "d-m-Y",
@@ -9,6 +12,10 @@ flatpickr('.flatpicker', {
     }
 });
 
+/**
+ * function that responds to event associate to upgrade checkboxes and flatpicker date.
+ * Send ajax request to get availability for selected dates through module
+ */
 function check() {
     let checkIn = $('#check_in');
     let checkOut = $('#check_out');
@@ -53,6 +60,11 @@ function check() {
     });
 }
 
+/**
+ * Calc the amount for selected dates
+ * @param days
+ * @param valid
+ */
 function calc(days, valid) {
     let day_count = $('#day_count');
     let apartment_amount = $('#apartment_amount');
@@ -82,10 +94,18 @@ function calc(days, valid) {
     }
 }
 
+/**
+ * Show the amount to the user
+ * @param amount
+ * @returns {string}
+ */
 function representAmount(amount) {
     return amount.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
+/**
+ * Listener for upgrade service checboxes
+ */
 $('.upgrade_service').change(function () {
     check();
 });

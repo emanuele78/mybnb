@@ -2,13 +2,16 @@ import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars';
 import flatpickr from "flatpickr";
 
+/**
+ * Flatpicker initialization
+ */
 flatpickr('.flatpicker', {
     clickOpens: true,
     dateFormat: "d-m-Y",
 });
 
 /**
- * Calls endpoint for get cities list in order to fill the datalist in the search bar
+ * Call endpoint for get cities list in order to fill the datalist in the search bar
  */
 (function () {
     $.ajax(PROJECT_MODULE.citiesEndpoint, {

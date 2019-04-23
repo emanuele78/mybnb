@@ -2,8 +2,12 @@ import MAP_MODULE from "./load_map_mod";
 import ADDRESS_MODULE from "./load_address_mod";
 import MESSAGE_MODULE from "./send_message_mod";
 
+/**
+ * Load map and address for the apartment async
+ */
 (function () {
     const APARTMENT_SLUG = $('#tomtom_map').data().apartment;
+
     MAP_MODULE.getMap(APARTMENT_SLUG, function (response) {
         if (response.success) {
             $('.loading_map').hide();
@@ -49,6 +53,9 @@ import MESSAGE_MODULE from "./send_message_mod";
     }
 })();
 
+/**
+ * Listener for sending message button
+ */
 $('#submit_message').click(function (e) {
     e.preventDefault();
     let textArea = $('#body');

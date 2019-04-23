@@ -1,11 +1,17 @@
 import flatpickr from "flatpickr";
 import CHECK_AVAILABILITY_MODULE from "./check_availability_mod";
 
+/**
+ * Initialize flatpicker
+ */
 flatpickr('.flatpicker', {
     clickOpens: true,
     dateFormat: "d-m-Y",
 });
 
+/**
+ * Listener for check availability button
+ */
 $('#check_availability').click(function () {
     let checkIn = $('#check_in');
     let checkOut = $('#check_out');

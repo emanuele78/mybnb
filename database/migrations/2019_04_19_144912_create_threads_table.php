@@ -17,11 +17,11 @@
 			  'threads', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
-				$table->unsignedBigInteger('started_by');
 				$table->unsignedBigInteger('apartment_id');
+				$table->unsignedBigInteger('started_by');
 				$table->timestamps();
-				$table->foreign('started_by')->references('id')->on('user');
-				$table->foreign('apartment_id')->references('id')->on('apartment');
+				$table->foreign('apartment_id')->references('id')->on('apartments');
+				$table->foreign('started_by')->references('id')->on('users');
 			});
 		}
 		

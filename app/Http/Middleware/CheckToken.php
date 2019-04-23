@@ -15,6 +15,7 @@
 		}
 		
 		/**
+		 * Allow only request with valid token. In case of invalid, missing or expired token, redirect to home page
 		 * @param $request
 		 * @param Closure $next
 		 * @param TokenUtil $tokenUtil
@@ -25,6 +26,6 @@
 			if ($this->tokenUtil->is_allowed()) {
 				return $next($request);
 			}
-			return redirect('/');
+			return redirect()->route('home');
 		}
 	}

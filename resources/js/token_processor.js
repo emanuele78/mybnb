@@ -17,7 +17,7 @@ $('#request_token_button').click(function (e) {
 });
 
 /**
- * Does an ajax call to request a new token for the provided email address
+ * Perform ajax call to request a new token for the provided email address
  * @param email
  * @param elementToDisable
  * @param loadingElement

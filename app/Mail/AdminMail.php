@@ -5,7 +5,6 @@
 	use Illuminate\Bus\Queueable;
 	use Illuminate\Mail\Mailable;
 	use Illuminate\Queue\SerializesModels;
-	use Illuminate\Contracts\Queue\ShouldQueue;
 	
 	class AdminMail extends Mailable {
 		
@@ -14,7 +13,7 @@
 		private $event_name;
 		
 		/**
-		 * AdminMail constructor.
+		 * Construnct a mailable object used for admin notifcation
 		 *
 		 * @param string $event_name
 		 */

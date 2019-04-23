@@ -1,5 +1,10 @@
 import PROJECT_MODULE from "./app";
 
+/**
+ * Exported object
+ *
+ * @type {{send: HANDLE_MESSAGE.send}}
+ */
 const HANDLE_MESSAGE = {
 
     send: function (apartment, sender, recipient, message, token, callback) {
@@ -7,6 +12,15 @@ const HANDLE_MESSAGE = {
     }
 };
 
+/**
+ * Perform the request to send a message
+ * @param apartment
+ * @param sender
+ * @param recipient
+ * @param message
+ * @param token
+ * @param callback
+ */
 function performRequest(apartment, sender, recipient, message, token, callback) {
     $.ajax(PROJECT_MODULE.messagesEndpoint, {
         method: 'POST',

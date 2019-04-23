@@ -9,6 +9,11 @@
 		private $api_key;
 		private $client;
 		
+		/**
+		 * TomTom service constructor
+		 *
+		 * @param $api_key
+		 */
 		public function __construct($api_key) {
 			
 			$this->api_key = $api_key;

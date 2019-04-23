@@ -27,4 +27,8 @@
 			
 			return $this->belongsTo(Apartment::class);
 		}
+		
+		public static function findOrCreate($apartment_id, $started_by) {
+		    $thread = Thread::where('apartment_id', $apartment_id)->where('started_by'.$started_by)->first();
+		}
 	}

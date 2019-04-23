@@ -8,6 +8,11 @@
 		
 		private $gateway;
 		
+		/**
+		 * Braintree service constructor
+		 *
+		 * @param $braintree_config
+		 */
 		public function __construct($braintree_config) {
 			
 			$this->gateway = new Braintree_Gateway($braintree_config);

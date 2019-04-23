@@ -1,5 +1,8 @@
 import PROJECT_MODULE from "./app";
 
+/**
+ * Send a request to get the token for the payment
+ */
 (function () {
     let url = PROJECT_MODULE.paymentTokenEndpoint;
     $.ajax(url, {
@@ -14,6 +17,13 @@ import PROJECT_MODULE from "./app";
     });
 })();
 
+/**
+ * NOTE: CODE FROM BRAINTREE WEBSITE
+ *
+ * load the form for the payment
+ *
+ * @param authorization
+ */
 function loadDropIn(authorization) {
     braintree.client.create({
         authorization: authorization
@@ -133,26 +143,24 @@ function loadDropIn(authorization) {
                             $('.element_result').removeClass('error success').addClass('success');
                         },
                         error: function (data) {
+                            let error_message;
                             switch (data.message) {
                                 case 'invalid_data':
+                                    error_message = 'Errore durante l\'elaborazione';
                                     $('.payment_section').remove();
-                                    $('.payment_result_message').text('Errore durante l\'elaborazione');
-                                    $('.payment_result').show();
-                                    $('.element_result').removeClass('error success').addClass('error');
                                     break;
                                 case 'braintree_error':
+                                    error_message = 'Carta non valida';
                                     $('.card_payment_overlay').hide();
-                                    $('.payment_result_message').text('Carta non valida');
-                                    $('.payment_result').show();
-                                    $('.element_result').removeClass('error success').addClass('error');
                                     break;
                                 case 'expired':
+                                    error_message = 'Sessione scaduta';
                                     $('.payment_section').remove();
-                                    $('.payment_result_message').text('Sessione scaduta');
-                                    $('.payment_result').show();
-                                    $('.element_result').removeClass('error success').addClass('error');
                                     break;
                             }
+                            $('.element_result').removeClass('error success').addClass('error');
+                            $('.payment_result_message').text(error_message);
+                            $('.payment_result').show();
                         },
                         data: {
                             'paymentMethodNonce': payload.nonce,

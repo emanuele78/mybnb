@@ -2,6 +2,10 @@ import PROJECT_MODULE from "./app";
 
 let moment = require('moment');
 
+/**
+ * Exported object
+ * @type {{check: HANDLE_AVAILABILITY.check}}
+ */
 const HANDLE_AVAILABILITY = {
 
     check: function (checkIn, checkOut, apartment, callback) {
@@ -17,6 +21,14 @@ const HANDLE_AVAILABILITY = {
     }
 };
 
+/**
+ * Perform the ajax request
+ *
+ * @param checkIn
+ * @param checkOut
+ * @param apartment
+ * @param callback
+ */
 function performCheck(checkIn, checkOut, apartment, callback) {
     let result;
     const DAY_COUNT = dayCount(checkIn, checkOut);
@@ -43,22 +55,54 @@ function performCheck(checkIn, checkOut, apartment, callback) {
     });
 }
 
+/**
+ * Check for date validity
+ *
+ * @param string_date
+ * @returns {boolean}
+ */
 function isDateValid(string_date) {
     return parseDate(string_date).isValid();
 }
 
+/**
+ * Check for date interval validity
+ *
+ * @param string_date_before
+ * @param string_date_after
+ * @returns {boolean}
+ */
 function isIntervalValid(string_date_before, string_date_after) {
     return parseDate(string_date_before).isBefore(parseDate(string_date_after));
 }
 
+/**
+ * Check if checkin is before checkout
+ *
+ * @param string_date
+ * @returns {boolean}
+ */
 function isDateBeforeToday(string_date) {
     return parseDate(string_date).isBefore(moment(), "day");
 }
 
+/**
+ * Parse the date
+ *
+ * @param string_date
+ * @returns {moment.Moment}
+ */
 function parseDate(string_date) {
     return moment(string_date, "DD-MM-YYYY");
 }
 
+/**
+ * Count the days between checkin and checkout
+ *
+ * @param check_in
+ * @param check_out
+ * @returns {number}
+ */
 function dayCount(check_in, check_out) {
     return parseDate(check_out).diff(parseDate(check_in), 'days');
 }

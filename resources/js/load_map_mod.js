@@ -1,5 +1,10 @@
 import PROJECT_MODULE from "./app";
 
+/**
+ * Exported object
+ *
+ * @type {{getMap: HANDLE_MAP.getMap}}
+ */
 const HANDLE_MAP = {
 
     getMap: function (apartment, callback) {
@@ -7,6 +12,12 @@ const HANDLE_MAP = {
     }
 };
 
+/**
+ * Perform the request to get the apartment map
+ *
+ * @param apartment
+ * @param callback
+ */
 function performRequest(apartment, callback) {
     const URL = PROJECT_MODULE.mapEndpoint.replace('{apartment}', apartment);
     $.ajax(URL, {
