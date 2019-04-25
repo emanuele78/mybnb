@@ -1,7 +1,7 @@
 <div class="container threads_container">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="text-center">I tuoi messaggi</h3>
+            <h3 class="text-center main_message_title">Messaggi per i tuoi appartamenti</h3>
         </div>
         <div class="card-body">
             <div class="card-block">
@@ -12,7 +12,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item active" data-type="my_apartment" href="#">Relative ai miei appartamenti</a>
-                            <a class="dropdown-item" data-type="other_apartments" href="#">Relative ad appartamenti di altri</a>
+                            <a class="dropdown-item" data-type="other_apartments" href="#">Relative ad altri appartamenti</a>
                         </div>
                     </div>
                     <div class="col-6">
@@ -40,7 +40,7 @@
     <div class="card mt-3">
         <div class="row no-gutters">
             <div class="col-4">
-                <img src="{{asset('img/apartments/')}}@{{#process_image}}@{{image}}@{{/process_image}}" class="card-img" alt="">
+                <img src="{{asset('img/apartments')}}/@{{image}}" class="card-img" alt="">
             </div>
             <div class="col-8">
                 <div class="card-body">
@@ -72,7 +72,7 @@
                         @{{/if}}
                     </div>
                     <div class="col-9 text-right">
-                        <a href="{{route('show_thread').'?apartment='}}@{{@apartment.slug}}{{'&with='}}@{{this.sender}}" class="btn btn-success" role="button" aria-pressed="true">Apri conversazione</a>
+                        <a href="{{route('show_thread').'?apartment='}}@{{@apartment.slug}}{{'&with='}}@{{this.sender}}" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
                         <a href="#" class="btn btn-danger" role="button" aria-pressed="true">Elimina conversazione</a>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
     <div class="card mt-3">
         <div class="row no-gutters">
             <div class="col-4">
-                <img src="{{asset('img/apartments/')}}@{{#process_image}}@{{image}}@{{/process_image}}" class="card-img" alt="">
+                <img src="{{asset('img/apartments')}}/@{{image}}" class="card-img" alt="">
             </div>
             <div class="col-8">
                 <div class="card-body">
@@ -103,7 +103,8 @@
                         <div class="col-4 text-right">
                             <small class="card-text text-muted">Proprietario</small>
                             <p class="card-text mb-0">@{{owner}}</p>
-                            <button class="btn btn-primary mt-2">Mostra conversazione</button>
+                            <a href="{{route('show_thread').'?apartment='}}@{{this.slug}}" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
+                            <button href="{{route('show_thread').'?apartment='}}@{{this.slug}}" class="btn btn-danger mt-2" aria-pressed="true">Elimina conversazione</button>
                         </div>
                     </div>
                 </div>

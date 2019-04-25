@@ -61412,7 +61412,8 @@ var PROJECT_CONSTANTS = {
   addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
   paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
   bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages'
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
+  threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/threads/thread'
 };
 
 if (false) {}

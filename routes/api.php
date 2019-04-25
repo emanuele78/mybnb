@@ -35,5 +35,7 @@
 		  Route::get('/payments/token', 'PaymentTokenController@show');
 		  //add new transaction
 		  Route::post('/booking/payment', 'BookingPaymentController@store');
+		  //get all messages for a thread
+		  Route::get('/threads/thread', 'Api\ApartmentThreadController@show');
 	  });
 	

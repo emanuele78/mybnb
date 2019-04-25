@@ -10364,11 +10364,12 @@ h3 {
   padding: 5px 10px;
 }
 .custom_container .custom_container_body {
-  padding: 10px;
+  position: relative;
   flex-grow: 1;
-  overflow-y: auto;
   border-left: 1px solid #dfdfdf;
   border-right: 1px solid #dfdfdf;
+  padding: 10px;
+  overflow-y: auto;
 }
 .custom_container .custom_container_footer {
   flex-shrink: 0;

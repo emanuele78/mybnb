@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 sendRequest();
+registerListenerForVisualizationDropdown();
 
 function sendRequest() {
   var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint;
@@ -38,12 +39,16 @@ function sendRequest() {
       console.log(e);
     },
     complete: function complete() {
-      registerListenerForVisualizationMode();
+      if ($('.dropdown-item.active').data('type') === 'my_apartment') {
+        $('.main_message_title').text('Messaggi per i tuoi appartamenti');
+      } else {
+        $('.main_message_title').text('Messaggi per altri appartamenti');
+      }
     }
   });
 }
 
-function registerListenerForVisualizationMode() {
+function registerListenerForVisualizationDropdown() {
   $('.dropdown-item').click(function (e) {
     e.preventDefault();
     $('.dropdown-item').removeClass('active');
@@ -59,36 +64,23 @@ function registerListenerForAccordion() {
   });
 }
 
-function printResults(results) {
+function printResults(data) {
   if ($('.dropdown-item.active').data('type') === 'my_apartment') {
-    printResultsForOwnApartments(results);
+    generateHtml(data, $("#apartments-template"));
+    registerListenerForAccordion();
   } else {
-    printResultsForOtherApartments(results);
+    generateHtml(data, $("#other-apartments-template"));
   }
-}
-
-function printResultsForOwnApartments(results) {
-  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#apartments-template").html());
-  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('process_image', function (ctx) {
-    return '/' + ctx.fn(this);
-  });
-  $('.content_wrapper').html(template(results));
-  registerListenerForAccordion();
-}
-
-function printResultsForOtherApartments(results) {
-  console.log(results);
-  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#other-apartments-template").html());
-  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('process_image', function (ctx) {
-    return '/' + ctx.fn(this);
-  });
-  $('.content_wrapper').html(template(results));
-  registerListenerForAccordion();
 }
 
 function printNoResults() {
   var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#no-results-template").html());
   $('.content_wrapper').html(template());
+}
+
+function generateHtml(data, templateElement) {
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile(templateElement.html());
+  $('.content_wrapper').html(template(data));
 }
 
 /***/ }),

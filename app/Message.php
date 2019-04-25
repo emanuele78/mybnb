@@ -83,6 +83,7 @@
 					$query->where('sender_id', $first_user->id)
 					  ->orWhere('sender_id', $second_user->id);
 				})
+			  ->with('apartment.user')
 			  ->orderBy('created_at')->get();
 		}
 	}

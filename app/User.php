@@ -132,7 +132,14 @@
 		
 		public function messagesSentForOtherApartments() {
 			
-			$results = Message::where('sender_id', $this->id)->with('apartment')->get();
+			$results = Message::where('sender_id', $this->id)
+			  ->with('apartment.user')
+			  ->whereHas(
+				'apartment.user', function ($query) {
+				  
+				  $query->where('nickname', '<>', $this->nickname);
+			  })
+			  ->get();
 			$data = [];
 			foreach ($results as $result) {
 				$index = array_search($result->apartment->slug, array_column($data, 'slug'));

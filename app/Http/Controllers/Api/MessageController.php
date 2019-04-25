@@ -10,6 +10,11 @@
 	
 	class MessageController extends Controller {
 		
+		/**
+		 * Show all the message sent for own apartments|other apartments
+		 *
+		 * @return array
+		 */
 		public function index() {
 			
 			$validated = request()->validate(['show_by' => ['required', Rule::in(['my_apartment', 'other_apartments'])]]);
@@ -21,6 +26,12 @@
 			return $user->messagesSentForOtherApartments();
 		}
 		
+		/**
+		 * Save a newly created message
+		 *
+		 * @param StoreMessageRequest $request
+		 * @return \Illuminate\Http\JsonResponse
+		 */
 		public function store(StoreMessageRequest $request) {
 			
 			Message::add($request->validated());

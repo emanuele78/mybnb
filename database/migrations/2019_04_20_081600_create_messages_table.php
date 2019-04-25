@@ -18,8 +18,8 @@
 				
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('apartment_id');
-				$table->unsignedBigInteger('recipient_id');
 				$table->unsignedBigInteger('sender_id');
+				$table->unsignedBigInteger('recipient_id');
 				$table->text('body');
 				$table->tinyInteger('unreaded')->default(1);
 				$table->foreign('apartment_id')->references('id')->on('apartments');

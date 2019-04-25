@@ -33,9 +33,9 @@
 		  //add new customer
 		  Route::post('/clienti/registrazione', 'CustomerController@store')->name('save_customer');
 		  //show messages dashboard
-		  Route::get('/conversazioni', 'MessageController@index')->name('message_dashboard');
+		  Route::get('/conversazioni', 'ApartmentThreadController@index')->name('message_dashboard');
 		  //show thread
-		  Route::get('/conversazioni/miei-appartamenti', 'ApartmentThreadController@show')->name('show_thread');
+		  Route::get('/conversazioni/conversazione', 'ApartmentThreadController@show')->name('show_thread');
 	  }
 	);
 	
@@ -47,19 +47,27 @@
 	
 	Route::get(
 	  '/test', function () {
-		
-		return App\Message::where('apartment_id', 16)->where(
-		  function ($query) {
-			  
-			  $query->where('recipient_id', 9)
-				->orWhere('recipient_id', 1);
+		$results = App\Message::where('sender_id', 1)->with('apartment.user')
+		  ->whereHas('apartment.user',function ($query){
+		  	$query->where('nickname','<>','Melyssa');
 		  })
-		  ->where(
-			function ($query) {
-				
-				$query->where('sender_id', 1)
-				  ->orWhere('sender_id', 9);
-			})
-		  ->with('apartment.user')
-		  ->orderBy('created_at')->get();
+		  ->get();
+		return $results;
+		$data = [];
+		foreach ($results as $result) {
+			$index = array_search($result->apartment->slug, array_column($data, 'slug'));
+			if ($index === false) {
+				$data[] =
+				  [
+					'slug' => $result->apartment->slug,
+					'image' => $result->apartment->main_image,
+					'title' => $result->apartment->title,
+					'owner' => $result->recipient_id,
+					'unreaded_messages' => $result->unreaded,
+				  ];
+			} else {
+				$data[$index]['unreaded_messages'] = $result->unreaded ?: $data[$index]['unreaded_messages'];
+			}
+		}
+		return $data;
 	});
