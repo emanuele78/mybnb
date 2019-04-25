@@ -20,6 +20,7 @@
 				$table->unsignedBigInteger('apartment_id');
 				$table->unsignedBigInteger('sender_id');
 				$table->unsignedBigInteger('recipient_id');
+				$table->tinyInteger('visible_for')->nullable(true)->default(null);
 				$table->text('body');
 				$table->tinyInteger('unreaded')->default(1);
 				$table->foreign('apartment_id')->references('id')->on('apartments');
