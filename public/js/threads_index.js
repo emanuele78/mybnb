@@ -14,8 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
 
 
+sendRequest();
 
-(function () {
+function sendRequest() {
   var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint;
   $.ajax(url, {
     method: 'GET',
@@ -27,13 +28,68 @@ __webpack_require__.r(__webpack_exports__);
       'show_by': $('.dropdown-item.active').data('type')
     },
     success: function success(data) {
-      console.log(data);
+      if (data.length) {
+        printResults(data);
+      } else {
+        printNoResults();
+      }
     },
     error: function error(e) {
       console.log(e);
+    },
+    complete: function complete() {
+      registerListenerForVisualizationMode();
     }
   });
-})();
+}
+
+function registerListenerForVisualizationMode() {
+  $('.dropdown-item').click(function (e) {
+    e.preventDefault();
+    $('.dropdown-item').removeClass('active');
+    $(this).addClass('active');
+    sendRequest();
+  });
+}
+
+function registerListenerForAccordion() {
+  $('.toggle_text').off();
+  $('.toggle_text').click(function () {
+    $(this).text($(this).text() === 'Mostra conversazioni' ? 'Nascondi conversazioni' : 'Mostra conversazioni');
+  });
+}
+
+function printResults(results) {
+  if ($('.dropdown-item.active').data('type') === 'my_apartment') {
+    printResultsForOwnApartments(results);
+  } else {
+    printResultsForOtherApartments(results);
+  }
+}
+
+function printResultsForOwnApartments(results) {
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#apartments-template").html());
+  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('process_image', function (ctx) {
+    return '/' + ctx.fn(this);
+  });
+  $('.content_wrapper').html(template(results));
+  registerListenerForAccordion();
+}
+
+function printResultsForOtherApartments(results) {
+  console.log(results);
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#other-apartments-template").html());
+  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('process_image', function (ctx) {
+    return '/' + ctx.fn(this);
+  });
+  $('.content_wrapper').html(template(results));
+  registerListenerForAccordion();
+}
+
+function printNoResults() {
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#no-results-template").html());
+  $('.content_wrapper').html(template());
+}
 
 /***/ }),
 

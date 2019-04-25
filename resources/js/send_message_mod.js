@@ -33,8 +33,8 @@ function performRequest(apartment, sender, recipient, message, token, callback) 
         },
         data: {
             'apartment_id': apartment,
-            'sender_user_id': sender,
-            'recipient_user_id': recipient,
+            'sender_id': sender,
+            'recipient_id': recipient,
             'body': message,
         },
         error: function (error) {

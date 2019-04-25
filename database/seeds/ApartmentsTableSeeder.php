@@ -56,9 +56,12 @@
 		
 		private function getRandomData(Faker $faker, $lat, $lng) {
 			
+			$imageNames = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', 'image6.jpg', 'image7.jpg', 'image8.jpg', 'image9.jpg', 'image10.jpg'];
+			
 			return [
 			  'user_id' => $this->users[rand(0, count($this->users) - 1)]->id,
 			  'title' => $faker->text(rand(50, 100)),
+			  'main_image' => $imageNames[rand(0, count($imageNames) - 1)],
 			  'description' => $faker->text(1250),
 			  'room_count' => rand(3, 6),
 			  'people_count' => rand(3, 6),

@@ -2,19 +2,22 @@
 	
 	namespace App\Http\Controllers;
 	
-	use App\Http\Requests\StoreMessageRequest;
-	use App\Message;
+	use App\Apartment;
+	use App\User;
+	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
 	
-	//todo need to think about it
 	class MessageController extends Controller {
 		
-		//todo move this to thread controller in api namespace
-		//todo the endpoint could be
-		//todo /threads/{apartment}/messages
-		public function store(StoreMessageRequest $request) {
+		public function index() {
 			
-			Message::add($request->validated());
-			return response()->json(['success' => true], 200);
-			
+			if (!Auth::check()) {
+				return redirect()->route('home');
+			}
+			return view('layouts.threads_index');
+		}
+		
+		public function show(Request $request) {
+			dd($request->all());
 		}
 	}

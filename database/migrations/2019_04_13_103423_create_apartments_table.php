@@ -20,6 +20,7 @@
 				$table->unsignedBigInteger('user_id');
 				$table->string('title');
 				$table->string('slug')->unique();
+				$table->string('main_image');
 				$table->text('description');
 				$table->tinyInteger('room_count');
 				$table->tinyInteger('people_count');

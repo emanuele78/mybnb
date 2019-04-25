@@ -7,7 +7,7 @@
         <div class="cards_wrapper">
             @foreach($promotedApartments as $promotedApartment)
                 <a href="{{route('show',$promotedApartment->slug)}}" class="apartment_wrapper {{$promotedApartment->activePromotionPlan()}}">
-                    <div class="apartment_image" style="background-image: url('img/apartments/{{$promotedApartment->mainImage()}}')"></div>
+                    <div class="apartment_image" style="background-image: url('img/apartments/{{$promotedApartment->main_image}}')"></div>
                     <span class="apartment_description">
                         <div class="info">{{$promotedApartment->people_count}} PERSONE - {{$promotedApartment->room_count}} STANZE</div>
                         <div class="title">{{$promotedApartment->title}}</div>

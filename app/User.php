@@ -17,20 +17,11 @@
 		 * @var array
 		 */
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $visible = ['nickname', 'messagesSents', 'messagesReceiveds'];
 		
 		protected $dispatchesEvents = [
 		  'created' => UserCreated::class,
 		];
-		
-		/**
-		 * Eloquent relationship
-		 *
-		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-		 */
-		public function apartments() {
-			
-			return $this->hasMany(Apartment::class);
-		}
 		
 		/**
 		 * Eloquent relationship
@@ -77,34 +68,108 @@
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		public function threads() {
+		public function messagesSents() {
 			
-			return $this->hasMany('App\Thread', 'created_by', 'id');
+			return $this->hasMany('App\Message', 'sender_id', 'id');
 		}
 		
-		//		//todo check
-		//		public function messageThreads() {
-		//			//		    return
-		//		}
-		//
-		//		public function unreadedMessages() {
-		//
-		//			return $this->receivedMessages()->where('unreaded', 1)->count();
-		//		}
-		//
-		//		public function sentMessages() {
-		//
-		//			return $this->hasMany('App\Message', 'sender_user_id', 'id');
-		//		}
-		//
-		//		public function receivedMessages() {
-		//
-		//			return $this->hasMany('App\Message', 'recipient_user_id', 'id');
-		//		}
-
-		//
-		//		public function threads() {
-		//
-		//			return $this->hasManyThrough('App\Message', 'App\Apartment', 'user_id', 'recipient_apartment_id', 'id', 'id');
-		//		}
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
+		public function messagesReceiveds() {
+			
+			return $this->hasMany('App\Message', 'recipient_id', 'id');
+		}
+		
+		/**
+		 * Generate an array of messages received by the user, grouped by apartments and senders, with unreaded messages flag
+		 *
+		 * @return array
+		 */
+		public function apartmentsWithMessages() {
+			
+			//only user apartments with messages
+			$apartmentsWithMessages = $this->apartments()->has('messages')->with('messages')->orderBy('title')->get();
+			$results = [];
+			foreach ($apartmentsWithMessages as $key => $apartmentsWithMessage) {
+				$results[] = [
+				  'slug' => $apartmentsWithMessage->slug,
+				  'image' => $apartmentsWithMessage->main_image,
+				  'title' => $apartmentsWithMessage->title,
+				];
+				$messages = [];
+				$unreaded_messages = false;
+				foreach ($apartmentsWithMessage->messages as $key1 => $message) {
+					//only messages sent by other users
+					if ($this->nickname != $message->sender_id) {
+						$index = array_search($message->sender_id, array_column($messages, 'sender'));
+						if ($index === false) {
+							$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
+						} else {
+							$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
+						}
+					}
+					$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
+					
+				}
+				$results[$key]['messages'] = $messages;
+				$results[$key]['unreaded_messages'] = $unreaded_messages;
+			}
+			return $results;
+		}
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
+		public function apartments() {
+			
+			return $this->hasMany(Apartment::class);
+		}
+		
+		public function messagesSentForOtherApartments() {
+			
+			$results = Message::where('sender_id', $this->id)->with('apartment')->get();
+			$data = [];
+			foreach ($results as $result) {
+				$index = array_search($result->apartment->slug, array_column($data, 'slug'));
+				if ($index === false) {
+					$data[] =
+					  [
+						'slug' => $result->apartment->slug,
+						'image' => $result->apartment->main_image,
+						'title' => $result->apartment->title,
+						'owner' => $result->recipient_id,
+						'unreaded_messages' => $result->unreaded,
+					  ];
+				} else {
+					$data[$index]['unreaded_messages'] = $result->unreaded ?: $data[$index]['unreaded_messages'];
+				}
+			}
+			return $data;
+		}
+		
+		/**
+		 * Return count of unreaded messages
+		 *
+		 * @return int
+		 */
+		public function unreadedMessages(): int {
+			
+			return Message::where('unreaded', 1)->where('recipient_id', $this->id)->get()->count();
+		}
+		
+		public function owns($apartment_slug): bool {
+			
+			return $this->apartments()->where('slug', $apartment_slug)->get()->count();
+		}
+		
+		public static function findByNickname($nickname): ?self {
+			
+			return self::where('nickname', $nickname)->first();
+		}
+		
 	}

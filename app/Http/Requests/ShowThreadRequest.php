@@ -2,9 +2,10 @@
 	
 	namespace App\Http\Requests;
 	
+	use Auth;
 	use Illuminate\Foundation\Http\FormRequest;
 	
-	class StoreMessageRequest extends FormRequest {
+	class ShowThreadRequest extends FormRequest {
 		
 		/**
 		 * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@
 		 */
 		public function authorize() {
 			
-			return true;
+			$apartment = request()->get('apartment');
+			return Auth::check() && $this->user()->owns($apartment);
 		}
 		
 		/**
@@ -24,10 +26,8 @@
 		public function rules() {
 			
 			return [
-			  'apartment_id' => 'bail|required|exists:apartments,slug',
-			  'sender_id' => 'bail|required|exists:users,nickname',
-			  'recipient_id' => 'bail|required|exists:users,nickname|different:sender_id',
-			  'body' => 'bail|required|min:10|max:4000',
+			  'apartment' => 'bail|required|exists:apartments,slug',
+			  'with' => 'bail|required|exists:users,nickname',
 			];
 		}
 	}

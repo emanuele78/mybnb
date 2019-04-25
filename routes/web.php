@@ -3,6 +3,7 @@
 	//if the app token is not valid, user can't access the following uri
 	Route::namespace('Auth')->middleware('check_token')->group(
 	  function () {
+		  
 		  //logout action
 		  Route::post('/logout', 'LoginController@logout')->name('logout');
 		  //register action
@@ -18,6 +19,7 @@
 	//if the app token is not valid, user can't access the following uri
 	Route::middleware('check_token')->group(
 	  function () {
+		  
 		  //todo wip
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  //show the apartment show view
@@ -31,7 +33,9 @@
 		  //add new customer
 		  Route::post('/clienti/registrazione', 'CustomerController@store')->name('save_customer');
 		  //show messages dashboard
-		  Route::get('/conversazioni', 'ThreadController@index')->name('message_dashboard');
+		  Route::get('/conversazioni', 'MessageController@index')->name('message_dashboard');
+		  //show thread
+		  Route::get('/conversazioni/miei-appartamenti', 'ApartmentThreadController@show')->name('show_thread');
 	  }
 	);
 	
@@ -40,6 +44,22 @@
 	Route::get('/', 'ApartmentController@index')->name('home');
 	//activate the token
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
-
 	
-	
+	Route::get(
+	  '/test', function () {
+		
+		return App\Message::where('apartment_id', 16)->where(
+		  function ($query) {
+			  
+			  $query->where('recipient_id', 9)
+				->orWhere('recipient_id', 1);
+		  })
+		  ->where(
+			function ($query) {
+				
+				$query->where('sender_id', 1)
+				  ->orWhere('sender_id', 9);
+			})
+		  ->with('apartment.user')
+		  ->orderBy('created_at')->get();
+	});

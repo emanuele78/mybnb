@@ -7,7 +7,7 @@
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img src="{{asset('img/apartments')}}/{{$apartment->images()->first()->name}}" class="card-img" alt="">
+                            <img src="{{asset('img/apartments')}}/{{$apartment->main_image}}" class="card-img" alt="">
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">

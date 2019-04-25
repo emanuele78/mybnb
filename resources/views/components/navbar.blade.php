@@ -37,9 +37,8 @@
                     </li>
                     <li class="list-group-item">
                         <a class="navbar_link" href="{{route('message_dashboard')}}">Messaggi
-                            {{--todo to be implemented--}}
-                            <span class="badge badge-pill badge-info"></span></a>
-                        {{--<span class="badge badge-pill badge-info">{{auth()->user()->unreadedMessages()>0?auth()->user()->unreadedMessages():null}}</span></a>--}}
+                            <span class="badge badge-pill badge-info">{{auth()->user()->unreadedMessages()?:null}}</span>
+                        </a>
                     </li>
                     <li class="list-group-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <a class="navbar_link" href="{{route('logout')}}">Logout</a>

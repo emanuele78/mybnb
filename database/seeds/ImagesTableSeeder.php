@@ -21,7 +21,7 @@
 				$images_indexes = [];
 				do {
 					$index = rand(0, count($imageNames) - 1);
-					if (!in_array($index, $images_indexes)) {
+					if (!in_array($index, $images_indexes) && $imageNames[$index] != $apartment->main_image) {
 						$images_indexes[] = $index;
 					}
 				} while (count($images_indexes) < $images_per_apartment);

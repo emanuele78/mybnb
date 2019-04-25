@@ -5,7 +5,7 @@
 	  'use_test_recipient' => env('USE_TEST_RECIPIENT', true),
 	  'test_recipient_mail' => env('TEST_RECIPIENT_MAIL'),
 	  'token_key' => env('APP_TOKEN_KEY'),
-	  'token_expiration_time' => env('TOKEN_EXPIRATION_TIME', 20),
+	  'token_expiration_time' => env('TOKEN_EXPIRATION_TIME', 60),
 	  'token_email_from_email' => env('TOKEN_EMAIL_FROM_EMAIL'),
 	  'token_email_from_name' => env('TOKEN_EMAIL_FROM_NAME'),
 	  'admin_email' => env('ADMIN_EMAIL'),
@@ -22,4 +22,5 @@
 		'privateKey' => env('PRIVATE_KEY', null)
 	  ],
 	  'pending_booking_max_life' => env('PENDING_BOOKING_MAX_LIFE'),
+	  'bypass_token_for_debug' => env('BYPASS_TOKEN_FOR_DEBUG', false),
 	];

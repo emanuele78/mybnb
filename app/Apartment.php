@@ -11,6 +11,7 @@
 		use Sluggable;
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $visible = ['title', 'slug', 'main_image', 'messages','user'];
 		
 		/**
 		 * Set key for route model binding
@@ -193,8 +194,13 @@
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		public function threads() {
+		public function messages() {
 			
-			return $this->hasMany(Thread::class);
+			return $this->hasMany(Message::class);
 		}
+		
+		public function owner() {
+		    return $this->user;
+		}
+		
 	}

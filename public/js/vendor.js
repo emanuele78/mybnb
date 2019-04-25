@@ -61408,11 +61408,11 @@ var PROJECT_CONSTANTS = {
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
   activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
   apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
   mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
   addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
   paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
-  bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment'
+  bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages'
 };
 
 if (false) {}
@@ -61742,8 +61742,8 @@ function performRequest(apartment, sender, recipient, message, token, callback) 
     },
     data: {
       'apartment_id': apartment,
-      'sender_user_id': sender,
-      'recipient_user_id': recipient,
+      'sender_id': sender,
+      'recipient_id': recipient,
       'body': message
     },
     error: function error(_error) {
