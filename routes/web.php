@@ -48,52 +48,12 @@
 	Route::get(
 	  '/test', function () {
 		
-		//only user apartments with messages
-		$user = App\User::find(1);
-		//		$apartmentsWithMessages = $user->apartments()->has('messages')->with('messages')->orderBy('title')->get();
-		//		$results = [];
-		//		foreach ($apartmentsWithMessages as $key => $apartmentsWithMessage) {
-		//			$results[] = [
-		//			  'slug' => $apartmentsWithMessage->slug,
-		//			  'image' => $apartmentsWithMessage->main_image,
-		//			  'title' => $apartmentsWithMessage->title,
-		//			];
-		//			$messages = [];
-		//			$unreaded_messages = false;
-		//			foreach ($apartmentsWithMessage->messages as $key1 => $message) {
-		//				//only messages visible for everyone or current user
-		//				if ($message->visible_for == null || $message->visible_for == $user->id) {
-		//					//only messages sent by other users
-		//					if ($user->nickname != $message->sender_id) {
-		//						$index = array_search($message->sender_id, array_column($messages, 'sender'));
-		//						if ($index === false) {
-		//							$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
-		//						} else {
-		//							$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
-		//						}
-		//					}
-		//					$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
-		//				}
-		//			}
-		//			if (empty($messages)) {
-		//				unset($results[$key]);
-		//			} else {
-		//				$results[$key]['messages'] = $messages;
-		//				$results[$key]['unreaded_messages'] = $unreaded_messages;
-		//			}
-		//		}
-		//		return $results;
+		$thread_reference = '6dae786a-1172-4c00-9c29-eff8e492e150';
 		
-		//appartamento corrente
-		return \App\Message::where('apartment_id', 9)->whereHas(
-		  'apartment.user', function ($query) {
-			
-			//di cui l'utente corrente è proprietario
-			$query->where('id', 1);
-		})->where(
-		  function ($query) {
-			  
-		  	//esiste questo utente con cui ha scambiato messaggi
-			  $query->where('sender_id', 8)->orWhere('recipient_id', 8);
-		  })->get()->count();
+		$user_id = 2;
+		
+		
+		
+		
+		return \App\Thread::showMessages($thread_reference,$user_id);
 	});

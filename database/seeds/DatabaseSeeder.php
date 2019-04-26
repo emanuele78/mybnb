@@ -21,6 +21,7 @@
 			$this->call(UpgradesTableSeeder::class);
 			$this->call(ReservedDaysTableSeeder::class);
 			$this->call(BookingsTableSeeder::class);
-//			$this->call(MessagesTableSeeder::class);
+			$this->call(ThreadsTableSeeder::class);
+			$this->call(MessagesTableSeeder::class);
 		}
 	}

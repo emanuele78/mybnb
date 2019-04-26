@@ -11,13 +11,7 @@
 		
 		use HasApiTokens, Notifiable;
 		
-		/**
-		 * The attributes that are mass assignable.
-		 *
-		 * @var array
-		 */
 		protected $guarded = ['id', 'created_at', 'updated_at'];
-		protected $visible = ['nickname', 'messagesSents', 'messagesReceiveds'];
 		
 		protected $dispatchesEvents = [
 		  'created' => UserCreated::class,
@@ -68,9 +62,9 @@
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		public function messagesSents() {
+		public function messagesSent() {
 			
-			return $this->hasMany('App\Message', 'sender_id', 'id');
+			return $this->hasMany(Message::class, 'sender_id');
 		}
 		
 		/**
@@ -78,53 +72,19 @@
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		public function messagesReceiveds() {
+		public function messagesReceived() {
 			
-			return $this->hasMany('App\Message', 'recipient_id', 'id');
+			return $this->hasMany(Message::class, 'recipient_id');
 		}
 		
 		/**
-		 * Generate an array of messages received by the user, grouped by apartments and senders, with unreaded messages flag
+		 * Eloquent relationship
 		 *
-		 * @return array
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		public function apartmentsWithMessages() {
+		public function startedThreads() {
 			
-			//only user apartments with messages
-			$apartmentsWithMessages = $this->apartments()->has('messages')->with('messages')->orderBy('title')->get();
-			$results = [];
-			foreach ($apartmentsWithMessages as $key => $apartmentsWithMessage) {
-				$results[] = [
-				  'slug' => $apartmentsWithMessage->slug,
-				  'image' => $apartmentsWithMessage->main_image,
-				  'title' => $apartmentsWithMessage->title,
-				];
-				$messages = [];
-				$unreaded_messages = false;
-				foreach ($apartmentsWithMessage->messages as $key1 => $message) {
-					//only messages visible for everyone or current user
-					if ($message->visible_for == null || $message->visible_for == $this->id) {
-						//only messages sent by other users
-						if ($this->nickname != $message->sender_id) {
-							$index = array_search($message->sender_id, array_column($messages, 'sender'));
-							if ($index === false) {
-								$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
-							} else {
-								$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
-							}
-						}
-						$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
-					}
-				}
-				if (empty($messages)) {
-					//this apartments has messages not visible by current user
-					unset($results[$key]);
-				} else {
-					$results[$key]['messages'] = $messages;
-					$results[$key]['unreaded_messages'] = $unreaded_messages;
-				}
-			}
-			return $results;
+			return $this->hasMany(Thread::class, 'with_user_id');
 		}
 		
 		/**
@@ -137,56 +97,24 @@
 			return $this->hasMany(Apartment::class);
 		}
 		
-		public function messagesSentForOtherApartments() {
-			
-			$messages = Message::where('sender_id', $this->id)
-			  ->with('apartment.user')
-			  ->whereHas(
-				'apartment.user', function ($query) {
-				  
-				  $query->where('nickname', '<>', $this->nickname);
-			  })
-			  ->get();
-			$data = [];
-			foreach ($messages as $message) {
-				//only messages visible for everyone or current user
-				if ($message->visible_for == null || $message->visible_for == $this->id) {
-					$index = array_search($message->apartment->slug, array_column($data, 'slug'));
-					if ($index === false) {
-						$data[] =
-						  [
-							'slug' => $message->apartment->slug,
-							'image' => $message->apartment->main_image,
-							'title' => $message->apartment->title,
-							'owner' => $message->recipient_id,
-							'unreaded_messages' => $message->unreaded,
-						  ];
-					} else {
-						$data[$index]['unreaded_messages'] = $message->unreaded ?: $data[$index]['unreaded_messages'];
-					}
-				}
-			}
-			return $data;
-		}
-		
 		/**
-		 * Return count of unreaded messages
+		 * Find user by his nickname
 		 *
-		 * @return int
+		 * @param $nickname
+		 * @return User|null
 		 */
-		public function unreadedMessages(): int {
-			
-			return Message::where('unreaded', 1)->where('recipient_id', $this->id)->get()->count();
-		}
-		
-		public function owns($apartment_slug): bool {
-			
-			return $this->apartments()->where('slug', $apartment_slug)->get()->count();
-		}
-		
 		public static function findByNickname($nickname): ?self {
 			
 			return self::where('nickname', $nickname)->first();
 		}
 		
+		public function hasUnreadedMessages(): bool {
+			
+			return Message::where('recipient_id', $this->id)
+			  ->where('unreaded', 1)->where(
+				function ($query) {
+					
+					$query->where('visible_for', null)->orWhere('visible_for', $this->id);
+				})->get()->count();
+		}
 	}
