@@ -108,7 +108,12 @@
 			return self::where('nickname', $nickname)->first();
 		}
 		
-		public function hasUnreadedMessages(): bool {
+		/**
+		 * Return the number of unreaded messages for the current user
+		 *
+		 * @return bool
+		 */
+		public function unreadedMessages(): int {
 			
 			return Message::where('recipient_id', $this->id)
 			  ->where('unreaded', 1)->where(
