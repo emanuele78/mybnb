@@ -19,16 +19,12 @@ __webpack_require__.r(__webpack_exports__);
 sendRequest();
 
 function sendRequest() {
-  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint;
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{apartment}', $('#current_apartment').data('apartment')).replace('{thread}', $('#current_apartment').data('thread'));
   $.ajax(url, {
     method: 'GET',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    data: {
-      'apartment': $('#current_apartment').data('apartment'),
-      'with': $('#other_user').data('other_user')
     },
     success: function success(data) {
       printResults(data);
@@ -45,11 +41,15 @@ function sendRequest() {
 
 function printResults(data) {
   var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($('#message-template').html());
-  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('ifCond', function (sender, options) {
-    return sender === data.me ? options.fn(this) : options.inverse(this);
+  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('ifCond', function (message, options) {
+    if ('unreaded' in message) {
+      return options.fn(this);
+    }
+
+    return options.inverse(this);
   });
   handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('senderName', function (sender) {
-    return sender === data.me ? 'Tu' : sender;
+    return sender === data.thread_for_user ? 'Tu' : sender;
   });
   $('.custom_container_body').html(template(data.messages));
 }

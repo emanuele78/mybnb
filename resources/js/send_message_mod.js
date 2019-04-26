@@ -7,9 +7,13 @@ import PROJECT_MODULE from "./app";
  */
 const HANDLE_MESSAGE = {
 
-    send: function (apartment, message, token, callback) {
-        performRequest(apartment, message, token, callback);
+    sendMessageToApartment: function (apartment, message, token, callback) {
+        performRequestForApartment(apartment, message, token, callback);
+    },
+    sendMessageToThread: function (apartment, message, token, callback) {
+        performRequestForThread(apartment, message, token, callback);
     }
+
 };
 
 /**
@@ -19,9 +23,30 @@ const HANDLE_MESSAGE = {
  * @param token
  * @param callback
  */
-function performRequest(apartment, message, token, callback) {
+function performRequestForApartment(apartment, message, token, callback) {
 
     $.ajax(PROJECT_MODULE.messagesEndpoint.replace('{apartment}', apartment), {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': token
+        },
+        success: function () {
+            callback({'success': true});
+        },
+        data: {
+            'apartment_id': apartment,
+            'body': message,
+        },
+        error: function (error) {
+            console.log(error);
+            callback({'success': false});
+        }
+    });
+}
+
+function performRequestForThread(apartment, message, token, callback) {
+    $.ajax(PROJECT_MODULE.threadEndpoint.replace('{apartment}', apartment), {
         method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',

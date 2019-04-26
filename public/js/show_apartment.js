@@ -81,7 +81,7 @@ $('#submit_message').click(function (e) {
   textArea.removeClass('is-invalid');
   var apartment = $("#message_apartment_slug").val();
   $(this).attr('disabled', 'disabled');
-  _send_message_mod__WEBPACK_IMPORTED_MODULE_2__["default"].send(apartment, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
+  _send_message_mod__WEBPACK_IMPORTED_MODULE_2__["default"].sendMessageToApartment(apartment, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
     if (response.success) {
       $('#message_wrapper').removeClass('alert-danger');
       $('#message_wrapper').addClass('alert-success');

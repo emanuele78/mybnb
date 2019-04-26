@@ -3,16 +3,18 @@
 	namespace App\Http\Controllers\Api;
 	
 	use App\Apartment;
-	use App\Message;
 	use App\Thread;
-	use App\User;
-	use Illuminate\Http\Request;
 	use App\Http\Controllers\Controller;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Validation\Rule;
 	
 	class ApartmentThreadController extends Controller {
 		
+		/**
+		 * Return apartment threads grouped by apartment or all the apartments to which user asked for info
+		 *
+		 * @return array
+		 */
 		public function index() {
 			
 			$validated = request()->validate(['show_by' => ['required', Rule::in(['my_apartment', 'other_apartments'])]]);
@@ -24,32 +26,25 @@
 		}
 		
 		/**
-		 * Show a thread between 2 users
+		 * Return all the exchanged messages between two user in a thread
 		 *
-		 * @param Request $request
+		 * @param Apartment $apartment
+		 * @param Thread $thread
 		 * @return array
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
 		 */
-		public function show(Request $request) {
+		public function show(Thread $thread) {
 			
-			$validated = $request->validate(
-			  [
-				'apartment' => 'bail|required|exists:apartments,slug',
-				'with' => 'bail|exists:users,nickname',
-			  ]);
-			$apartment = Apartment::findBySlug($validated['apartment']);
-			$currentUser = Auth::user();
-			if ($currentUser->owns($apartment->slug)) {
-				//user is the owner
-				$other_user = User::findByNickname($validated['with']);
-				$thread = Message::thread($apartment, $apartment->owner(), $other_user);
-			} else {
-				//user is NOT the owner
-				$thread = Message::thread($apartment, $apartment->owner(), $currentUser);
-			}
-			$data = [
-			  'me' => $currentUser->nickname,
-			  'messages' => $thread
-			];
-			return $data;
+			$this->authorize('view', $thread);
+			//			return Thread::getThreadDataFor($thread->reference_id, Auth::user()->id);
+			return $thread->getMessages(Auth::user());
+			
+		}
+		
+		/**
+		 * Store new message sent from a thread
+		 */
+		public function store() {
+		
 		}
 	}

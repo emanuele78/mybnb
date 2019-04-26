@@ -5,16 +5,12 @@ import MESSAGE_MODULE from "./send_message_mod";
 sendRequest();
 
 function sendRequest() {
-    let url = PROJECT_MODULE.threadEndpoint;
+    let url = PROJECT_MODULE.threadEndpoint.replace('{apartment}', $('#current_apartment').data('apartment')).replace('{thread}', $('#current_apartment').data('thread'));
     $.ajax(url, {
         method: 'GET',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            'apartment': $('#current_apartment').data('apartment'),
-            'with': $('#other_user').data('other_user')
         },
         success: function (data) {
             printResults(data);
@@ -31,11 +27,14 @@ function sendRequest() {
 
 function printResults(data) {
     let template = Handlebars.compile($('#message-template').html());
-    Handlebars.registerHelper('ifCond', function (sender, options) {
-        return sender === data.me ? options.fn(this) : options.inverse(this);
+    Handlebars.registerHelper('ifCond', function (message, options) {
+        if ('unreaded' in message) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
     });
     Handlebars.registerHelper('senderName', function (sender) {
-        return sender === data.me ? 'Tu' : sender;
+        return sender === data.thread_for_user ? 'Tu' : sender;
     });
     $('.custom_container_body').html(template(data.messages));
 }

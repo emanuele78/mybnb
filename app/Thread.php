@@ -10,6 +10,16 @@
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		
 		/**
+		 * Set key for route model binding
+		 *
+		 * @return string
+		 */
+		public function getRouteKeyName() {
+			
+			return 'reference_id';
+		}
+		
+		/**
 		 * Eloquent relationship
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -171,20 +181,18 @@
 		}
 		
 		/**
-		 * Show all the visible (not deleted) messages for the given thread/user
+		 * Show all the visible (not deleted) messages for the given user
 		 *
-		 * @param string $thread_reference
-		 * @param int $user_id
+		 * @param User $user
 		 * @return array
 		 */
-		public static function showMessages(string $thread_reference, int $user_id): array {
+		public function getMessages(User $user): array {
 			
-			$thread = Thread::where('reference_id', $thread_reference)
-			  ->whereHas(
-				'messages', function ($query) use ($user_id) {
-				  
-				  $query->where('visible_for', $user_id)->orWhere('visible_for', null);
-			  })
+			$thread = $this->whereHas(
+			  'messages', function ($query) use ($user) {
+				
+				$query->where('visible_for', $user->id)->orWhere('visible_for', null);
+			})
 			  ->with(
 				['apartment.user', 'messages.sender', 'messages.recipient', 'messages' => function ($query) {
 					
@@ -196,13 +204,13 @@
 			$response =
 			  [
 				'thread_reference' => $thread[0]['reference_id'],
-				'thread_for_user' => User::find($user_id)->nickname,
-				'created_at' => $thread[0]['created_at'],
-				'last_message' => $thread[0]['updated_at'],
-				'apartment_title' => $thread[0]['apartment']['title'],
-				'apartment_slug' => $thread[0]['apartment']['slug'],
-				'apartment_image' => $thread[0]['apartment']['main_image'],
-				'apartment_owner' => $thread[0]['apartment']['user']['nickname'],
+				'thread_for_user' => $user->nickname,
+//				'created_at' => $thread[0]['created_at'],
+//				'last_message' => $thread[0]['updated_at'],
+//				'apartment_title' => $thread[0]['apartment']['title'],
+//				'apartment_slug' => $thread[0]['apartment']['slug'],
+//				'apartment_image' => $thread[0]['apartment']['main_image'],
+//				'apartment_owner' => $thread[0]['apartment']['user']['nickname'],
 				'messages' => [],
 			  ];
 			foreach ($thread[0]['messages'] as $message) {
@@ -213,12 +221,34 @@
 					'body' => $message['body'],
 					'sent_at' => $message['created_at'],
 				  ];
-				if ($message['sender_id'] == $response['thread_for_user']) {
+				if ($message['sender_id'] == $user->id) {
 					$message_item['unreaded'] = $message['unreaded'];
 				}
 				$response['messages'][] = $message_item;
 			}
 			return $response;
+		}
+		
+		public static function getThreadDataFor(string $reference, int $user_id): ?array {
+			
+			$thread = Thread::where('reference_id', $reference)->with(['apartment.user', 'withUser'])->get()->first();
+			if (!$thread) {
+				//not found
+				return null;
+			}
+			if ($thread->with_user_id != $user_id && $thread->apartment->user_id != $user_id) {
+				//unauthorized
+				return null;
+			}
+			return [
+			  'thread_reference' => $thread->reference_id,
+			  'apartment_title' => $thread->apartment->title,
+			  'apartment_image' => $thread->apartment->main_image,
+			  'apartment_slug' => $thread->apartment->slug,
+			  'current_user_is_owner' => $thread->apartment->user_id == $user_id ?: false,
+			  'apartment_owner' => $thread->apartment->user->nickname,
+			  'with_user' => $thread->withuser->nickname,
+			];
 		}
 		
 	}

@@ -145,8 +145,6 @@
                             <div class="row">
                                 <div class="col-12">
                                     <input type="hidden" id="message_apartment_slug" value="{{$apartment->slug}}">
-                                    <input type="hidden" id="message_sender_nickname" value="{{auth()->user()->nickname}}">
-                                    <input type="hidden" id="message_recipient_nickname" value="{{$apartment->user->nickname}}">
                                     <div class="form-group">
                                         <label for="body">Invia un messaggio al proprietario, {{$apartment->user->nickname}}</label>
                                         <textarea class="form-control" id="body" rows="6" name="body" required placeholder="Scrivi il tuo messaggio"></textarea>

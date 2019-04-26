@@ -61414,7 +61414,7 @@ var PROJECT_CONSTANTS = {
   bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
   messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/messages',
   messagesDashboardEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
-  threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/threads/thread'
+  threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/threads/{thread}'
 };
 
 if (false) {}
@@ -61716,8 +61716,11 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var HANDLE_MESSAGE = {
-  send: function send(apartment, message, token, callback) {
-    performRequest(apartment, message, token, callback);
+  sendMessageToApartment: function sendMessageToApartment(apartment, message, token, callback) {
+    performRequestForApartment(apartment, message, token, callback);
+  },
+  sendMessageToThread: function sendMessageToThread(apartment, message, token, callback) {
+    performRequestForThread(apartment, message, token, callback);
   }
 };
 /**
@@ -61728,7 +61731,7 @@ var HANDLE_MESSAGE = {
  * @param callback
  */
 
-function performRequest(apartment, message, token, callback) {
+function performRequestForApartment(apartment, message, token, callback) {
   $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint.replace('{apartment}', apartment), {
     method: 'POST',
     headers: {
@@ -61746,6 +61749,31 @@ function performRequest(apartment, message, token, callback) {
     },
     error: function error(_error) {
       console.log(_error);
+      callback({
+        'success': false
+      });
+    }
+  });
+}
+
+function performRequestForThread(apartment, message, token, callback) {
+  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{apartment}', apartment), {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-TOKEN': token
+    },
+    success: function success() {
+      callback({
+        'success': true
+      });
+    },
+    data: {
+      'apartment_id': apartment,
+      'body': message
+    },
+    error: function error(_error2) {
+      console.log(_error2);
       callback({
         'success': false
       });

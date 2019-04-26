@@ -66,7 +66,7 @@ $('#submit_message').click(function (e) {
     textArea.removeClass('is-invalid');
     let apartment = $("#message_apartment_slug").val();
     $(this).attr('disabled', 'disabled');
-    MESSAGE_MODULE.send(apartment, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
+    MESSAGE_MODULE.sendMessageToApartment(apartment, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
         if (response.success) {
             $('#message_wrapper').removeClass('alert-danger');
             $('#message_wrapper').addClass('alert-success');

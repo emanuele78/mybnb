@@ -34,7 +34,7 @@
 		  Route::post('/clienti/registrazione', 'CustomerController@store')->name('save_customer');
 		  //show messages dashboard
 		  Route::get('/conversazioni', 'ApartmentThreadController@index')->name('message_dashboard');
-		  //show thread
+		  //show a single thread
 		  Route::get('/conversazioni/conversazione', 'ApartmentThreadController@show')->name('show_thread');
 	  }
 	);
@@ -47,7 +47,8 @@
 	
 	Route::get(
 	  '/test', function () {
+
+		$t = \App\Thread::find(1);
+		return $t->getMessages(App\User::find(2));
 		
-		$user_id = 2;
-		return \App\Thread::test($user_id);
 	});
