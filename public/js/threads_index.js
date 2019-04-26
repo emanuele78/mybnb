@@ -29,8 +29,6 @@ function sendRequest() {
       'show_by': $('.dropdown-item.active').data('type')
     },
     success: function success(data) {
-      console.log(data); // return;
-
       if (data.length) {
         printResults(data);
       } else {

@@ -16,8 +16,6 @@ function sendRequest() {
             'show_by': $('.dropdown-item.active').data('type')
         },
         success: function (data) {
-            console.log(data);
-            // return;
             if (data.length) {
                 printResults(data);
             } else {

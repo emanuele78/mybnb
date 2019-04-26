@@ -163,6 +163,7 @@
 					'apartment_owner' => $thread['apartment']['user']['nickname'],
 					'created_at' => $thread['created_at'],
 					'last_message' => $thread['updated_at'],
+					'has_new_messages' => self::hasNewMessages($thread['id'], $user_id),
 				  ];
 				$userThreads[] = $threadEntry;
 			}

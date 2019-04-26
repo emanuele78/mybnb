@@ -89,23 +89,23 @@
     <div class="card mt-3">
         <div class="row no-gutters">
             <div class="col-4">
-                <img src="{{asset('img/apartments')}}/@{{image}}" class="card-img" alt="">
+                <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
             </div>
             <div class="col-8">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
                             <small class="card-text text-muted mb-0">Conversazioni per l'appartamento</small>
-                            <p class="card-text mb-0">@{{title}}</p>
-                            @{{#if this.unreaded_messages}}
+                            <p class="card-text mb-0">@{{apartment_title}}</p>
+                            @{{#if this.has_new_messages}}
                             <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                             @{{/if}}
                         </div>
                         <div class="col-4 text-right">
                             <small class="card-text text-muted">Proprietario</small>
-                            <p class="card-text mb-0">@{{owner}}</p>
-                            <a href="{{route('show_thread').'?apartment='}}@{{this.slug}}" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
-                            <button href="{{route('show_thread').'?apartment='}}@{{this.slug}}" class="btn btn-danger mt-2" aria-pressed="true">Elimina conversazione</button>
+                            <p class="card-text mb-0">@{{apartment_owner}}</p>
+                            <a href="{{route('show_thread').'?reference='}}@{{this.thread_reference}}" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
+                            <button href="#" class="btn btn-danger mt-2" aria-pressed="true">Elimina conversazione</button>
                         </div>
                     </div>
                 </div>
