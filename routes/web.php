@@ -47,27 +47,53 @@
 	
 	Route::get(
 	  '/test', function () {
-		$results = App\Message::where('sender_id', 1)->with('apartment.user')
-		  ->whereHas('apartment.user',function ($query){
-		  	$query->where('nickname','<>','Melyssa');
-		  })
-		  ->get();
-		return $results;
-		$data = [];
-		foreach ($results as $result) {
-			$index = array_search($result->apartment->slug, array_column($data, 'slug'));
-			if ($index === false) {
-				$data[] =
-				  [
-					'slug' => $result->apartment->slug,
-					'image' => $result->apartment->main_image,
-					'title' => $result->apartment->title,
-					'owner' => $result->recipient_id,
-					'unreaded_messages' => $result->unreaded,
-				  ];
-			} else {
-				$data[$index]['unreaded_messages'] = $result->unreaded ?: $data[$index]['unreaded_messages'];
-			}
-		}
-		return $data;
+		
+		//only user apartments with messages
+		$user = App\User::find(1);
+		//		$apartmentsWithMessages = $user->apartments()->has('messages')->with('messages')->orderBy('title')->get();
+		//		$results = [];
+		//		foreach ($apartmentsWithMessages as $key => $apartmentsWithMessage) {
+		//			$results[] = [
+		//			  'slug' => $apartmentsWithMessage->slug,
+		//			  'image' => $apartmentsWithMessage->main_image,
+		//			  'title' => $apartmentsWithMessage->title,
+		//			];
+		//			$messages = [];
+		//			$unreaded_messages = false;
+		//			foreach ($apartmentsWithMessage->messages as $key1 => $message) {
+		//				//only messages visible for everyone or current user
+		//				if ($message->visible_for == null || $message->visible_for == $user->id) {
+		//					//only messages sent by other users
+		//					if ($user->nickname != $message->sender_id) {
+		//						$index = array_search($message->sender_id, array_column($messages, 'sender'));
+		//						if ($index === false) {
+		//							$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
+		//						} else {
+		//							$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
+		//						}
+		//					}
+		//					$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
+		//				}
+		//			}
+		//			if (empty($messages)) {
+		//				unset($results[$key]);
+		//			} else {
+		//				$results[$key]['messages'] = $messages;
+		//				$results[$key]['unreaded_messages'] = $unreaded_messages;
+		//			}
+		//		}
+		//		return $results;
+		
+		//appartamento corrente
+		return \App\Message::where('apartment_id', 9)->whereHas(
+		  'apartment.user', function ($query) {
+			
+			//di cui l'utente corrente è proprietario
+			$query->where('id', 1);
+		})->where(
+		  function ($query) {
+			  
+		  	//esiste questo utente con cui ha scambiato messaggi
+			  $query->where('sender_id', 8)->orWhere('recipient_id', 8);
+		  })->get()->count();
 	});

@@ -102,20 +102,27 @@
 				$messages = [];
 				$unreaded_messages = false;
 				foreach ($apartmentsWithMessage->messages as $key1 => $message) {
-					//only messages sent by other users
-					if ($this->nickname != $message->sender_id) {
-						$index = array_search($message->sender_id, array_column($messages, 'sender'));
-						if ($index === false) {
-							$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
-						} else {
-							$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
+					//only messages visible for everyone or current user
+					if ($message->visible_for == null || $message->visible_for == $this->id) {
+						//only messages sent by other users
+						if ($this->nickname != $message->sender_id) {
+							$index = array_search($message->sender_id, array_column($messages, 'sender'));
+							if ($index === false) {
+								$messages[] = ['sender' => $message->sender_id, 'unreaded' => $message->unreaded];
+							} else {
+								$messages[$index]['unreaded'] = $messages[$index]['unreaded'] ?: $message->unreaded;
+							}
 						}
+						$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
 					}
-					$unreaded_messages = $messages[$index]['unreaded'] ? true : $unreaded_messages;
-					
 				}
-				$results[$key]['messages'] = $messages;
-				$results[$key]['unreaded_messages'] = $unreaded_messages;
+				if (empty($messages)) {
+					//this apartments has messages not visible by current user
+					unset($results[$key]);
+				} else {
+					$results[$key]['messages'] = $messages;
+					$results[$key]['unreaded_messages'] = $unreaded_messages;
+				}
 			}
 			return $results;
 		}
@@ -132,7 +139,7 @@
 		
 		public function messagesSentForOtherApartments() {
 			
-			$results = Message::where('sender_id', $this->id)
+			$messages = Message::where('sender_id', $this->id)
 			  ->with('apartment.user')
 			  ->whereHas(
 				'apartment.user', function ($query) {
@@ -141,19 +148,22 @@
 			  })
 			  ->get();
 			$data = [];
-			foreach ($results as $result) {
-				$index = array_search($result->apartment->slug, array_column($data, 'slug'));
-				if ($index === false) {
-					$data[] =
-					  [
-						'slug' => $result->apartment->slug,
-						'image' => $result->apartment->main_image,
-						'title' => $result->apartment->title,
-						'owner' => $result->recipient_id,
-						'unreaded_messages' => $result->unreaded,
-					  ];
-				} else {
-					$data[$index]['unreaded_messages'] = $result->unreaded ?: $data[$index]['unreaded_messages'];
+			foreach ($messages as $message) {
+				//only messages visible for everyone or current user
+				if ($message->visible_for == null || $message->visible_for == $this->id) {
+					$index = array_search($message->apartment->slug, array_column($data, 'slug'));
+					if ($index === false) {
+						$data[] =
+						  [
+							'slug' => $message->apartment->slug,
+							'image' => $message->apartment->main_image,
+							'title' => $message->apartment->title,
+							'owner' => $message->recipient_id,
+							'unreaded_messages' => $message->unreaded,
+						  ];
+					} else {
+						$data[$index]['unreaded_messages'] = $message->unreaded ?: $data[$index]['unreaded_messages'];
+					}
 				}
 			}
 			return $data;

@@ -10,7 +10,7 @@
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
 		//		protected $visible = ['unreaded', 'sender', 'apartment', 'sender_id', 'recipient_id'];
-		protected $hidden = ['id','apartment_id'];
+		protected $hidden = ['id', 'apartment_id'];
 		
 		public static function add($data) {
 			
@@ -85,5 +85,20 @@
 				})
 			  ->with('apartment.user')
 			  ->orderBy('created_at')->get();
+		}
+		
+		public static function threadExist($apartment_id, $apartment_owner_id, $other_user_id): bool {
+			
+			return \App\Message::where('apartment_id', $apartment_id)->whereHas(
+			  'apartment.user', function ($query) use ($apartment_owner_id) {
+				
+				//where the owner is
+				$query->where('id', $apartment_owner_id);
+			})->where(
+			  function ($query) use ($other_user_id) {
+				  
+				  //where exists a thread with
+				  $query->where('sender_id', $other_user_id)->orWhere('recipient_id', $other_user_id);
+			  })->get()->count();
 		}
 	}
