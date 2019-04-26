@@ -18,7 +18,7 @@ sendRequest();
 registerListenerForVisualizationDropdown();
 
 function sendRequest() {
-  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint;
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].messagesDashboardEndpoint;
   $.ajax(url, {
     method: 'GET',
     headers: {
@@ -29,6 +29,8 @@ function sendRequest() {
       'show_by': $('.dropdown-item.active').data('type')
     },
     success: function success(data) {
+      console.log(data); // return;
+
       if (data.length) {
         printResults(data);
       } else {
@@ -66,7 +68,7 @@ function registerListenerForAccordion() {
 
 function printResults(data) {
   if ($('.dropdown-item.active').data('type') === 'my_apartment') {
-    generateHtml(data, $("#apartments-template"));
+    generateHtml(data, $("#own-apartments-template"));
     registerListenerForAccordion();
   } else {
     generateHtml(data, $("#other-apartments-template"));

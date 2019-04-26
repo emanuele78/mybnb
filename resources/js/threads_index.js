@@ -5,7 +5,7 @@ sendRequest();
 registerListenerForVisualizationDropdown();
 
 function sendRequest() {
-    let url = PROJECT_MODULE.messagesEndpoint;
+    let url = PROJECT_MODULE.messagesDashboardEndpoint;
     $.ajax(url, {
         method: 'GET',
         headers: {
@@ -16,6 +16,8 @@ function sendRequest() {
             'show_by': $('.dropdown-item.active').data('type')
         },
         success: function (data) {
+            console.log(data);
+            // return;
             if (data.length) {
                 printResults(data);
             } else {
@@ -53,7 +55,7 @@ function registerListenerForAccordion() {
 
 function printResults(data) {
     if ($('.dropdown-item.active').data('type') === 'my_apartment') {
-        generateHtml(data, $("#apartments-template"));
+        generateHtml(data, $("#own-apartments-template"));
         registerListenerForAccordion();
     } else {
         generateHtml(data, $("#other-apartments-template"));

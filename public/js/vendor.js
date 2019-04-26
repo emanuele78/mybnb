@@ -61413,6 +61413,7 @@ var PROJECT_CONSTANTS = {
   paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
   bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
   messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/messages',
+  messagesDashboardEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
   threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/threads/thread'
 };
 

@@ -29,8 +29,8 @@
 		  
 		  //add new message
 		  Route::post('/apartments/{apartment}/messages', 'Api\MessageController@store');
-		  //list user message threads
-		  Route::get('/messages', 'Api\MessageController@index');
+		  //list messages received for own apartments and sent for other apartments
+		  Route::get('/messages', 'Api\ApartmentThreadController@index');
 		  //get token for the transaction
 		  Route::get('/payments/token', 'PaymentTokenController@show');
 		  //add new transaction

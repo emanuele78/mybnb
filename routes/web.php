@@ -48,14 +48,6 @@
 	Route::get(
 	  '/test', function () {
 		
-		$thread_reference = '6dae786a-1172-4c00-9c29-eff8e492e150';
-		
 		$user_id = 2;
-		
-		
-		
-		
-		return \App\Thread::showMessages($thread_reference,$user_id);
+		return \App\Thread::test($user_id);
 	});
-	
-	Route::get('/test2/{apartment}/test', 'Api\MessageController@store');

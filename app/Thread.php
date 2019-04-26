@@ -81,7 +81,6 @@
 				
 				$query->where('visible_for', $user_id)->orWhere('visible_for', null);
 			})->with(['apartment', 'withUser'])->get()->groupBy('apartment_id');
-			
 			$apartmentsThreads = [];
 			foreach ($groupedApartments->toArray() as $threadsForApartment) {
 				$apartmentEntry =
@@ -89,21 +88,54 @@
 					'apartment_slug' => $threadsForApartment[0]['apartment']['slug'],
 					'apartment_title' => $threadsForApartment[0]['apartment']['title'],
 					'apartment_image' => $threadsForApartment[0]['apartment']['main_image'],
+					'apartment_has_new_messages' => false,
 					'threads' => [],
 				  ];
 				foreach ($threadsForApartment as $thread) {
+					$hasNewMessages = self::hasNewMessages($thread['id'], $user_id);
 					$apartmentEntry['threads'][] =
 					  [
 						'thread_reference' => $thread['reference_id'],
 						'with_user' => $thread['with_user']['nickname'],
-						'created_at' => $thread['created_at'],
-						'last_message' => $thread['updated_at'],
+						'started_at' => self::dateTimeLocale($thread['created_at']),
+						'last_message' => self::dateTimeLocale($thread['updated_at']),
+						'has_new_messages' => $hasNewMessages,
 					  ];
+					$apartmentEntry['apartment_has_new_messages'] = $hasNewMessages ? $hasNewMessages : $apartmentEntry['apartment_has_new_messages'];
 				}
 				$apartmentsThreads[] = $apartmentEntry;
 			}
 			
 			return $apartmentsThreads;
+		}
+		
+		/**
+		 * Check if given thread for the given user has new messages
+		 *
+		 * @param int $thread_id
+		 * @param int $user_id
+		 * @return bool
+		 */
+		private static function hasNewMessages(int $thread_id, int $user_id): bool {
+			
+			return Message::where('thread_id', $thread_id)->where('recipient_id', $user_id)->where(
+			  function ($query) use ($user_id) {
+				  
+				  $query->where('visible_for', $user_id)->orWhere('visible_for', null);
+			  })->where('unreaded', 1)->get()->count();
+		}
+		
+		/**
+		 * Utility function to covert date time in locale
+		 *
+		 * @param $value
+		 * @return string
+		 */
+		private static function dateTimeLocale($value) {
+			
+			$d = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value);
+			$d->setTimezone('Europe/Rome');
+			return $d->format('d/m/Y H:i');
 		}
 		
 		/**
@@ -187,4 +219,5 @@
 			}
 			return $response;
 		}
+		
 	}

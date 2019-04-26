@@ -35,44 +35,45 @@
     </div>
 </script>
 
-<script id="apartments-template" type="text/x-handlebars-template">
+<script id="own-apartments-template" type="text/x-handlebars-template">
     @{{#each this as |apartment|}}
     <div class="card mt-3">
         <div class="row no-gutters">
             <div class="col-4">
-                <img src="{{asset('img/apartments')}}/@{{image}}" class="card-img" alt="">
+                <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
             </div>
             <div class="col-8">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
                             <small class="card-text text-muted">Conversazioni per l'appartamento</small>
-                            <p class="card-text mb-0">@{{title}}</p>
-                            @{{#if this.unreaded_messages}}
+                            <p class="card-text mb-0">@{{apartment_title}}</p>
+                            @{{#if this.apartment_has_new_messages}}
                             <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                             @{{/if}}
                         </div>
                         <div class="col-4 text-right">
-                            <button class="btn btn-primary toggle_text" data-toggle="collapse" data-target="#@{{slug}}" aria-expanded="true">Mostra conversazioni</button>
+                            <button class="btn btn-primary toggle_text" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Mostra conversazioni</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="@{{slug}}" class="collapse">
+        <div id="@{{apartment_slug}}" class="collapse">
             <div class="card-body">
-                @{{#each this.messages}}
+                @{{#each this.threads}}
                 <hr>
                 <div class="row">
                     <div class="col-3">
                         <small class="card-text text-muted">Conversazione con</small>
-                        <p class="card-text mb-0">@{{this.sender}}</p>
-                        @{{#if this.unreaded}}
+                        <p class="card-text mb-0">@{{this.with_user}}</p>
+                        <small class="card-text text-muted">Ultimo messaggio il @{{this.last_message}}</small>
+                        @{{#if this.has_new_messages}}
                         <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                         @{{/if}}
                     </div>
                     <div class="col-9 text-right">
-                        <a href="{{route('show_thread').'?apartment='}}@{{@apartment.slug}}{{'&with='}}@{{this.sender}}" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
+                        <a href="{{route('show_thread').'?reference='}}@{{this.thread_reference}}" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
                         <a href="#" class="btn btn-danger" role="button" aria-pressed="true">Elimina conversazione</a>
                     </div>
                 </div>

@@ -49,6 +49,7 @@
 			return $this->belongsTo('App\User', 'recipient_id', 'id');
 		}
 		
+		//todo check if useful
 		/**
 		 * Casting attribute to local timezone
 		 *
