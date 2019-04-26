@@ -12,7 +12,7 @@ const PROJECT_CONSTANTS = {
     addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
     paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
     bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
-    messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
+    messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/messages',
     threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/threads/thread',
 
 };
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.addressEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/apartments/{apartment}/address';
     PROJECT_CONSTANTS.paymentTokenEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/payments/token';
     PROJECT_CONSTANTS.bookingPaymentEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/booking/payment';
-    PROJECT_CONSTANTS.messagesEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/messages';
+    PROJECT_CONSTANTS.messagesEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/apartments/{apartment}/messages';
     PROJECT_CONSTANTS.threadEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/threads/thread';
 }
 export default PROJECT_CONSTANTS;

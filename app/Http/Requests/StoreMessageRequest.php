@@ -13,7 +13,9 @@
 		 */
 		public function authorize() {
 			
-			return true;
+			//user can't send message to himself - anyway I use this check only to prevent some sort of hacking from user
+			$apartment = $this->route('apartment');
+			return $apartment->user_id != $this->user()->id;
 		}
 		
 		/**
@@ -25,8 +27,6 @@
 			
 			return [
 			  'apartment_id' => 'bail|required|exists:apartments,slug',
-			  'sender_id' => 'bail|required|exists:users,nickname',
-			  'recipient_id' => 'bail|required|exists:users,nickname|different:sender_id',
 			  'body' => 'bail|required|min:10|max:4000',
 			];
 		}

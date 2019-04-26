@@ -65,10 +65,8 @@ $('#submit_message').click(function (e) {
     }
     textArea.removeClass('is-invalid');
     let apartment = $("#message_apartment_slug").val();
-    let sender = $("#message_sender_nickname").val();
-    let recipient = $("#message_recipient_nickname").val();
     $(this).attr('disabled', 'disabled');
-    MESSAGE_MODULE.send(apartment, sender, recipient, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
+    MESSAGE_MODULE.send(apartment, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
         if (response.success) {
             $('#message_wrapper').removeClass('alert-danger');
             $('#message_wrapper').addClass('alert-success');

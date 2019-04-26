@@ -28,7 +28,7 @@
 	  function () {
 		  
 		  //add new message
-		  Route::post('/messages', 'Api\MessageController@store');
+		  Route::post('/apartments/{apartment}/messages', 'Api\MessageController@store');
 		  //list user message threads
 		  Route::get('/messages', 'Api\MessageController@index');
 		  //get token for the transaction

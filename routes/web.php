@@ -57,3 +57,5 @@
 		
 		return \App\Thread::showMessages($thread_reference,$user_id);
 	});
+	
+	Route::get('/test2/{apartment}/test', 'Api\MessageController@store');

@@ -61412,7 +61412,7 @@ var PROJECT_CONSTANTS = {
   addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
   paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
   bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
+  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/messages',
   threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/threads/thread'
 };
 
@@ -61715,22 +61715,20 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var HANDLE_MESSAGE = {
-  send: function send(apartment, sender, recipient, message, token, callback) {
-    performRequest(apartment, sender, recipient, message, token, callback);
+  send: function send(apartment, message, token, callback) {
+    performRequest(apartment, message, token, callback);
   }
 };
 /**
  * Perform the request to send a message
  * @param apartment
- * @param sender
- * @param recipient
  * @param message
  * @param token
  * @param callback
  */
 
-function performRequest(apartment, sender, recipient, message, token, callback) {
-  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint, {
+function performRequest(apartment, message, token, callback) {
+  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].messagesEndpoint.replace('{apartment}', apartment), {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
@@ -61743,8 +61741,6 @@ function performRequest(apartment, sender, recipient, message, token, callback) 
     },
     data: {
       'apartment_id': apartment,
-      'sender_id': sender,
-      'recipient_id': recipient,
       'body': message
     },
     error: function error(_error) {
