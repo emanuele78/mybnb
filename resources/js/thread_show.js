@@ -73,6 +73,6 @@ $('#delete_button').click(function () {
 /**
  * Listener for modal delete button
  */
-$('#confirm_delete_button').click(function () {
+$('#confirm_modal_button').click(function () {
     $('#delete_message').modal('hide');
 });

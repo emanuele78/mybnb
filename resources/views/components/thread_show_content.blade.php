@@ -33,24 +33,12 @@
         <button id="submit_message" class="btn btn-primary pl-5 pr-5 align-self-start mt-2">Invia</button>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="delete_message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cancellazione</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">Confermi la cancellazione di questa conversazione?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-primary" id="confirm_delete_button">Cancella</button>
-            </div>
-        </div>
-    </div>
-</div>
+@component('components.modal_message')
+    @slot('modal_title','Conferma cancellazione')
+    @slot('modal_dismiss_button_text','Annulla')
+    @slot('modal_confirm_button_text','Cancella')
+    Confermi la cancellazione di questa convarsazione?
+@endcomponent
 <script id="message-template" type="text/x-handlebars-template">
     @{{#each this}}
     <div class="message">
