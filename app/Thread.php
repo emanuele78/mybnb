@@ -260,9 +260,24 @@
 			Message::add($data);
 		}
 		
+		/**
+		 * Set messages as read for the given user
+		 *
+		 * @param User $user
+		 */
 		public function setMessagesAsReadForUser(User $user): void {
 			
 			Message::where('thread_id', $this->id)->where('recipient_id', $user->id)->update(['unread' => 0]);
+		}
+		
+		public function deleteThread(User $user): void {
+			
+			//first thing first find the counterpart
+			$counterpart = $user->id == $this->with_user_id ? $this->apartment->user_id : $this->with_user_id;
+			//now assign to thread messages the counterpart id where visible_for is null
+			Message::where('thread_id', $this->id)->whereNull('visible_for')->update(['visible_for' => $counterpart]);
+			//finally delete messages already deleted by counterpart
+			Message::where('thread_id', $this->id)->where('visible_for', $user->id)->delete();
 		}
 		
 	}

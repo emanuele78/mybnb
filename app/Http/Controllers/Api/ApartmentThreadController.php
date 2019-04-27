@@ -55,4 +55,18 @@
 			$thread->addMessage(Auth::user(), $validated['body']);
 			return response()->json(['success' => true], 200);
 		}
+		
+		/**
+		 * Delete a thread
+		 *
+		 * @param Thread $thread
+		 * @return \Illuminate\Http\JsonResponse
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
+		 */
+		public function destroy(Thread $thread) {
+			
+			$this->authorize('delete', $thread);
+			$thread->deleteThread(Auth::user());
+			return response()->json(['success' => true], 200);
+		}
 	}

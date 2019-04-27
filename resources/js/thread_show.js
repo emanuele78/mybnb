@@ -3,8 +3,14 @@ import Handlebars from 'handlebars/dist/cjs/handlebars'
 import MESSAGE_MODULE from "./send_message_mod";
 import MODAL_MESSAGE_MODULE from "./modal_message_mod";
 
+/**
+ * entry point
+ */
 sendRequest();
 
+/**
+ * Send a request to retrieve all messages for the current thread
+ */
 function sendRequest() {
     let url = PROJECT_MODULE.threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
     $.ajax(url, {
@@ -26,6 +32,10 @@ function sendRequest() {
     });
 }
 
+/**
+ * Print thread messages
+ * @param data
+ */
 function printResults(data) {
     let template = Handlebars.compile($('#message-template').html());
     Handlebars.registerHelper('ifCond', function (message, options) {
@@ -63,10 +73,33 @@ $('#submit_message').click(function (e) {
     });
 });
 
+/**
+ * Listener for delete button
+ */
 $('#delete_button').click(function () {
-   MODAL_MESSAGE_MODULE.showModule('cancella-dato', 'annulla-dato', function (data) {
-       console.log("premuto cancella: "+ data);
-   },function(data){
-       console.log("premuto annulla: "+data);
-   });
+    MODAL_MESSAGE_MODULE.showModule(null, null, function () {
+        //user confirms deletion
+        deleteThread();
+    }, null);
 });
+
+/**
+ * Send request to delete current thread
+ */
+function deleteThread() {
+    let url = PROJECT_MODULE.threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
+    $.ajax(url, {
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function () {
+            //go to dashboard
+            window.location.href = $('#back_button').attr('href');
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}

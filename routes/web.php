@@ -49,11 +49,21 @@
 	Route::get(
 	  '/test', function () {
 		
-		$sender = \App\User::find(1);
+		//CURRENT USER
+		$CURRENT_USER = 1;
 		
+		
+		$user = \App\User::find($CURRENT_USER);
+		//current thread
 		$thread = \App\Thread::find(1);
-		return $thread->apartment->user_id;
-		return $sender->id == $thread->with_user_id ? $thread->apartment->userid : $thread->with_user_id;
 		
+		//1 - find the counterpart
+		$counter_part = $user->id == $thread->with_user_id ? $thread->apartment->user_id : $thread->with_user_id;
+		
+		//2 - assign counterpart id to set visible_for where null
+		\App\Message::where('thread_id', $thread->id)->whereNull('visible_for')->update(['visible_for' => $counter_part]);
+		
+		//3 - delete messages already deleted by counterpart
+		\App\Message::where('thread_id', $thread->id)->where('visible_for', $user->id)->delete();
 		
 	});

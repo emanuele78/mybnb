@@ -37,7 +37,9 @@
 		  Route::post('/booking/payment', 'BookingPaymentController@store');
 		  //get all messages for a thread
 		  Route::get('/apartments/threads/{thread}', 'Api\ApartmentThreadController@show');
-		  //store a message sent from a thread
+		  //store new message for a thread
 		  Route::post('/apartments/threads/{thread}', 'Api\ApartmentThreadController@store');
+		  //delete a thread
+		  Route::delete('/apartments/threads/{thread}', 'Api\ApartmentThreadController@destroy');
 	  });
 	

@@ -18,7 +18,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * entry point
+ */
+
 sendRequest();
+/**
+ * Send a request to retrieve all messages for the current thread
+ */
 
 function sendRequest() {
   var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
@@ -40,6 +47,11 @@ function sendRequest() {
     }
   });
 }
+/**
+ * Print thread messages
+ * @param data
+ */
+
 
 function printResults(data) {
   var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($('#message-template').html());
@@ -82,13 +94,37 @@ $('#submit_message').click(function (e) {
     $('#submit_message').removeAttr('disabled');
   });
 });
+/**
+ * Listener for delete button
+ */
+
 $('#delete_button').click(function () {
-  _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showModule('cancella-dato', 'annulla-dato', function (data) {
-    console.log("premuto cancella: " + data);
-  }, function (data) {
-    console.log("premuto annulla: " + data);
-  });
+  _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showModule(null, null, function () {
+    //user confirms deletion
+    deleteThread();
+  }, null);
 });
+/**
+ * Send request to delete current thread
+ */
+
+function deleteThread() {
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
+  $.ajax(url, {
+    method: 'DELETE',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success() {
+      //go to dashboard
+      window.location.href = $('#back_button').attr('href');
+    },
+    error: function error(e) {
+      console.log(e);
+    }
+  });
+}
 
 /***/ }),
 
