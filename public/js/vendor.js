@@ -61698,6 +61698,51 @@ function performRequest(apartment, callback) {
 
 /***/ }),
 
+/***/ "./resources/js/modal_message_mod.js":
+/*!*******************************************!*\
+  !*** ./resources/js/modal_message_mod.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var HANDLE_MODULE_MESSAGE = {
+  showModule: function showModule(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
+    performAction(confirm_data, dismiss_data, confirm_callback, dimiss_callback);
+  }
+};
+
+function performAction(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
+  var modalComponent = $('#modal_message');
+  var confirmButton = $('#confirm_modal_button');
+  var dismissButton = $('#dismiss_modal_button'); //set data
+
+  confirmButton.attr('data-action', confirm_data);
+  dismissButton.attr('data-action', dismiss_data); //set listeners
+
+  confirmButton.off();
+  dismissButton.off();
+  confirmButton.click(function () {
+    modalComponent.modal('hide');
+
+    if (confirm_callback !== null) {
+      confirm_callback($(this).attr('data-action'));
+    }
+  });
+  dismissButton.click(function () {
+    if (dimiss_callback !== null) {
+      dimiss_callback($(this).attr('data-action'));
+    }
+  }); //show modal component
+
+  modalComponent.modal('show');
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (HANDLE_MODULE_MESSAGE);
+
+/***/ }),
+
 /***/ "./resources/js/send_message_mod.js":
 /*!******************************************!*\
   !*** ./resources/js/send_message_mod.js ***!

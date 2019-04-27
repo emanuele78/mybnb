@@ -1,4 +1,4 @@
-<div class="modal fade" id="delete_message" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_message" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,8 +9,8 @@
             </div>
             <div class="modal-body">{{$slot}}</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="dismiss_modal_button" data-dismiss="modal">{{$modal_dismiss_button_text}}</button>
-                <button type="button" class="btn btn-primary" id="confirm_modal_button">{{$modal_confirm_button_text}}</button>
+                <button type="button" class="btn btn-secondary" data-action="" id="dismiss_modal_button" data-dismiss="modal">{{$modal_dismiss_button_text}}</button>
+                <button type="button" class="btn btn-primary" data-action="" id="confirm_modal_button">{{$modal_confirm_button_text}}</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars'
 import MESSAGE_MODULE from "./send_message_mod";
+import MODAL_MESSAGE_MODULE from "./modal_message_mod";
 
 sendRequest();
 
@@ -62,17 +63,10 @@ $('#submit_message').click(function (e) {
     });
 });
 
-/**
- * Listener for delete button
- */
 $('#delete_button').click(function () {
-    //show confirmation message
-    $('#delete_message').modal('show');
-});
-
-/**
- * Listener for modal delete button
- */
-$('#confirm_modal_button').click(function () {
-    $('#delete_message').modal('hide');
+   MODAL_MESSAGE_MODULE.showModule('cancella-dato', 'annulla-dato', function (data) {
+       console.log("premuto cancella: "+ data);
+   },function(data){
+       console.log("premuto annulla: "+data);
+   });
 });

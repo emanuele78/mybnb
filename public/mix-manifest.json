@@ -7,15 +7,16 @@
     "/js/load_address_mod.js": "/js/load_address_mod.js?id=ff780714adb16e34a7fc",
     "/js/load_map_mod.js": "/js/load_map_mod.js?id=0b47846a7d65af75fe52",
     "/js/manifest.js": "/js/manifest.js?id=844cdbfe9e6b6b56ae8f",
+    "/js/modal_message_mod.js": "/js/modal_message_mod.js?id=cc4e1e4676c51600d745",
     "/js/navbar.js": "/js/navbar.js?id=d7b65ead378ab54002c1",
     "/js/payment.js": "/js/payment.js?id=65e94a283992946bb360",
     "/js/send_message_mod.js": "/js/send_message_mod.js?id=7374fa97ef91608f822c",
     "/js/show_apartment.js": "/js/show_apartment.js?id=a019a4ade65b2891de50",
     "/js/show_availability.js": "/js/show_availability.js?id=c5cd722994541cd7db46",
-    "/js/thread_show.js": "/js/thread_show.js?id=34e7bdd521012dc4c152",
+    "/js/thread_show.js": "/js/thread_show.js?id=40b75e31edc39276254e",
     "/js/threads_index.js": "/js/threads_index.js?id=c8b5e8cf042a1cc62e5f",
     "/js/token_processor.js": "/js/token_processor.js?id=14b14dfb31d7e4250aae",
     "/js/user_registration.js": "/js/user_registration.js?id=6a4c4947b7b02bb81593",
-    "/js/vendor.js": "/js/vendor.js?id=02304632670e579758b8",
+    "/js/vendor.js": "/js/vendor.js?id=5f4c96fba6234b4de15e",
     "/css/plain.css": "/css/plain.css?id=e4c542a7f6bf6f74fdd8"
 }

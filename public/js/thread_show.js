@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _send_message_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./send_message_mod */ "./resources/js/send_message_mod.js");
+/* harmony import */ var _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal_message_mod */ "./resources/js/modal_message_mod.js");
+
 
 
 
@@ -80,20 +82,12 @@ $('#submit_message').click(function (e) {
     $('#submit_message').removeAttr('disabled');
   });
 });
-/**
- * Listener for delete button
- */
-
 $('#delete_button').click(function () {
-  //show confirmation message
-  $('#delete_message').modal('show');
-});
-/**
- * Listener for modal delete button
- */
-
-$('#confirm_modal_button').click(function () {
-  $('#delete_message').modal('hide');
+  _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showModule('cancella-dato', 'annulla-dato', function (data) {
+    console.log("premuto cancella: " + data);
+  }, function (data) {
+    console.log("premuto annulla: " + data);
+  });
 });
 
 /***/ }),
