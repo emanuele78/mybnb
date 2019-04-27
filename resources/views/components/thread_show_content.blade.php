@@ -17,7 +17,7 @@
             @endif
             <div class="align-self-end">
                 <button id="delete_button" class="btn btn-danger mt-2">Elimina conversazione</button>
-                <a href="{{route('message_dashboard')}}" id="back_button" class="btn btn-primary mt-2">Indietro</a>
+                <a href="{{route('message_dashboard').'?show_by='.$show_by}}" id="back_button" class="btn btn-primary mt-2">Indietro</a>
             </div>
         </div>
     </div>

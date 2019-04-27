@@ -26,7 +26,7 @@ function sendRequest() {
             console.log(e);
         },
         complete: function () {
-            if ($('.dropdown-item.active').data('type') === 'my_apartment') {
+            if ($('.dropdown-item.active').data('type') === 'my_apartments') {
                 $('.main_message_title').text('Messaggi per i tuoi appartamenti')
             } else {
                 $('.main_message_title').text('Messaggi per altri appartamenti')
@@ -52,7 +52,7 @@ function registerListenerForAccordion() {
 }
 
 function printResults(data) {
-    if ($('.dropdown-item.active').data('type') === 'my_apartment') {
+    if ($('.dropdown-item.active').data('type') === 'my_apartments') {
         generateHtml(data, $("#own-apartments-template"));
         registerListenerForAccordion();
     } else {

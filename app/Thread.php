@@ -205,12 +205,6 @@
 			  [
 				'thread_reference' => $thread[0]['reference_id'],
 				'thread_for_user' => $user->nickname,
-				  //				'created_at' => $thread[0]['created_at'],
-				  //				'last_message' => $thread[0]['updated_at'],
-				  //				'apartment_title' => $thread[0]['apartment']['title'],
-				  //				'apartment_slug' => $thread[0]['apartment']['slug'],
-				  //				'apartment_image' => $thread[0]['apartment']['main_image'],
-				  //				'apartment_owner' => $thread[0]['apartment']['user']['nickname'],
 				'messages' => [],
 			  ];
 			foreach ($thread[0]['messages'] as $message) {
@@ -232,21 +226,12 @@
 		/**
 		 * Return thread info
 		 *
-		 * @param string $reference
 		 * @param int $user_id
-		 * @return array|null
+		 * @return array
 		 */
-		public static function getThreadDataFor(string $reference, int $user_id): ?array {
+		public function getThreadDataFor(int $user_id): array {
 			
-			$thread = Thread::where('reference_id', $reference)->with(['apartment.user', 'withUser'])->get()->first();
-			if (!$thread) {
-				//not found
-				return null;
-			}
-			if ($thread->with_user_id != $user_id && $thread->apartment->user_id != $user_id) {
-				//unauthorized
-				return null;
-			}
+			$thread = Thread::where('reference_id', $this->reference_id)->with(['apartment.user', 'withUser'])->get()->first();
 			return [
 			  'thread_reference' => $thread->reference_id,
 			  'apartment_title' => $thread->apartment->title,

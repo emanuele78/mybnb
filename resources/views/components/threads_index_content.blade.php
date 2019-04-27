@@ -1,7 +1,7 @@
 <div class="container threads_container">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="text-center main_message_title">Messaggi per i tuoi appartamenti</h3>
+            <h3 class="text-center main_message_title"></h3>
         </div>
         <div class="card-body">
             <div class="card-block">
@@ -11,8 +11,8 @@
                             Visualizza conversazioni
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item active" data-type="my_apartment" href="#">Relative ai miei appartamenti</a>
-                            <a class="dropdown-item" data-type="other_apartments" href="#">Relative ad altri appartamenti</a>
+                            <a class="dropdown-item {{$show_by == 'my_apartments' ? 'active':null}}" data-type="my_apartments" href="#">Relative ai miei appartamenti</a>
+                            <a class="dropdown-item {{$show_by == 'other_apartments' ? 'active':null}}" data-type="other_apartments" href="#">Relative ad altri appartamenti</a>
                         </div>
                     </div>
                     <div class="col-6">
@@ -75,7 +75,7 @@
                         @{{/if}}
                     </div>
                     <div class="col-9 text-right">
-                        <a href="{{route('show_thread').'?reference='}}@{{this.thread_reference}}" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
+                        <a href="{{route('show_thread')}}/@{{this.thread_reference}}?show_by=my_apartments" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
                         <a href="#" class="btn btn-danger" role="button" aria-pressed="true">Elimina conversazione</a>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         <div class="col-4 text-right">
                             <small class="card-text text-muted">Proprietario</small>
                             <p class="card-text mb-0">@{{apartment_owner}}</p>
-                            <a href="{{route('show_thread').'?reference='}}@{{this.thread_reference}}" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
+                            <a href="{{route('show_thread')}}/@{{this.thread_reference}}?show_by=other_apartments" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
                             <button href="#" class="btn btn-danger mt-2" aria-pressed="true">Elimina conversazione</button>
                         </div>
                     </div>

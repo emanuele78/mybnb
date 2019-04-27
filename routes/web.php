@@ -35,7 +35,7 @@
 		  //show messages dashboard
 		  Route::get('/conversazioni', 'ApartmentThreadController@index')->name('message_dashboard');
 		  //show a single thread
-		  Route::get('/conversazioni/conversazione', 'ApartmentThreadController@show')->name('show_thread');
+		  Route::get('/conversazioni/{thread?}', 'ApartmentThreadController@show')->name('show_thread');
 	  }
 	);
 	

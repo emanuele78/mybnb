@@ -4,11 +4,12 @@
 	
 	use App\Thread;
 	use Illuminate\Support\Facades\Auth;
+	use Illuminate\Validation\Rule;
 	
 	class ApartmentThreadController extends Controller {
 		
 		/**
-		 * Show a view (thread dashboard) where the user can switch between messages received mode and messages sent mode
+		 * Show a view (threads dashboard) where the user can switch between messages received mode and messages sent mode
 		 *
 		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
 		 */
@@ -17,25 +18,29 @@
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
-			return view('layouts.threads_index');
+			$validated = request()->validate(['show_by' => [Rule::in(['my_apartments', 'other_apartments'])]]);
+			if (empty($validated)) {
+				$validated = ['show_by' => 'my_apartments'];
+			}
+			return view('layouts.threads_index')->with($validated);
 		}
 		
 		/**
 		 * Show the view for a thread between 2 users
 		 *
-		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+		 * @param Thread $thread
+		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
 		 */
-		public function show() {
+		public function show(Thread $thread) {
 			
-			$validated = request()->validate(['reference' => 'bail|required|exists:threads,reference_id']);
-			if (!Auth::check()) {
-				redirect()->route('login');
+			$this->authorize('view', $thread);
+			$validated = request()->validate(['show_by' => [Rule::in(['my_apartments', 'other_apartments'])]]);
+			if (empty($validated)) {
+				$validated = ['show_by' => 'my_apartments'];
 			}
-			$viewData = Thread::getThreadDataFor($validated['reference'], Auth::user()->id);
-			if (!$viewData) {
-				abort(403);
-			}
-			return view('layouts.thread_show')->with($viewData);
+			$viewData = $thread->getThreadDataFor(Auth::user()->id);
+			return view('layouts.thread_show')->with($viewData)->with($validated);
 		}
 		
 	}

@@ -11,15 +11,15 @@
 	class ApartmentThreadController extends Controller {
 		
 		/**
-		 * Return apartment threads grouped by apartment or all the apartments to which user asked for info
+		 * Return apartment threads data grouped by apartment or all the apartments to which user asked for info
 		 *
 		 * @return array
 		 */
 		public function index() {
 			
-			$validated = request()->validate(['show_by' => ['required', Rule::in(['my_apartment', 'other_apartments'])]]);
+			$validated = request()->validate(['show_by' => ['required', Rule::in(['my_apartments', 'other_apartments'])]]);
 			$user = Auth::user();
-			if ($validated['show_by'] == 'my_apartment') {
+			if ($validated['show_by'] == 'my_apartments') {
 				return Thread::groupedByApartment($user->id);
 			}
 			return Thread::requestedInfo($user->id);
