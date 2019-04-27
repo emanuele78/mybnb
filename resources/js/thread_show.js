@@ -5,7 +5,7 @@ import MESSAGE_MODULE from "./send_message_mod";
 sendRequest();
 
 function sendRequest() {
-    let url = PROJECT_MODULE.threadEndpoint.replace('{apartment}', $('#current_apartment').data('apartment')).replace('{thread}', $('#current_apartment').data('thread'));
+    let url = PROJECT_MODULE.threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
     $.ajax(url, {
         method: 'GET',
         headers: {
@@ -45,16 +45,13 @@ function printResults(data) {
 $('#submit_message').click(function (e) {
     e.preventDefault();
     let textArea = $('#body');
-    if (textArea.val().length < 10) {
+    if (textArea.val().trim().length === 0) {
         textArea.addClass('is-invalid');
         return;
     }
     textArea.removeClass('is-invalid');
-    let apartment = $("#message_apartment_slug").val();
-    let sender = $("#message_sender_nickname").val();
-    let recipient = $("#message_recipient_nickname").val();
     $(this).attr('disabled', 'disabled');
-    MESSAGE_MODULE.send(apartment, sender, recipient, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
+    MESSAGE_MODULE.sendMessageToThread($('#current_apartment').data('thread'), textArea.val().trim(), $('meta[name="csrf-token"]').attr('content'), function (response) {
         if (response.success) {
             textArea.val('');
             sendRequest();

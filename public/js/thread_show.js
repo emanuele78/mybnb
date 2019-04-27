@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 sendRequest();
 
 function sendRequest() {
-  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{apartment}', $('#current_apartment').data('apartment')).replace('{thread}', $('#current_apartment').data('thread'));
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
   $.ajax(url, {
     method: 'GET',
     headers: {
@@ -62,17 +62,14 @@ $('#submit_message').click(function (e) {
   e.preventDefault();
   var textArea = $('#body');
 
-  if (textArea.val().length < 10) {
+  if (textArea.val().trim().length === 0) {
     textArea.addClass('is-invalid');
     return;
   }
 
   textArea.removeClass('is-invalid');
-  var apartment = $("#message_apartment_slug").val();
-  var sender = $("#message_sender_nickname").val();
-  var recipient = $("#message_recipient_nickname").val();
   $(this).attr('disabled', 'disabled');
-  _send_message_mod__WEBPACK_IMPORTED_MODULE_2__["default"].send(apartment, sender, recipient, textArea.val(), $('meta[name="csrf-token"]').attr('content'), function (response) {
+  _send_message_mod__WEBPACK_IMPORTED_MODULE_2__["default"].sendMessageToThread($('#current_apartment').data('thread'), textArea.val().trim(), $('meta[name="csrf-token"]').attr('content'), function (response) {
     if (response.success) {
       textArea.val('');
       sendRequest();

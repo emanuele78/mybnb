@@ -188,7 +188,7 @@
 		 */
 		public function getMessages(User $user): array {
 			
-			$thread = $this->whereHas(
+			$thread = $this->where('reference_id', $this->reference_id)->whereHas(
 			  'messages', function ($query) use ($user) {
 				
 				$query->where('visible_for', $user->id)->orWhere('visible_for', null);
@@ -205,12 +205,12 @@
 			  [
 				'thread_reference' => $thread[0]['reference_id'],
 				'thread_for_user' => $user->nickname,
-//				'created_at' => $thread[0]['created_at'],
-//				'last_message' => $thread[0]['updated_at'],
-//				'apartment_title' => $thread[0]['apartment']['title'],
-//				'apartment_slug' => $thread[0]['apartment']['slug'],
-//				'apartment_image' => $thread[0]['apartment']['main_image'],
-//				'apartment_owner' => $thread[0]['apartment']['user']['nickname'],
+				  //				'created_at' => $thread[0]['created_at'],
+				  //				'last_message' => $thread[0]['updated_at'],
+				  //				'apartment_title' => $thread[0]['apartment']['title'],
+				  //				'apartment_slug' => $thread[0]['apartment']['slug'],
+				  //				'apartment_image' => $thread[0]['apartment']['main_image'],
+				  //				'apartment_owner' => $thread[0]['apartment']['user']['nickname'],
 				'messages' => [],
 			  ];
 			foreach ($thread[0]['messages'] as $message) {
@@ -229,6 +229,13 @@
 			return $response;
 		}
 		
+		/**
+		 * Return thread info
+		 *
+		 * @param string $reference
+		 * @param int $user_id
+		 * @return array|null
+		 */
 		public static function getThreadDataFor(string $reference, int $user_id): ?array {
 			
 			$thread = Thread::where('reference_id', $reference)->with(['apartment.user', 'withUser'])->get()->first();
@@ -249,6 +256,23 @@
 			  'apartment_owner' => $thread->apartment->user->nickname,
 			  'with_user' => $thread->withuser->nickname,
 			];
+		}
+		
+		/**
+		 * Add new message to current thread
+		 *
+		 * @param User $sender
+		 * @param string $message
+		 */
+		public function addMessage(User $sender, string $message): void {
+			
+			$data = [
+			  'thread_id' => $this->id,
+			  'sender_id' => $sender->id,
+			  'recipient_id' => $sender->id == $this->with_user_id ? $this->apartment->user_id : $this->with_user_id,
+			  'body' => $message,
+			];
+			Message::add($data);
 		}
 		
 	}

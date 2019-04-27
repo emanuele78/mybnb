@@ -45,10 +45,15 @@
 	//activate the token
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
+	//todo to be deleted - only for debugging purposes
 	Route::get(
 	  '/test', function () {
-
-		$t = \App\Thread::find(1);
-		return $t->getMessages(App\User::find(2));
+		
+		$sender = \App\User::find(1);
+		
+		$thread = \App\Thread::find(1);
+		return $thread->apartment->user_id;
+		return $sender->id == $thread->with_user_id ? $thread->apartment->userid : $thread->with_user_id;
+		
 		
 	});

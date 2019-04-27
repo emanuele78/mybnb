@@ -10,8 +10,8 @@ const HANDLE_MESSAGE = {
     sendMessageToApartment: function (apartment, message, token, callback) {
         performRequestForApartment(apartment, message, token, callback);
     },
-    sendMessageToThread: function (apartment, message, token, callback) {
-        performRequestForThread(apartment, message, token, callback);
+    sendMessageToThread: function (thread, message, token, callback) {
+        performRequestForThread(thread, message, token, callback);
     }
 
 };
@@ -45,8 +45,8 @@ function performRequestForApartment(apartment, message, token, callback) {
     });
 }
 
-function performRequestForThread(apartment, message, token, callback) {
-    $.ajax(PROJECT_MODULE.threadEndpoint.replace('{apartment}', apartment), {
+function performRequestForThread(thread, message, token, callback) {
+    $.ajax(PROJECT_MODULE.threadEndpoint.replace('{thread}', thread), {
         method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -56,7 +56,6 @@ function performRequestForThread(apartment, message, token, callback) {
             callback({'success': true});
         },
         data: {
-            'apartment_id': apartment,
             'body': message,
         },
         error: function (error) {

@@ -61719,8 +61719,8 @@ var HANDLE_MESSAGE = {
   sendMessageToApartment: function sendMessageToApartment(apartment, message, token, callback) {
     performRequestForApartment(apartment, message, token, callback);
   },
-  sendMessageToThread: function sendMessageToThread(apartment, message, token, callback) {
-    performRequestForThread(apartment, message, token, callback);
+  sendMessageToThread: function sendMessageToThread(thread, message, token, callback) {
+    performRequestForThread(thread, message, token, callback);
   }
 };
 /**
@@ -61756,8 +61756,8 @@ function performRequestForApartment(apartment, message, token, callback) {
   });
 }
 
-function performRequestForThread(apartment, message, token, callback) {
-  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{apartment}', apartment), {
+function performRequestForThread(thread, message, token, callback) {
+  $.ajax(_app__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', thread), {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
@@ -61769,7 +61769,6 @@ function performRequestForThread(apartment, message, token, callback) {
       });
     },
     data: {
-      'apartment_id': apartment,
       'body': message
     },
     error: function error(_error2) {

@@ -23,7 +23,6 @@
     </div>
     <div class="custom_container_body custom_border"></div>
     <div class="custom_container_footer custom_full_border mb-2">
-        <input type="hidden" id="message_apartment_slug" value="{{$apartment_slug}}">
         @if($current_user_is_owner)
             <label for="body">Invia un messaggio a {{$with_user}}</label>
         @else

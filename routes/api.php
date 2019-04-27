@@ -38,6 +38,6 @@
 		  //get all messages for a thread
 		  Route::get('/apartments/threads/{thread}', 'Api\ApartmentThreadController@show');
 		  //store a message sent from a thread
-		  Route::post('/apartments/{apartment}/threads', 'Api\ApartmentThreadController@store');
+		  Route::post('/apartments/threads/{thread}', 'Api\ApartmentThreadController@store');
 	  });
 	

@@ -36,15 +36,22 @@
 		public function show(Thread $thread) {
 			
 			$this->authorize('view', $thread);
-			//			return Thread::getThreadDataFor($thread->reference_id, Auth::user()->id);
 			return $thread->getMessages(Auth::user());
 			
 		}
 		
 		/**
 		 * Store new message sent from a thread
+		 *
+		 * @param Thread $thread
+		 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
 		 */
-		public function store() {
-		
+		public function store(Thread $thread) {
+			
+			$this->authorize('update', $thread);
+			$validated = request()->validate(['body' => 'bail|required|filled|max:4000',]);
+			$thread->addMessage(Auth::user(), $validated['body']);
+			return response()->json(['success' => true], 200);
 		}
 	}
