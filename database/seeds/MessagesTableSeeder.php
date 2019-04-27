@@ -64,7 +64,7 @@
 				'recipient_id' => $recipient->id,
 				'visible_for' => null,
 				'body' => 'Ciao ' . $recipient->nickname . ', sono ' . $sender->nickname . '. Questo è il thread n.' . $thread->id,
-				'unreaded' => 1,
+				'unread' => 1,
 				'created_at' => $date,
 				'updated_at' => $date
 			  ]

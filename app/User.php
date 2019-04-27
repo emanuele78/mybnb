@@ -109,14 +109,14 @@
 		}
 		
 		/**
-		 * Return the number of unreaded messages for the current user
+		 * Return the number of unread messages for the current user
 		 *
 		 * @return bool
 		 */
-		public function unreadedMessages(): int {
+		public function unreadMessages(): int {
 			
 			return Message::where('recipient_id', $this->id)
-			  ->where('unreaded', 1)->where(
+			  ->where('unread', 1)->where(
 				function ($query) {
 					
 					$query->where('visible_for', null)->orWhere('visible_for', $this->id);

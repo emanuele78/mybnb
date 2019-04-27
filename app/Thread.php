@@ -132,7 +132,7 @@
 			  function ($query) use ($user_id) {
 				  
 				  $query->where('visible_for', $user_id)->orWhere('visible_for', null);
-			  })->where('unreaded', 1)->get()->count();
+			  })->where('unread', 1)->get()->count();
 		}
 		
 		/**
@@ -222,7 +222,7 @@
 					'sent_at' => $message['created_at'],
 				  ];
 				if ($message['sender_id'] == $user->id) {
-					$message_item['unreaded'] = $message['unreaded'];
+					$message_item['unread'] = $message['unread'];
 				}
 				$response['messages'][] = $message_item;
 			}
@@ -273,6 +273,11 @@
 			  'body' => $message,
 			];
 			Message::add($data);
+		}
+		
+		public function setMessagesAsReadForUser(User $user): void {
+			
+			Message::where('thread_id', $this->id)->where('recipient_id', $user->id)->update(['unread' => 0]);
 		}
 		
 	}

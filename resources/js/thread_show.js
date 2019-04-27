@@ -28,7 +28,7 @@ function sendRequest() {
 function printResults(data) {
     let template = Handlebars.compile($('#message-template').html());
     Handlebars.registerHelper('ifCond', function (message, options) {
-        if ('unreaded' in message) {
+        if ('unread' in message) {
             return options.fn(this);
         }
         return options.inverse(this);

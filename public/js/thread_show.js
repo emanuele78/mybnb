@@ -42,7 +42,7 @@ function sendRequest() {
 function printResults(data) {
   var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($('#message-template').html());
   handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('ifCond', function (message, options) {
-    if ('unreaded' in message) {
+    if ('unread' in message) {
       return options.fn(this);
     }
 

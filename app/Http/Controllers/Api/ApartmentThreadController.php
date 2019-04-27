@@ -36,6 +36,7 @@
 		public function show(Thread $thread) {
 			
 			$this->authorize('view', $thread);
+			$thread->setMessagesAsReadForUser(Auth::user());
 			return $thread->getMessages(Auth::user());
 			
 		}

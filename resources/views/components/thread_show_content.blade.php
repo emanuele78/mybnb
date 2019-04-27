@@ -57,7 +57,7 @@
         <span class="font-weight-bold">@{{#senderName this.sender}}@{{/senderName}}</span>
         <small class="text-muted"> @{{this.sent_at}}</small>
         @{{#ifCond this}}
-        @{{#if this.unreaded}}
+        @{{#if this.unread}}
         <small class="text-muted">
             <i class="far fa-check-circle"></i>
         </small>

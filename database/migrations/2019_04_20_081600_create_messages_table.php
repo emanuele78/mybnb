@@ -22,7 +22,7 @@
 				$table->unsignedBigInteger('recipient_id');
 				$table->tinyInteger('visible_for')->nullable(true)->default(null);
 				$table->text('body');
-				$table->tinyInteger('unreaded')->default(1);
+				$table->tinyInteger('unread')->default(1);
 				$table->foreign('thread_id')->references('id')->on('threads');
 				$table->foreign('recipient_id')->references('id')->on('users');
 				$table->foreign('sender_id')->references('id')->on('users');
