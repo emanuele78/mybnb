@@ -7,7 +7,7 @@
             @else
                 <small class="card-text text-muted my-0">Conversazione per l'appartamento</small>
             @endif
-            <p id="current_apartment" data-apartment="{{$apartment_slug}}" data-thread="{{$thread_reference}}" class="card-text my-0">{{$apartment_title}}</p>
+            <a href="{{route('show',$apartment_slug)}}" id="current_apartment" data-apartment="{{$apartment_slug}}" data-thread="{{$thread_reference}}" class="card-text my-0">{{$apartment_title}}</a>
             @if($current_user_is_owner)
                 <small class="card-text text-muted my-0">con l'utente</small>
                 <p class="card-text my-0">{{$with_user}}</p>

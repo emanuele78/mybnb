@@ -47,7 +47,9 @@
                     <div class="row">
                         <div class="col-8">
                             <small class="card-text text-muted">Conversazioni per l'appartamento</small>
-                            <p class="card-text mb-0">@{{apartment_title}}</p>
+                            <div class="">
+                                <a href="{{route('show')}}/@{{apartment_slug}}" class="card-text mb-0">@{{apartment_title}}</a>
+                            </div>
                             @{{#if this.apartment_has_new_messages}}
                             <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                             @{{/if}}
@@ -96,7 +98,9 @@
                     <div class="row">
                         <div class="col-8">
                             <small class="card-text text-muted mb-0">Conversazioni per l'appartamento</small>
-                            <p class="card-text mb-0">@{{apartment_title}}</p>
+                            <div class="">
+                                <a href="{{route('show')}}/@{{apartment_slug}}" class="card-text mb-0">@{{apartment_title}}</a>
+                            </div>
                             @{{#if this.has_new_messages}}
                             <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                             @{{/if}}

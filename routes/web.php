@@ -23,7 +23,7 @@
 		  //todo wip
 		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  //show the apartment show view
-		  Route::get('/appartamenti/{apartment}', 'ApartmentController@show')->name('show');
+		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
 		  Route::get('/appartamenti/{apartment}/prenota', 'BookingController@create')->name('booking');
 		  //create pending booking
