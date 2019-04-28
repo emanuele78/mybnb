@@ -31,4 +31,18 @@
 			$data['user_id'] = $userId;
 			Customer::create($data);
 		}
+		
+		/**
+		 * Return a fake braintree customer id
+		 *
+		 * @return int
+		 */
+		public static function fakeCustomerId() {
+			
+			$lastCustomerId = Customer::select('customer_id')->orderBy('customer_id', 'desc')->take(1)->get()->first();
+			if ($lastCustomerId == null) {
+				$lastCustomerId = 0;
+			}
+			return ++$lastCustomerId;
+		}
 	}

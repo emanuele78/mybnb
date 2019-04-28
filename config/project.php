@@ -14,7 +14,7 @@
 	  'token_debug_code' => env('TOKEN_DEBUG_CODE'),
 	  'notify_user_creation' => env('NOTIFY_USER_CREATION', false),
 	  'use_test_recipient_for_admin' => env('USE_TEST_RECIPIENT_FOR_ADMIN', false),
-	  'tomtom_api_key' => env('TOMTOM_API_KEY'),
+	  'tomtom_api_key' => env('TOMTOM_API_KEY', 12345),
 	  'braintree' => [
 		'environment' => env('ENVIRONMENT', null),
 		'merchantId' => env('MERCHANT_ID', null),
@@ -23,4 +23,7 @@
 	  ],
 	  'pending_booking_max_life' => env('PENDING_BOOKING_MAX_LIFE'),
 	  'bypass_token_for_debug' => env('BYPASS_TOKEN_FOR_DEBUG', false),
+	  'use_fake_data_for_geolocation' => env('USE_FAKE_DATA_FOR_GEOLOCATION', false),
+	  'use_fake_data_for_transaction' => env('USE_FAKE_DATA_FOR_TRANSACTION', false),
+	  'client_token_safe' => env('CLIENT_TOKEN_SAFE'),
 	];

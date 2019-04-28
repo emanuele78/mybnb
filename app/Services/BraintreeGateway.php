@@ -2,6 +2,7 @@
 	
 	namespace App\Services;
 	
+	use App\Customer;
 	use Braintree_Gateway;
 	
 	class BraintreeGateway {
@@ -15,7 +16,9 @@
 		 */
 		public function __construct($braintree_config) {
 			
-			$this->gateway = new Braintree_Gateway($braintree_config);
+			if (!config('project.use_fake_data_for_transaction')) {
+				$this->gateway = new Braintree_Gateway($braintree_config);
+			}
 		}
 		
 		/**
@@ -26,6 +29,10 @@
 		 * @throws \Braintree\Exception\NotFound
 		 */
 		public function createCustomer($data): array {
+			
+			if (config('project.use_fake_data_for_transaction')) {
+				return ['success' => true, 'customer_id' => Customer::fakeCustomerId()];
+			}
 			
 			$newCustomer = $this->gateway->customer()->create();
 			$newCustomerId = $newCustomer->customer->id;
@@ -47,6 +54,10 @@
 		 */
 		public function customerToken($customerId) {
 			
+			if (config('project.use_fake_data_for_transaction')) {
+				return config('project.client_token_safe');
+			}
+			
 			return $this->gateway->clientToken()->generate(
 			  [
 				"customerId" => $customerId
@@ -61,6 +72,10 @@
 		 * @return bool
 		 */
 		public function performPayment($amount, $nonce): bool {
+			
+			if (config('project.use_fake_data_for_transaction')) {
+				return true;
+			}
 			
 			$result = $this->gateway->transaction()->sale(
 			  [

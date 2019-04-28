@@ -78,7 +78,7 @@ function check() {
     } else {
       $('#proceed_to_booking').removeClass('btn-secondary btn-success').addClass('btn-secondary');
     }
-  });
+  }, true, $('meta[name="csrf-token"]').attr('content'));
 }
 /**
  * Calc the amount for selected dates

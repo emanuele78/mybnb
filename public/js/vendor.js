@@ -61408,6 +61408,7 @@ var PROJECT_CONSTANTS = {
   tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
   activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
   apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
+  authApartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/auth/apartments/{apartment}/booking',
   mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
   addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
   paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
@@ -61487,7 +61488,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
 
 var HANDLE_AVAILABILITY = {
-  check: function check(checkIn, checkOut, apartment, callback) {
+  check: function check(checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
     if (!isDateValid(checkIn) || isDateBeforeToday(checkIn)) {
       callback('INVALID_CHECK_IN');
       return;
@@ -61498,7 +61499,7 @@ var HANDLE_AVAILABILITY = {
       return;
     }
 
-    performCheck(checkIn, checkOut, apartment, callback);
+    performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken);
   }
 };
 /**
@@ -61508,22 +61509,26 @@ var HANDLE_AVAILABILITY = {
  * @param checkOut
  * @param apartment
  * @param callback
+ * @param useAuth
+ * @param csrfToken
  */
 
-function performCheck(checkIn, checkOut, apartment, callback) {
+function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
   var result;
   var DAY_COUNT = dayCount(checkIn, checkOut);
-  var URL = _app__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
-  $.ajax(URL, {
+  var AJAX_OPTIONS = {
     method: 'GET',
     success: function success(data) {
+      console.log(data);
+
       if (data.available) {
         result = 'AVAILABLE';
       } else {
         result = 'NOT_AVAILABLE';
       }
     },
-    error: function error() {
+    error: function error(e) {
+      console.log(e);
       result = 'SERVER_ERROR';
     },
     data: {
@@ -61533,7 +61538,17 @@ function performCheck(checkIn, checkOut, apartment, callback) {
     complete: function complete() {
       callback(result, DAY_COUNT);
     }
-  });
+  };
+
+  if (useAuth) {
+    AJAX_OPTIONS.headers = {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-TOKEN': csrfToken
+    };
+  }
+
+  var URL = useAuth ? _app__WEBPACK_IMPORTED_MODULE_0__["default"].authApartmentAvailabilityEndpoint.replace('{apartment}', apartment) : _app__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
+  $.ajax(URL, AJAX_OPTIONS);
 }
 /**
  * Check for date validity

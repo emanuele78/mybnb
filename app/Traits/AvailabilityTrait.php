@@ -5,6 +5,7 @@
 	use App\Apartment;
 	use App\Booking;
 	use App\ReservedDay;
+	use Auth;
 	use Carbon\Carbon;
 	
 	trait AvailabilityTrait {
@@ -72,7 +73,19 @@
 		 */
 		private function isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking): bool {
 			
-			return ($booking->status == 'confirmed' || ($booking->status == 'pending' && (Carbon::now()->diffInMinutes($booking->created_at)) <= $max_life_pending_booking));
-			
+			//booking is confirmed
+			if ($booking->status == 'confirmed') {
+				return true;
+			}
+			//for a gust user, booking in pending state could be expired or not expired
+			if (Auth::user() == null) {
+				return (Carbon::now()->diffInMinutes($booking->created_at)) <= $max_life_pending_booking;
+			}
+			//authenticated user can be the same user who has the same booking in pending state
+			if (Auth::user()->id == $booking->user_id) {
+				//current user has current booking in pending state
+				return false;
+			}
+			return (Carbon::now()->diffInMinutes($booking->created_at)) <= $max_life_pending_booking;
 		}
 	}

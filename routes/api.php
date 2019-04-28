@@ -41,5 +41,7 @@
 		  Route::post('/apartments/threads/{thread}', 'Api\ApartmentThreadController@store');
 		  //delete a thread
 		  Route::delete('/apartments/threads/{thread}', 'Api\ApartmentThreadController@destroy');
+		  //get availability for a search with passport auth
+		  Route::get('/auth/apartments/{apartment}/booking', 'ApartmentAvailabilityController@show');
 	  });
 	

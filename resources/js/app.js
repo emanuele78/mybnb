@@ -8,6 +8,7 @@ const PROJECT_CONSTANTS = {
     tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
     activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
     apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
+    authApartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/auth/apartments/{apartment}/booking',
     mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
     addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
     paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.tokenEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/tokens';
     PROJECT_CONSTANTS.activationTokenEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/tokens';
     PROJECT_CONSTANTS.apartmentAvailabilityEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/apartments/{apartment}/booking';
+    PROJECT_CONSTANTS.authApartmentAvailabilityEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/auth/apartments/{apartment}/booking';
     PROJECT_CONSTANTS.mapEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/apartments/{apartment}/map';
     PROJECT_CONSTANTS.addressEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/apartments/{apartment}/address';
     PROJECT_CONSTANTS.paymentTokenEndpoint = 'https://emanuelemazzante.dev/portfolio/mybnb/api/payments/token';

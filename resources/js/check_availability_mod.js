@@ -8,7 +8,7 @@ let moment = require('moment');
  */
 const HANDLE_AVAILABILITY = {
 
-    check: function (checkIn, checkOut, apartment, callback) {
+    check: function (checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
         if (!isDateValid(checkIn) || isDateBeforeToday(checkIn)) {
             callback('INVALID_CHECK_IN');
             return;
@@ -17,7 +17,7 @@ const HANDLE_AVAILABILITY = {
             callback('INVALID_CHECK_OUT');
             return;
         }
-        performCheck(checkIn, checkOut, apartment, callback);
+        performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken);
     }
 };
 
@@ -28,21 +28,24 @@ const HANDLE_AVAILABILITY = {
  * @param checkOut
  * @param apartment
  * @param callback
+ * @param useAuth
+ * @param csrfToken
  */
-function performCheck(checkIn, checkOut, apartment, callback) {
+function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
     let result;
     const DAY_COUNT = dayCount(checkIn, checkOut);
-    const URL = PROJECT_MODULE.apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
-    $.ajax(URL, {
+    const AJAX_OPTIONS = {
         method: 'GET',
         success: function (data) {
+            console.log(data);
             if (data.available) {
                 result = 'AVAILABLE';
             } else {
                 result = 'NOT_AVAILABLE';
             }
         },
-        error: function () {
+        error: function (e) {
+            console.log(e);
             result = 'SERVER_ERROR';
         },
         data: {
@@ -52,7 +55,15 @@ function performCheck(checkIn, checkOut, apartment, callback) {
         complete: function () {
             callback(result, DAY_COUNT);
         }
-    });
+    };
+    if (useAuth) {
+        AJAX_OPTIONS.headers = {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    }
+    const URL = useAuth ? PROJECT_MODULE.authApartmentAvailabilityEndpoint.replace('{apartment}', apartment) : PROJECT_MODULE.apartmentAvailabilityEndpoint.replace('{apartment}', apartment);
+    $.ajax(URL, AJAX_OPTIONS);
 }
 
 /**

@@ -46,5 +46,5 @@ $('#check_availability').click(function () {
         }
         $('#result').removeClass().addClass(classColor).text(message);
         $('.loading_block').hide();
-    });
+    }, false);
 });
