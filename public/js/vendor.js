@@ -61519,16 +61519,13 @@ function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken
   var AJAX_OPTIONS = {
     method: 'GET',
     success: function success(data) {
-      console.log(data);
-
       if (data.available) {
         result = 'AVAILABLE';
       } else {
         result = 'NOT_AVAILABLE';
       }
     },
-    error: function error(e) {
-      console.log(e);
+    error: function error() {
       result = 'SERVER_ERROR';
     },
     data: {

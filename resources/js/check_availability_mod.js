@@ -37,15 +37,13 @@ function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken
     const AJAX_OPTIONS = {
         method: 'GET',
         success: function (data) {
-            console.log(data);
             if (data.available) {
                 result = 'AVAILABLE';
             } else {
                 result = 'NOT_AVAILABLE';
             }
         },
-        error: function (e) {
-            console.log(e);
+        error: function () {
             result = 'SERVER_ERROR';
         },
         data: {
