@@ -270,6 +270,10 @@
 			Message::where('thread_id', $this->id)->where('recipient_id', $user->id)->update(['unread' => 0]);
 		}
 		
+		/**
+		 * Delete a thread. Make thread messages visible only for counterpart. If counterpart has already deleted messages, remove them permanently
+		 * @param User $user
+		 */
 		public function deleteThread(User $user): void {
 			
 			//first thing first find the counterpart

@@ -37,7 +37,7 @@
 
 <script id="own-apartments-template" type="text/x-handlebars-template">
     @{{#each this as |apartment|}}
-    <div class="card mt-3">
+    <div class="card mt-3 single_apartment">
         <div class="row no-gutters">
             <div class="col-4">
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
@@ -62,21 +62,23 @@
             </div>
         </div>
         <div id="@{{apartment_slug}}" class="collapse">
-            <div class="card-body">
+            <div class="card-body apartment_threads_section">
                 @{{#each this.threads}}
-                <hr>
-                <div class="row">
-                    <div class="col-3">
-                        <small class="card-text text-muted">Conversazione con</small>
-                        <p class="card-text mb-0">@{{this.with_user}}</p>
-                        <small class="card-text text-muted">Ultimo messaggio il @{{this.last_message}}</small>
-                        @{{#if this.has_new_messages}}
-                        <span class="badge badge-pill badge-warning">nuovi messaggi</span>
-                        @{{/if}}
-                    </div>
-                    <div class="col-9 text-right">
-                        <a href="{{route('show_thread')}}/@{{this.thread_reference}}?show_by=my_apartments" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
-                        <a href="#" class="btn btn-danger" role="button" aria-pressed="true">Elimina conversazione</a>
+                <div id="thread_section_@{{this.thread_reference}}">
+                    <hr>
+                    <div class="row">
+                        <div class="col-3">
+                            <small class="card-text text-muted">Conversazione con</small>
+                            <p class="card-text mb-0">@{{this.with_user}}</p>
+                            <small class="card-text text-muted">Ultimo messaggio il @{{this.last_message}}</small>
+                            @{{#if this.has_new_messages}}
+                            <span class="badge badge-pill badge-warning">nuovi messaggi</span>
+                            @{{/if}}
+                        </div>
+                        <div class="col-9 text-right">
+                            <a href="{{route('show_thread')}}/@{{this.thread_reference}}?show_by=my_apartments" class="btn btn-success" role="button" aria-pressed="true">Mostra conversazione</a>
+                            <button type="button" data-thread="@{{this.thread_reference}}" class="btn btn-danger delete_my_apartments_thread" role="button">Elimina conversazione</button>
+                        </div>
                     </div>
                 </div>
                 @{{/each}}
@@ -88,7 +90,7 @@
 
 <script id="other-apartments-template" type="text/x-handlebars-template">
     @{{#each this}}
-    <div class="card mt-3">
+    <div class="card mt-3 single_apartment">
         <div class="row no-gutters">
             <div class="col-4">
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
@@ -109,7 +111,7 @@
                             <small class="card-text text-muted">Proprietario</small>
                             <p class="card-text mb-0">@{{apartment_owner}}</p>
                             <a href="{{route('show_thread')}}/@{{this.thread_reference}}?show_by=other_apartments" class="btn btn-success mt-2" role="button" aria-pressed="true">Mostra conversazione</a>
-                            <button href="#" class="btn btn-danger mt-2" aria-pressed="true">Elimina conversazione</button>
+                            <button type="button" data-thread="@{{this.thread_reference}}" class="btn btn-danger mt-2 delete_other_apartments_thread">Elimina conversazione</button>
                         </div>
                     </div>
                 </div>
