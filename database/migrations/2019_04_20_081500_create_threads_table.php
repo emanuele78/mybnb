@@ -20,8 +20,8 @@
 				$table->string('reference_id');
 				$table->unsignedBigInteger('apartment_id');
 				$table->unsignedBigInteger('with_user_id');
-				$table->foreign('apartment_id')->references('id')->on('apartments');
-				$table->foreign('with_user_id')->references('id')->on('users');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
+				$table->foreign('with_user_id')->references('id')->on('users')->onDelete('cascade');
 				$table->timestamps();
 			});
 		}

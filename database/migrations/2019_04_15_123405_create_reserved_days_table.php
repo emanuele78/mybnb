@@ -19,7 +19,7 @@
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('apartment_id');
 				$table->date('day');
-				$table->foreign('apartment_id')->references('id')->on('apartments');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
 			});
 		}
 		

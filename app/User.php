@@ -24,7 +24,17 @@
 		 */
 		public function bookings() {
 			
-			return $this->hasMany(Booking::class);
+			return $this->hasMany(Booking::class, 'user_booking_id');
+		}
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
+		public function bookingForOwnApartments() {
+			
+			return $this->hasMany(Booking::class, 'apartment_owner_id');
 		}
 		
 		/**
@@ -121,5 +131,15 @@
 					
 					$query->where('visible_for', null)->orWhere('visible_for', $this->id);
 				})->get()->count();
+		}
+		
+		/**
+		 * Return full name of the current user
+		 *
+		 * @return string
+		 */
+		public function fullname(): string {
+			
+			return $this->customer->firstName . ' ' . $this->customer->lastName;
 		}
 	}

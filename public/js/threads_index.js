@@ -70,7 +70,7 @@ function registerListenerForVisualizationDropdown() {
   });
 }
 /**
- * Listener for accordin toggling
+ * Listener for accordion toggling
  */
 
 

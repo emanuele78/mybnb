@@ -33,7 +33,7 @@
                         <a class="navbar_link" href="">Appartamenti</a>
                     </li>
                     <li class="list-group-item">
-                        <a class="navbar_link" href="">Prenotazioni</a>
+                        <a class="navbar_link" href="{{route('show_bookings')}}">Prenotazioni</a>
                     </li>
                     <li class="list-group-item">
                         <a class="navbar_link" href="{{route('message_dashboard')}}">Messaggi

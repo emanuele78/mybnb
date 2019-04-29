@@ -1,7 +1,6 @@
 <?php
 	
 	use App\Apartment;
-	use App\Booking;
 	use App\User;
 	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
@@ -16,26 +15,80 @@
 		 */
 		public function run() {
 			
-			$apartments = Apartment::get();
 			$users = User::get();
-			$check_in = Carbon::now()->addDays(14);
-			$check_out = Carbon::now()->addDays(20);
-			foreach ($apartments as $apartment) {
-				$random_user = $users[rand(0, $users->count() - 1)];
-				Booking::create(
+			$passed_days = 220;
+			//every user books two apartments from two other random distinct users, twice
+			foreach ($users as $user) {
+				do {
+					$first_owner_index = rand(0, count($users) - 1);
+				} while ($users[$first_owner_index]->id == $user->id);
+				$first_apartment_owner = $users[$first_owner_index];
+				$first_apartment_booked = $first_apartment_owner->apartments()->first();
+				do {
+					$second_owner_index = rand(0, count($users) - 1);
+				} while ($users[$second_owner_index]->id == $user->id || $second_owner_index == $first_owner_index);
+				$second_apartment_owner = $users[$second_owner_index];
+				$second_apartment_booked = $second_apartment_owner->apartments()->first();
+				DB::table('bookings')->insert(
 				  [
-					'status' => 'confirmed',
-					'reference' => (string)Str::uuid(),
-					'user_id' => $random_user->id,
-					'apartment_id' => $apartment->id,
-					'apartment_title' => $apartment->title,
-					'user_nickname' => $random_user->nickname,
-					'check_in' => $check_in,
-					'check_out' => $check_out,
-					'special_requests' => 'In attesa Vs istruzioni per il ritiro della chiave. Grazie',
-					'apartment_amount' => $apartment->price_per_night * $check_out->diffInDays($check_in)
-				  ]);
+					$this->getArrayData($user, $first_apartment_booked, $passed_days),
+					$this->getArrayData($user, $second_apartment_booked, $passed_days),
+					$this->getArrayData($user, $first_apartment_booked, $passed_days),
+					$this->getArrayData($user, $second_apartment_booked, $passed_days, true),
+				  ]
+				);
 			}
+			//now every user has two distinct apartments each one booked by distinct user
+			foreach ($users as $user) {
+				$first_current_user_apartment = $user->apartments->first();
+				$second_current_user_apartment = $user->apartments->last();
+				do {
+					$first_booking_user_index = rand(0, count($users) - 1);
+				} while ($users[$first_booking_user_index]->id == $user->id);
+				do {
+					$second_booking_user_index = rand(0, count($users) - 1);
+				} while ($users[$second_booking_user_index]->id == $user->id || $second_booking_user_index == $first_booking_user_index);
+				DB::table('bookings')->insert(
+				  [
+					$this->getArrayData($users[$first_booking_user_index], $first_current_user_apartment, $passed_days),
+					$this->getArrayData($users[$second_booking_user_index], $first_current_user_apartment, $passed_days),
+					$this->getArrayData($users[$first_booking_user_index], $second_current_user_apartment, $passed_days),
+					$this->getArrayData($users[$second_booking_user_index], $second_current_user_apartment, $passed_days),
+				  ]
+				);
+			}
+		}
+		
+		private function getArrayData(User $userBooking, Apartment $bookedApartment, int &$passed_days, $pending = false) {
 			
+			$now = Carbon::now();
+			$nights_to_stay = 2;
+			$check_in = Carbon::now()->addDays(-$passed_days);
+			$check_out = Carbon::now()->addDays(-($passed_days = $passed_days - $nights_to_stay));
+			return [
+			  'reference' => (string)Str::uuid(),
+			  'status' => $pending ? 'pending' : 'confirmed',
+			  
+			  'user_booking_id' => $userBooking->id,
+			  'user_booking_nickname' => $userBooking->nickname,
+			  'user_booking_fullname' => $userBooking->fullname(),
+			  'user_booking_email' => $userBooking->email,
+			  
+			  'apartment_id' => $bookedApartment->id,
+			  'apartment_slug' => $bookedApartment->slug,
+			  'apartment_title' => $bookedApartment->title,
+			  'apartment_owner_id' => $bookedApartment->user->id,
+			  'apartment_owner_nickname' => $bookedApartment->user->nickname,
+			  'apartment_owner_fullname' => $bookedApartment->user->fullname(),
+			  'apartment_owner_email' => $bookedApartment->user->email,
+			  'apartment_image' => $bookedApartment->main_image,
+			  
+			  'check_in' => $check_in,
+			  'check_out' => $check_out,
+			  'special_requests' => 'In attesa Vs istruzioni per il ritiro della chiave. Grazie',
+			  'apartment_price_per_night' => $bookedApartment->calcCurrentPrice(),
+			  'created_at' => $now,
+			  'updated_at' => $now,
+			];
 		}
 	}

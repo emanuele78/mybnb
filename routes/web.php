@@ -36,6 +36,8 @@
 		  Route::get('/conversazioni', 'ApartmentThreadController@index')->name('message_dashboard');
 		  //show a single thread
 		  Route::get('/conversazioni/{thread?}', 'ApartmentThreadController@show')->name('show_thread');
+		  //show all the bookings
+		  Route::get('/prenotazioni', 'BookingController@index')->name('show_bookings');
 	  }
 	);
 	
@@ -46,4 +48,14 @@
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	//todo to be deleted - only for debugging purposes
-	Route::get('/test/{apartment}', 'ApartmentAvailabilityController@show');
+	Route::get(
+	  '/test', function () {
+		
+		$user_id = \App\User::find(1)->id;
+		
+		return \App\Booking::forOtherApartments($user_id, false);
+
+	});
+	
+	Route::get('/test2','Api\BookingController@index');
+	

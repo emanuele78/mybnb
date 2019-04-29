@@ -21,7 +21,7 @@
 				$table->unsignedBigInteger('service_id');
 				$table->float('price_per_night', 5, 2);
 				$table->timestamps();
-				$table->foreign('apartment_id')->references('id')->on('apartments');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
 				$table->foreign('service_id')->references('id')->on('services');
 			});
 		}

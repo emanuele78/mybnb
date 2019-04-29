@@ -23,7 +23,7 @@
 				$table->dateTime('end_at');
 				$table->float('paid',5,2);
 				$table->timestamps();
-				$table->foreign('apartment_id')->references('id')->on('apartments');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
 				$table->foreign('promotion_plan_id')->references('id')->on('promotion_plans');
 			});
 		}

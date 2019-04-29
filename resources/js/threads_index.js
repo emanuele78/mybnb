@@ -55,7 +55,7 @@ function registerListenerForVisualizationDropdown() {
 }
 
 /**
- * Listener for accordin toggling
+ * Listener for accordion toggling
  */
 function registerListenerForAccordion() {
     $('.toggle_text').off();

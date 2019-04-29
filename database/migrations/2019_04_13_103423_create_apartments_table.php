@@ -32,7 +32,7 @@
 				$table->tinyInteger('max_stay');
 				$table->tinyInteger('sale')->default(0);
 				$table->tinyInteger('is_showed')->default(1);
-				$table->foreign('user_id')->references('id')->on('users');
+				$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 				$table->timestamps();
 			});
 		}

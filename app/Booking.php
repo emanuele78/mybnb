@@ -27,7 +27,7 @@
 		 */
 		public function user() {
 			
-			return $this->belongsTo(User::class);
+			return $this->belongsTo(User::class, 'user_booking_id');
 		}
 		
 		/**
@@ -37,7 +37,17 @@
 		 */
 		public function apartment() {
 			
-			return $this->belongsTo(Apartment::class);
+			return $this->belongsTo(Apartment::class, 'apartment_id');
+		}
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+		 */
+		public function apartmentOwner() {
+			
+			return $this->belongsTo(Apartment::class, 'apartment_owner_id');
 		}
 		
 		/**
@@ -54,16 +64,28 @@
 			self::removePending($user, $apartment);
 			//add new pending booking with related services
 			$booking = new Booking();
-			$booking->status = 'pending';
 			$booking->reference = (string)Str::uuid();
-			$booking->user_id = $user->id;
+			$booking->status = 'pending';
+			
+			$booking->user_booking_id = $user->id;
+			$booking->user_booking_nickname = $user->nickname;
+			$booking->user_booking_fullname = $user->fullname();
+			$booking->user_booking_email = $user->email;
+			
 			$booking->apartment_id = $apartment->id;
+			$booking->apartment_slug = $apartment->slug;
 			$booking->apartment_title = $apartment->title;
-			$booking->user_nickname = $user->nickname;
+			$booking->apartment_owner_id = $apartment->user->id;
+			$booking->apartment_owner_nickname = $apartment->user->nickname;
+			$booking->apartment_owner_fullname = $apartment->user->fullname();
+			$booking->apartment_owner_email = $apartment->user->email;
+			$booking->apartment_image = $apartment->main_image;
+			
 			$booking->check_in = Carbon::createFromFormat('d-m-Y', $data['check_in']);
 			$booking->check_out = Carbon::createFromFormat('d-m-Y', $data['check_out']);
+			
 			$booking->special_requests = $data['special_requests'];
-			$booking->apartment_amount = $apartment->calcCurrentPrice();
+			$booking->apartment_price_per_night = $apartment->calcCurrentPrice();
 			$booking->save();
 			if (array_key_exists('upgrades', $data)) {
 				foreach ($data['upgrades'] as $upgrade) {
@@ -88,7 +110,7 @@
 		 */
 		public static function removePending($user, $apartment) {
 			
-			$pendigBooking = Booking::where('status', 'pending')->where('apartment_id', $apartment->id)->where('user_id', $user->id)->first();
+			$pendigBooking = Booking::where('status', 'pending')->where('apartment_id', $apartment->id)->where('user_booking_id', $user->id)->first();
 			if ($pendigBooking != null) {
 				$pendigBooking->delete();
 			}
@@ -160,6 +182,121 @@
 		public static function forApartment($apartment_id) {
 			
 			return Booking::where('apartment_id', $apartment_id)->get();
+		}
+		
+		public static function forUserApartments(int $user_id, bool $onlyFutureBookings) {
+			
+			$builder = self::where('apartment_owner_id', $user_id)->with('bookedServices');
+			if ($onlyFutureBookings) {
+				$builder->where('check_out', '>', Carbon::now());
+			}
+			$apartmentsWithBookings = $builder->get()->groupBy('apartment_id')->toArray();
+			$data = [];
+			//apartments loop
+			foreach ($apartmentsWithBookings as $apartmentWithBookings) {
+				$singleApartment =
+				  [
+					'apartment_title' => $apartmentWithBookings[0]['apartment_title'],
+					'apartment_slug' => $apartmentWithBookings[0]['apartment_slug'],
+					'apartment_image' => $apartmentWithBookings[0]['apartment_image'],
+					'apartment_owner_nickname' => $apartmentWithBookings[0]['apartment_owner_nickname'],
+					'apartment_owner_fullname' => $apartmentWithBookings[0]['apartment_owner_fullname'],
+					'apartment_owner_email' => $apartmentWithBookings[0]['apartment_owner_email'],
+					"bookings" => []
+				  ];
+				//booking loop
+				foreach ($apartmentWithBookings as $booking) {
+					$singleBooking =
+					  [
+						'booking_reference' => $booking['reference'],
+						'status' => $booking['status'],
+						'user_nickname' => $booking['user_booking_nickname'],
+						'user_fullname' => $booking['user_booking_fullname'],
+						'user_email' => $booking['user_booking_email'],
+						'check_in' => Utility::dateTimeLocale($booking['check_in'], false),
+						'check_out' => Utility::dateTimeLocale($booking['check_out'], false),
+						'nights_count' => Utility::diffInDays($booking['check_in'], $booking['check_out']),
+						'total_amount' => '',
+						'confirmed_at' => Utility::dateTimeLocale($booking['created_at'], true),
+						'upgrades' => [],
+					  ];
+					$upgrade_amout_per_night = 0;
+					//upgrades loop
+					foreach ($booking['booked_services'] as $booked_service) {
+						$services =
+						  [
+							'service_name' => $booked_service['name'],
+							'service_price' => $booked_service['price_per_night'],
+						  ];
+						$singleBooking['upgrades'][] = $services;
+						$upgrade_amout_per_night += $booked_service['price_per_night'];
+					}
+					$singleBooking['total_amount'] = ($booking['apartment_price_per_night'] + $upgrade_amout_per_night) * $singleBooking['nights_count'];
+					$singleApartment['bookings'][] = $singleBooking;
+				}
+				$data[] = $singleApartment;
+			}
+			return $data;
+		}
+		
+		public static function forOtherApartments(int $user_id, bool $onlyFutureBookings, bool $onlyPending) {
+			
+			$builder = self::where('user_booking_id', $user_id)->with('bookedServices');
+			if ($onlyFutureBookings) {
+				$builder->where('check_out', '>', Carbon::now());
+			}
+			if ($onlyPending) {
+				$builder->where('status', 'pending');
+			} else {
+				$builder->where('status', 'confirmed');
+			}
+			$apartmentsWithBookings = $builder->get()->groupBy('apartment_id')->toArray();
+			$data = [];
+			//apartments loop
+			foreach ($apartmentsWithBookings as $apartmentWithBookings) {
+				$singleApartment =
+				  [
+					'apartment_title' => $apartmentWithBookings[0]['apartment_title'],
+					'apartment_slug' => $apartmentWithBookings[0]['apartment_slug'],
+					'apartment_image' => $apartmentWithBookings[0]['apartment_image'],
+					'apartment_owner_nickname' => $apartmentWithBookings[0]['apartment_owner_nickname'],
+					'apartment_owner_fullname' => $apartmentWithBookings[0]['apartment_owner_fullname'],
+					'apartment_owner_email' => $apartmentWithBookings[0]['apartment_owner_email'],
+					"bookings" => []
+				  ];
+				//booking loop
+				foreach ($apartmentWithBookings as $booking) {
+					$singleBooking =
+					  [
+						'booking_reference' => $booking['reference'],
+						'status' => $booking['status'],
+						'user_nickname' => $booking['user_booking_nickname'],
+						'user_fullname' => $booking['user_booking_fullname'],
+						'user_email' => $booking['user_booking_email'],
+						'check_in' => Utility::dateTimeLocale($booking['check_in'], false),
+						'check_out' => Utility::dateTimeLocale($booking['check_out'], false),
+						'nights_count' => Utility::diffInDays($booking['check_in'], $booking['check_out']),
+						'total_amount' => '',
+						'confirmed_at' => Utility::dateTimeLocale($booking['created_at'], true),
+						'upgrades' => [],
+					  ];
+					$upgrade_amout_per_night = 0;
+					//upgrades loop
+					foreach ($booking['booked_services'] as $booked_service) {
+						$services =
+						  [
+							'service_name' => $booked_service['name'],
+							'service_price' => $booked_service['price_per_night'],
+						  ];
+						$singleBooking['upgrades'][] = $services;
+						$upgrade_amout_per_night += $booked_service['price_per_night'];
+					}
+					$singleBooking['total_amount'] = ($booking['apartment_price_per_night'] + $upgrade_amout_per_night) * $singleBooking['nights_count'];
+					$singleApartment['bookings'][] = $singleBooking;
+				}
+				$data[] = $singleApartment;
+			}
+			return $data;
 		}
 		
 	}

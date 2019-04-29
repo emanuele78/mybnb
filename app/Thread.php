@@ -136,7 +136,7 @@
 		}
 		
 		/**
-		 * Utility function to covert date time in locale
+		 * Utility function to convert date time in locale
 		 *
 		 * @param $value
 		 * @return string

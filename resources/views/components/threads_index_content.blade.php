@@ -6,18 +6,13 @@
         <div class="card-body">
             <div class="card-block">
                 <div class="row">
-                    <div class="dropdown col-6">
+                    <div class="dropdown col">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Visualizza conversazioni
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item {{$show_by == 'my_apartments' ? 'active':null}}" data-type="my_apartments" href="#">Relative ai miei appartamenti</a>
                             <a class="dropdown-item {{$show_by == 'other_apartments' ? 'active':null}}" data-type="other_apartments" href="#">Relative ad altri appartamenti</a>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="search_message">
-                            <input type="email" class="form-control" id="search_message" placeholder="Cerca nelle conversazioni">
                         </div>
                     </div>
                 </div>
@@ -27,13 +22,9 @@
     <div class="content_wrapper"></div>
 </div>
 
-<script id="no-results-template" type="text/x-handlebars-template">
-    <div class="card mt-3">
-        <div class="card-body">
-            Nessun risultato trovato
-        </div>
-    </div>
-</script>
+@component('components.no_result_template')
+    Nessuna conversazione trovata
+@endcomponent
 
 <script id="own-apartments-template" type="text/x-handlebars-template">
     @{{#each this as |apartment|}}

@@ -20,8 +20,10 @@
 			$this->call(ServicesTableSeeder::class);
 			$this->call(UpgradesTableSeeder::class);
 			$this->call(ReservedDaysTableSeeder::class);
+			$this->call(CustomersTableSeeder::class);
 			$this->call(BookingsTableSeeder::class);
 			$this->call(ThreadsTableSeeder::class);
 			$this->call(MessagesTableSeeder::class);
+			$this->call(BookedServicesTableSeeder::class);
 		}
 	}

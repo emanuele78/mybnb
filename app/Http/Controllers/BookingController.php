@@ -47,7 +47,6 @@
 		 * @return \Illuminate\Http\RedirectResponse
 		 */
 		public function store(StoreBookingRequest $request, Apartment $apartment) {
-			
 			$validated = $request->validated();
 			$user = Auth::user();
 			
@@ -71,5 +70,18 @@
 			}
 			$booking = Booking::addPendingBooking($validated, $user, $apartment);
 			return view('layouts.apartment_payment')->withApartment($apartment)->withReference($booking->reference)->withBookingAmount($booking->bookingAmount());
+		}
+		
+		/**
+		 * Return the view where user can switch between booking for own apartments and other apartments
+		 *
+		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+		 */
+		public function index() {
+			
+			if (!Auth::check()) {
+				return redirect()->route('login');
+			}
+			return view('layouts.booking_index');
 		}
 	}

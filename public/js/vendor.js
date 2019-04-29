@@ -61403,20 +61403,23 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 var LOCAL_PORT = 8000;
+var LOCAL_BASE_URI = 'http://127.0.0.1:';
 var PROJECT_CONSTANTS = {
-  citiesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/cities',
-  tokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/tokens',
-  activationTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/tokens',
-  apartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/booking',
-  authApartmentAvailabilityEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/auth/apartments/{apartment}/booking',
-  mapEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/map',
-  addressEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/address',
-  paymentTokenEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/payments/token',
-  bookingPaymentEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/booking/payment',
-  messagesEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/{apartment}/messages',
-  messagesDashboardEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/messages',
-  threadEndpoint: 'http://127.0.0.1:' + LOCAL_PORT + '/api/apartments/threads/{thread}'
+  citiesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/cities',
+  tokenEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/tokens',
+  activationTokenEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/tokens',
+  apartmentAvailabilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/booking',
+  authApartmentAvailabilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/booking',
+  mapEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/map',
+  addressEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/address',
+  paymentTokenEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/payments/token',
+  bookingPaymentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/booking/payment',
+  messagesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/messages',
+  messagesDashboardEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/messages',
+  threadEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/threads/{thread}',
+  bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings'
 };
+var PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
 
 if (false) {}
 
