@@ -20,8 +20,6 @@
 	Route::middleware('check_token')->group(
 	  function () {
 		  
-		  //todo wip
-		  Route::get('/ricerca', 'ApartmentController@search')->name('search');
 		  //show the apartment show view
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
@@ -45,7 +43,7 @@
 	
 	/* these routes are not subject to token limitations */
 	//show the main index page
-	Route::get('/', 'ApartmentController@index')->name('home');
+	Route::get('/', 'LandingPageController@index')->name('home');
 	//activate the token
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
