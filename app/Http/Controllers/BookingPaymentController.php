@@ -4,6 +4,8 @@
 	
 	use App\Booking;
 	use App\Services\BraintreeGateway;
+	use Auth;
+	use Barryvdh\DomPDF\Facade as PDF;
 	use Illuminate\Http\Request;
 	use Validator;
 	
@@ -39,5 +41,17 @@
 				return response()->json(['success' => true], 200);
 			}
 			return response()->json(['success' => false, 'message' => 'braintree_error'], 404);
+		}
+		
+		public function show(Booking $booking) {
+			
+			if (!Auth::check()) {
+				return redirect()->route('login');
+			}
+			if (Auth::user()->id != $booking->user_booking_id) {
+				return abort(403);
+			}
+			$pdf = PDF::loadView('pdf.receipt', $booking->dataForInvoice());
+			return $pdf->stream('invoice.pdf');
 		}
 	}

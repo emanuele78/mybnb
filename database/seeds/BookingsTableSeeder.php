@@ -72,6 +72,8 @@
 			  'user_booking_id' => $userBooking->id,
 			  'user_booking_nickname' => $userBooking->nickname,
 			  'user_booking_fullname' => $userBooking->fullname(),
+			  'user_booking_address' => $userBooking->customer->streetAddress,
+			  'user_booking_full_locality' => $userBooking->fullLocality(),
 			  'user_booking_email' => $userBooking->email,
 			  
 			  'apartment_id' => $bookedApartment->id,
@@ -80,6 +82,8 @@
 			  'apartment_owner_id' => $bookedApartment->user->id,
 			  'apartment_owner_nickname' => $bookedApartment->user->nickname,
 			  'apartment_owner_fullname' => $bookedApartment->user->fullname(),
+			  'apartment_owner_address' => $bookedApartment->user->customer->streetAddress,
+			  'apartment_owner_full_locality' => $bookedApartment->user->fullLocality(),
 			  'apartment_owner_email' => $bookedApartment->user->email,
 			  'apartment_image' => $bookedApartment->main_image,
 			  

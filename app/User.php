@@ -142,4 +142,14 @@
 			
 			return $this->customer->firstName . ' ' . $this->customer->lastName;
 		}
+		
+		/**
+		 * Return postal code + locality for the current user
+		 *
+		 * @return string
+		 */
+		public function fullLocality(): string {
+			
+			return $this->customer->postalCode . ' ' . $this->customer->locality;
+		}
 	}

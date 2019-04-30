@@ -180,7 +180,7 @@
                             </small>
                             @{{/each}}
                             @{{#ifCond this.status}}
-                            <button role="button" class="btn btn-success mt-2">Scarica ricevuta</button>
+                            <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2">Scarica ricevuta</a>
                             @{{else}}
                             <button role="button" class="btn btn-warning mt-2">Riprendi prenotazione</button>
                             @{{/ifCond}}

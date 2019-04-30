@@ -38,6 +38,8 @@
 		  Route::get('/conversazioni/{thread?}', 'ApartmentThreadController@show')->name('show_thread');
 		  //show all the bookings
 		  Route::get('/prenotazioni', 'BookingController@index')->name('show_bookings');
+		  //download a receipt
+		  Route::get('/prenotazioni/ricevute/{booking?}', 'BookingPaymentController@show')->name('show_receipt');
 	  }
 	);
 	
@@ -48,5 +50,4 @@
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	//todo to be deleted - only for debugging purposes
-	Route::view('/test', 'layouts.test');
-	
+	Route::get('/test', 'BookingPaymentController@show');

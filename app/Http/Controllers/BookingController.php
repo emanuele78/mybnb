@@ -79,7 +79,7 @@
 		 */
 		public function index() {
 			
-			if (!Auth::check()) {
+			if (!auth::check()) {
 				return redirect()->route('login');
 			}
 			return view('layouts.booking_index');

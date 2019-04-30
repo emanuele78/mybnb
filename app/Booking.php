@@ -21,6 +21,16 @@
 		];
 		
 		/**
+		 * Set key for route model binding
+		 *
+		 * @return string
+		 */
+		public function getRouteKeyName() {
+			
+			return 'reference';
+		}
+		
+		/**
 		 * Eloquent relationship
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -70,6 +80,8 @@
 			$booking->user_booking_id = $user->id;
 			$booking->user_booking_nickname = $user->nickname;
 			$booking->user_booking_fullname = $user->fullname();
+			$booking->user_booking_address = $user->customer->streetAddress;
+			$booking->user_booking_full_locality = $user->fullLocality();
 			$booking->user_booking_email = $user->email;
 			
 			$booking->apartment_id = $apartment->id;
@@ -78,6 +90,8 @@
 			$booking->apartment_owner_id = $apartment->user->id;
 			$booking->apartment_owner_nickname = $apartment->user->nickname;
 			$booking->apartment_owner_fullname = $apartment->user->fullname();
+			$booking->apartment_owner_address = $apartment->user->customer->streetAddress;
+			$booking->apartment_owner_full_locality = $apartment->user->fullLocality();
 			$booking->apartment_owner_email = $apartment->user->email;
 			$booking->apartment_image = $apartment->main_image;
 			
@@ -138,30 +152,6 @@
 		public static function findByReference($reference) {
 			
 			return Booking::where('reference', $reference)->first();
-		}
-		
-		/**
-		 * Calc the amount for a booking
-		 *
-		 * @return float|int
-		 */
-		public function bookingAmount() {
-			
-			$baseAmount = $this->apartment_amount;
-			foreach ($this->bookedServices()->get() as $upgrade) {
-				$baseAmount += $upgrade->price_per_night == 0 ?: $upgrade->price_per_night;
-			}
-			return $baseAmount * $this->check_out->diffInDays($this->check_in);
-		}
-		
-		/**
-		 * Eloquent relationship
-		 *
-		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-		 */
-		public function bookedServices() {
-			
-			return $this->hasMany(BookedService::class);
 		}
 		
 		/**
@@ -297,6 +287,67 @@
 				$data[] = $singleApartment;
 			}
 			return $data;
+		}
+		
+		/**
+		 * Return an array of data for the current booking used to generate a receipt pdf
+		 * @return array
+		 */
+		public function dataForInvoice() {
+			$data = [
+			  'booking_reference' => $this->reference,
+			  'booking_date' => Utility::dateTimeLocale($this->updated_at, false),
+			  'user_booking_fullname' => $this->user_booking_fullname,
+			  'user_booking_address' => $this->user_booking_address,
+			  'user_booking_locality' => $this->user_booking_full_locality,
+			  'user_booking_email' => $this->user_booking_email,
+			  'apartment_owner_fullname' => $this->apartment_owner_fullname,
+			  'apartment_owner_address' => $this->apartment_owner_address,
+			  'apartment_owner_locality' => $this->apartment_owner_full_locality,
+			  'apartment_owner_email' => $this->apartment_owner_email,
+			  'apartment_title' => $this->apartment_title,
+			  'apartment_price_per_night' => $this->apartment_price_per_night,
+			  'check_in' => Utility::dateTimeLocale($this->check_in, false),
+			  'check_out' => Utility::dateTimeLocale($this->check_out, false),
+			  'nights_count' => Utility::diffInDays($this->check_in, $this->check_out),
+			  'total_amount' => $this->bookingAmount(),
+			  'has_upgrades' => $this->bookedServices()->exists(),
+			];
+			if ($data['has_upgrades']) {
+				$data['upgrades'] = [];
+				foreach ($this->bookedServices()->get() as $bookedService) {
+					$data['upgrades'][] =
+					  [
+						'name' => $bookedService->name,
+						'price_per_night' => $bookedService->price_per_night,
+					  ];
+				}
+			}
+			return $data;
+		}
+		
+		/**
+		 * Calc the amount for a booking
+		 *
+		 * @return float|int
+		 */
+		public function bookingAmount() {
+			
+			$baseAmount = $this->apartment_price_per_night;
+			foreach ($this->bookedServices()->get() as $upgrade) {
+				$baseAmount += $upgrade->price_per_night == 0 ?: $upgrade->price_per_night;
+			}
+			return $baseAmount * $this->check_out->diffInDays($this->check_in);
+		}
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
+		public function bookedServices() {
+			
+			return $this->hasMany(BookedService::class);
 		}
 		
 	}

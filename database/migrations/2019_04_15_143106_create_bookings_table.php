@@ -23,6 +23,8 @@
 				$table->unsignedBigInteger('user_booking_id');
 				$table->string('user_booking_nickname');
 				$table->string('user_booking_fullname');
+				$table->string('user_booking_address');
+				$table->string('user_booking_full_locality');
 				$table->string('user_booking_email');
 				
 				$table->unsignedBigInteger('apartment_id');
@@ -31,6 +33,8 @@
 				$table->unsignedBigInteger('apartment_owner_id');
 				$table->string('apartment_owner_nickname');
 				$table->string('apartment_owner_fullname');
+				$table->string('apartment_owner_address');
+				$table->string('apartment_owner_full_locality');
 				$table->string('apartment_owner_email');
 				$table->string('apartment_image');
 				
