@@ -12,11 +12,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.js */ "./resources/js/app.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _fullcalendar_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fullcalendar/core */ "./node_modules/@fullcalendar/core/main.js");
+/* harmony import */ var _fullcalendar_core__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/main.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_fullcalendar_core_main_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../node_modules/@fullcalendar/core/main.css */ "./node_modules/@fullcalendar/core/main.css");
+/* harmony import */ var _node_modules_fullcalendar_core_main_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_fullcalendar_core_main_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_fullcalendar_daygrid_main_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node_modules/@fullcalendar/daygrid/main.css */ "./node_modules/@fullcalendar/daygrid/main.css");
+/* harmony import */ var _node_modules_fullcalendar_daygrid_main_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_fullcalendar_daygrid_main_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _fullcalendar_core_locales_it__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fullcalendar/core/locales/it */ "./node_modules/@fullcalendar/core/locales/it.js");
+/* harmony import */ var _fullcalendar_core_locales_it__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_fullcalendar_core_locales_it__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _modal_info_mod__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modal_info_mod */ "./resources/js/modal_info_mod.js");
 
 
+
+
+
+
+
+
+
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /**
  * Entry point
  */
+
 
 sendRequest();
 registerListenerForDropdowns();
@@ -48,13 +68,12 @@ function sendRequest() {
     },
     complete: function complete() {
       if ($('.dropdown_show.active').data('show') === 'my_apartments_bookings') {
-        $('.main_message_title').text('Prenotazioni effettuate ai tuoi appartamenti');
+        $('.main_title').text('Prenotazioni effettuate ai tuoi appartamenti');
       } else if ($('.dropdown_show.active').data('show') === 'other_apartments_bookings') {
-        $('.main_message_title').text('Prenotazioni effettuate ad altri appartamenti');
+        $('.main_title').text('Prenotazioni effettuate ad altri appartamenti');
       } else {
-        $('.main_message_title').text('Prenotazioni effettuate ad altri appartamenti (in sospeso)');
-      } // attachDeleteButtonsListeners();
-
+        $('.main_title').text('Prenotazioni effettuate ad altri appartamenti (in sospeso)');
+      }
     }
   });
 }
@@ -82,10 +101,14 @@ function registerListenerForDropdowns() {
  */
 
 
-function registerListenerForAccordion() {
-  $('.expand_bookings').off();
-  $('.expand_bookings').click(function () {
-    $(this).text($(this).text() === 'Mostra conversazioni' ? 'Nascondi conversazioni' : 'Mostra conversazioni');
+function registerListenersForAccordion() {
+  $('.expand_booking_list').off();
+  $('.expand_booking_list').click(function () {
+    $(this).text($(this).text() === 'Mostra elenco prenotazioni' ? 'Nascondi elenco prenotazioni' : 'Mostra elenco prenotazioni');
+  });
+  $('.expand_calendar').off();
+  $('.expand_calendar').click(function () {
+    $(this).text($(this).text() === 'Mostra calendario prenotazioni' ? 'Nascondi calendario prenotazioni' : 'Mostra calendario prenotazioni');
   });
 }
 /**
@@ -97,11 +120,163 @@ function registerListenerForAccordion() {
 function printResults(data) {
   if ($('.dropdown_show.active').data('show') === 'my_apartments_bookings') {
     generateHtml(data, $("#own-apartments-template"));
-    registerListenerForAccordion();
+    initializeCalendarGrid(data);
   } else {
     generateHtml(data, $("#other-apartments-template"));
-    registerListenerForAccordion();
   }
+
+  registerListenersForAccordion();
+}
+/**
+ * Initialize a calendar grid for each apartment
+ * @param apartmentsWithBookings
+ */
+
+
+function initializeCalendarGrid(apartmentsWithBookings) {
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = apartmentsWithBookings[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var apartmentWithBookings = _step.value;
+      var bookings = [];
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = apartmentWithBookings.bookings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var booking = _step2.value;
+          bookings.push({
+            id: booking.booking_reference,
+            title: booking.user_fullname,
+            start: moment(booking.check_in, "DD-MM-YYYY").format('YYYY-MM-DD'),
+            end: moment(booking.check_out, "DD-MM-YYYY").add(1, 'days').format('YYYY-MM-DD')
+          });
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_2__["Calendar"]($('#calendar-' + apartmentWithBookings.apartment_slug)[0], {
+        plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_3___default.a],
+        defaultView: 'dayGridMonth',
+        height: 500,
+        locale: _fullcalendar_core_locales_it__WEBPACK_IMPORTED_MODULE_6___default.a,
+        events: bookings,
+        eventClick: function eventClick(info) {
+          showBookingInfo(apartmentsWithBookings, info.event.id);
+        }
+      }).render();
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+}
+/**
+ * Show info of the given booking in a modal view
+ * @param apartmentsWithBookings
+ * @param reference
+ */
+
+
+function showBookingInfo(apartmentsWithBookings, reference) {
+  console.log(apartmentsWithBookings);
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
+
+  try {
+    for (var _iterator3 = apartmentsWithBookings[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      var apartmentWithBookings = _step3.value;
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = apartmentWithBookings.bookings[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var booking = _step4.value;
+
+          if (booking.booking_reference === reference) {
+            showModal(booking);
+            return;
+          }
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+            _iterator4["return"]();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+    }
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+        _iterator3["return"]();
+      }
+    } finally {
+      if (_didIteratorError3) {
+        throw _iteratorError3;
+      }
+    }
+  }
+}
+/**
+ * Show the given booking on a modal view
+ * @param booking
+ */
+
+
+function showModal(booking) {
+  console.log(booking);
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#info-booking-template").html());
+  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('processAmount', function (options) {
+    var amount = parseFloat(options.fn(this));
+    return amount.toLocaleString('it-IT', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  });
+  $('#info_booking_content').html(template(booking));
+  _modal_info_mod__WEBPACK_IMPORTED_MODULE_7__["default"].showInfoModal(function () {
+    //user confirms deletion
+    console.log("ok");
+  });
 }
 /**
  * Template for no data

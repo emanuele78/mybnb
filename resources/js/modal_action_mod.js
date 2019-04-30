@@ -1,12 +1,12 @@
 const HANDLE_MODULE_MESSAGE = {
 
-    showModule: function (confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
-        performAction(confirm_data, dismiss_data, confirm_callback, dimiss_callback);
+    showActionModal: function (confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
+        showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_callback);
     }
 
 };
 
-function performAction(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
+function showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
     let modalComponent = $('#modal_message');
     let confirmButton = $('#confirm_modal_button');
     let dismissButton = $('#dismiss_modal_button');

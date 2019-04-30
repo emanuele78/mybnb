@@ -33,11 +33,11 @@
         <button id="submit_message" class="btn btn-primary pl-5 pr-5 align-self-start mt-2">Invia</button>
     </div>
 </div>
-@component('components.modal_message')
+@component('components.modal_action')
     @slot('modal_title','Conferma cancellazione')
     @slot('modal_dismiss_button_text','Annulla')
     @slot('modal_confirm_button_text','Cancella')
-    Confermi la cancellazione di questa convarsazione?
+    Confermi la cancellazione di questa conversazione?
 @endcomponent
 <script id="message-template" type="text/x-handlebars-template">
     @{{#each this}}

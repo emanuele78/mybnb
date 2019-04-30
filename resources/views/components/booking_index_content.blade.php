@@ -1,7 +1,7 @@
 <div class="container bookings_container">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="text-center main_message_title"></h3>
+            <h3 class="text-center main_title"></h3>
         </div>
         <div class="card-body">
             <div class="card-block">
@@ -54,12 +54,21 @@
                         </div>
                         <div class="col-4 text-right">
                             <div class="">
-                                <button class="btn btn-primary" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Elenco prenotazioni</button>
+                                <button class="btn btn-primary expand_booking_list" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Mostra elenco prenotazioni</button>
                             </div>
                             <div class="mt-1">
-                                <button class="btn btn-success expand_bookings" data-toggle="collapse" data-target="mio" aria-expanded="true">Calendario prenotazioni</button>
+                                <button class="btn btn-success expand_calendar" data-toggle="collapse" data-target="#calendar-section-@{{apartment_slug}}" aria-expanded="true">Mostra calendario prenotazioni</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="calendar-section-@{{apartment_slug}}" class="collapse">
+            <div class="card-body">
+                <div class="apartment_calendar_wrapper">
+                    <div class="row">
+                        <div class="col" id="calendar-@{{apartment_slug}}"></div>
                     </div>
                 </div>
             </div>
@@ -67,7 +76,7 @@
         <div id="@{{apartment_slug}}" class="collapse">
             <div class="card-body booking_section">
                 @{{#each this.bookings}}
-                <div class="">
+                <div class="booking_wrapper">
                     <hr>
                     <div class="row">
                         <div class="col">
@@ -183,4 +192,46 @@
         </div>
     </div>
     @{{/each}}
+</script>
+@component('components.modal_info')
+    @slot('modal_title','Dettagli prenotazione')
+    @slot('modal_confirm_button_text','Ok')
+    <div id="info_booking_content"></div>
+@endcomponent
+<script id="info-booking-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col">
+            <small class="card-text text-muted d-block">Effettuata da:
+                <strong>@{{user_fullname}} (@{{user_nickname}})</strong>
+            </small>
+            <small class="card-text text-muted d-block">Giorno/ora:
+                <strong>@{{confirmed_at}}</strong>
+            </small>
+            <small class="card-text text-muted d-block">Email:
+                <strong>@{{user_email}}</strong>
+            </small>
+            <small class="card-text text-muted d-block">Check-in:
+                <strong>@{{check_in}}</strong>
+            </small>
+            <small class="card-text text-muted d-block">Check-out:
+                <strong>@{{check_out}}</strong>
+            </small>
+            <small class="card-text text-muted d-block">Numero notti:
+                <strong>@{{nights_count}}</strong>
+            </small>
+            <small class="card-text text-muted d-block">Importo totale:
+                <strong>Euro @{{#processAmount}}@{{this.total_amount}}@{{/processAmount}}</strong>
+            </small>
+        </div>
+        <div class="col">
+            <div class="col text-right">
+                <small class="card-text text-muted d-block">Servizi a pagamento sottoscritti:</small>
+                @{{#each this.upgrades}}
+                <small class="card-text text-muted d-block">
+                    <strong class="text-capitalize">@{{service_name}}</strong>
+                </small>
+                @{{/each}}
+            </div>
+        </div>
+    </div>
 </script>

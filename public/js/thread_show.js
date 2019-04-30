@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _send_message_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./send_message_mod */ "./resources/js/send_message_mod.js");
-/* harmony import */ var _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal_message_mod */ "./resources/js/modal_message_mod.js");
+/* harmony import */ var _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal_action_mod */ "./resources/js/modal_action_mod.js");
 
 
 
@@ -99,7 +99,7 @@ $('#submit_message').click(function (e) {
  */
 
 $('#delete_button').click(function () {
-  _modal_message_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showModule(null, null, function () {
+  _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showActionModal(null, null, function () {
     //user confirms deletion
     deleteThread();
   }, null);

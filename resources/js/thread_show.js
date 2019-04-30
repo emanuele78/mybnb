@@ -1,7 +1,7 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars'
 import MESSAGE_MODULE from "./send_message_mod";
-import MODAL_MESSAGE_MODULE from "./modal_message_mod";
+import MODAL_ACTION_MODULE from "./modal_action_mod";
 
 /**
  * entry point
@@ -77,7 +77,7 @@ $('#submit_message').click(function (e) {
  * Listener for delete button
  */
 $('#delete_button').click(function () {
-    MODAL_MESSAGE_MODULE.showModule(null, null, function () {
+    MODAL_ACTION_MODULE.showActionModal(null, null, function () {
         //user confirms deletion
         deleteThread();
     }, null);

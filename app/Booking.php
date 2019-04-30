@@ -186,7 +186,7 @@
 		
 		public static function forUserApartments(int $user_id, bool $onlyFutureBookings) {
 			
-			$builder = self::where('apartment_owner_id', $user_id)->with('bookedServices');
+			$builder = self::where('apartment_owner_id', $user_id)->where('status', 'confirmed')->with('bookedServices');
 			if ($onlyFutureBookings) {
 				$builder->where('check_out', '>', Carbon::now());
 			}

@@ -48,14 +48,5 @@
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	//todo to be deleted - only for debugging purposes
-	Route::get(
-	  '/test', function () {
-		
-		$user_id = \App\User::find(1)->id;
-		
-		return \App\Booking::forOtherApartments($user_id, false);
-
-	});
-	
-	Route::get('/test2','Api\BookingController@index');
+	Route::view('/test', 'layouts.test');
 	
