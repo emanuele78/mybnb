@@ -91,7 +91,7 @@ Condizioni di pagamento: pagato con carta di credito
                 <tr>
                     <td align="left">Soggiorno nell'appartamento denominato:</td>
                     <td align="center">{{$nights_count}}</td>
-                    <td align="center">€ {{$apartment_price_per_night}}</td>
+                    <td align="center">€ {{number_format($apartment_price_per_night, 2, ',','.')}}</td>
                     <td align="right">€ {{number_format($nights_count * $apartment_price_per_night, 2, ',','.')}}</td>
                 </tr>
                 <tr>
@@ -123,7 +123,7 @@ Condizioni di pagamento: pagato con carta di credito
                         <tr>
                             <td align="left">{{$upgrade['name']}}</td>
                             <td align="center">{{$nights_count}}</td>
-                            <td align="center">€ {{$upgrade['price_per_night']}}</td>
+                            <td align="center">€ {{number_format($upgrade['price_per_night'], 2, ',','.')}}</td>
                             <td align="right">€ {{number_format($nights_count * $upgrade['price_per_night'], 2, ',','.')}}</td>
                         </tr>
                     @endforeach
@@ -134,7 +134,7 @@ Condizioni di pagamento: pagato con carta di credito
                     <td></td>
                     <td></td>
                     <td align="center">Totale</td>
-                    <td align="right" class="gray">€ {{$total_amount}}</td>
+                    <td align="right" class="gray">€ {{number_format($total_amount, 2, ',','.')}}</td>
                 </tr>
                 </tfoot>
             </table>
