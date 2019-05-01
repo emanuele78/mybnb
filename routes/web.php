@@ -20,6 +20,8 @@
 	Route::middleware('check_token')->group(
 	  function () {
 		  
+		  //apartments dashboard
+		  Route::get('/appartamenti', 'ApartmentController@index')->name('apartments_dashboard');
 		  //show the apartment show view
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
@@ -48,4 +50,11 @@
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	//todo to be deleted - only for debugging purposes
-	Route::get('/test', 'BookingPaymentController@show');
+	//	Route::get('/test', 'Api\ApartmentController@index');
+	Route::get(
+	  '/test', function () {
+		
+		//		return \App\Apartment::allApartments(2);
+		$user_id = 2;
+		return \App\Apartment::where('user_id', $user_id)->with('promotions')->whereHas('promotions')->get()->toArray();
+	});

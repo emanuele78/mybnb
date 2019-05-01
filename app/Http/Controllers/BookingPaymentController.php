@@ -43,6 +43,12 @@
 			return response()->json(['success' => false, 'message' => 'braintree_error'], 404);
 		}
 		
+		/**
+		 * Return the pdf receipt for the given booking
+		 *
+		 * @param Booking $booking
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
 		public function show(Booking $booking) {
 			
 			if (!Auth::check()) {

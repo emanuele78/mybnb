@@ -14,33 +14,70 @@
 		 */
 		public function run() {
 			
-			$apartments_to_promote = 50;
+			$future_days = 5;
+			$apartments_to_promote = 80;
 			$promotionPlans = PromotionPlan::get();
 			$apartments = Apartment::take($apartments_to_promote)->get();
-			foreach ($apartments as $apartment) {
+			$expiredPlanStartDate = Carbon::now()->addDays(-10);
+			$expiredPlanEndDate = Carbon::now()->addDays(-5);
+			$startDate = Carbon::now();
+			$futurePlanStartDate = Carbon::now()->addDays($future_days);
+			foreach ($apartments as $key => $apartment) {
+				
 				$promotionPlan = $promotionPlans[rand(0, count($promotionPlans) - 1)];
 				$expiredPromotionPlan = $promotionPlans[rand(0, count($promotionPlans) - 1)];
-				$expiredPlanStartDate = Carbon::now()->addDays(-10);
-				$expiredPlanEndDate = Carbon::now()->addDays(-5);
-				$startDate = Carbon::now();
+				$futurePromotionPlan = $promotionPlans[rand(0, count($promotionPlans) - 1)];
+				$futurePlanEndDate = Carbon::now()->addDays($future_days)->addDays($promotionPlan->max_length);
 				$endDate = Carbon::now()->addDays($promotionPlan->max_length);
-				DB::table('promotions')->insert(
-				  [
-					[
-					  'apartment_id' => $apartment->id,
-					  'promotion_plan_id' => $promotionPlan->id,
-					  'start_at' => $startDate,
-					  'end_at' => $endDate,
-					  'paid' => $promotionPlan->max_length * $promotionPlan->price_per_day
-					],
-					[
-					  'apartment_id' => $apartment->id,
-					  'promotion_plan_id' => $expiredPromotionPlan->id,
-					  'start_at' => $expiredPlanStartDate,
-					  'end_at' => $expiredPlanEndDate,
-					  'paid' => $expiredPromotionPlan->max_length * $expiredPromotionPlan->price_per_day
-					]
-				  ]);
+				if ($key >= 50) {
+					//one promotion expired and one future
+					DB::table('promotions')->insert(
+					  [
+						[
+						  'apartment_id' => $apartment->id,
+						  'promotion_plan_id' => $expiredPromotionPlan->id,
+						  'start_at' => $expiredPlanStartDate,
+						  'end_at' => $expiredPlanEndDate,
+						  'paid' => $expiredPromotionPlan->max_length * $expiredPromotionPlan->price_per_day,
+						  'created_at' => $startDate,
+						  'updated_at' => $startDate
+						],
+						[
+						  'apartment_id' => $apartment->id,
+						  'promotion_plan_id' => $futurePromotionPlan->id,
+						  'start_at' => $futurePlanStartDate,
+						  'end_at' => $futurePlanEndDate,
+						  'paid' => $futurePromotionPlan->max_length * $futurePromotionPlan->price_per_day,
+						  'created_at' => $startDate,
+						  'updated_at' => $startDate
+						]
+					  ]
+					);
+				} else {
+					//one promotion active and one expired
+					DB::table('promotions')->insert(
+					  [
+						[
+						  'apartment_id' => $apartment->id,
+						  'promotion_plan_id' => $promotionPlan->id,
+						  'start_at' => $startDate,
+						  'end_at' => $endDate,
+						  'paid' => $promotionPlan->max_length * $promotionPlan->price_per_day,
+						  'created_at' => $startDate,
+						  'updated_at' => $startDate
+						],
+						[
+						  'apartment_id' => $apartment->id,
+						  'promotion_plan_id' => $expiredPromotionPlan->id,
+						  'start_at' => $expiredPlanStartDate,
+						  'end_at' => $expiredPlanEndDate,
+						  'paid' => $expiredPromotionPlan->max_length * $expiredPromotionPlan->price_per_day,
+						  'created_at' => $startDate,
+						  'updated_at' => $startDate
+						]
+					  ]
+					);
+				}
 			}
 		}
 	}

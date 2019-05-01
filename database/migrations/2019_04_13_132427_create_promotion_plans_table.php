@@ -18,6 +18,7 @@
 				
 				$table->bigIncrements('id');
 				$table->string('card_type',20);
+				$table->string('name',50);
 				$table->float('price_per_day', 5, 2);
 				$table->tinyInteger('max_length');
 				$table->timestamps();

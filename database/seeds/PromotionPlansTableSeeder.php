@@ -1,6 +1,5 @@
 <?php
 	
-	use App\PromotionPlan;
 	use Illuminate\Database\Seeder;
 	
 	class PromotionPlansTableSeeder extends Seeder {
@@ -12,14 +11,42 @@
 		 */
 		public function run() {
 			
-			$cardsType = ['standard' => 5, 'big' => 18, 'horizontal' => 9, 'vertical' => 9];
-			foreach ($cardsType as $key => $value) {
-				PromotionPlan::create(
-				  [
-					'card_type' => $key,
-					'price_per_day' => $value,
-					'max_length' => 7
-				  ]);
-			}
+			$now = \Carbon\Carbon::now();
+			$plans =
+			  [
+				[
+				  'card_type' => 'standard',
+				  'price_per_day' => 5,
+				  'name' => 'promo card piccola',
+				  'max_length' => 7,
+				  'created_at' => $now,
+				  'updated_at' => $now
+				],
+				[
+				  'card_type' => 'big',
+				  'price_per_day' => 18,
+				  'name' => 'promo card grande',
+				  'max_length' => 7,
+				  'created_at' => $now,
+				  'updated_at' => $now
+				],
+				[
+				  'card_type' => 'horizontal',
+				  'price_per_day' => 9,
+				  'name' => 'promo card orizzontale',
+				  'max_length' => 7,
+				  'created_at' => $now,
+				  'updated_at' => $now
+				],
+				[
+				  'card_type' => 'vertical',
+				  'price_per_day' => 9,
+				  'name' => 'promo card verticale',
+				  'max_length' => 7,
+				  'created_at' => $now,
+				  'updated_at' => $now
+				],
+			  ];
+			DB::table('promotion_plans')->insert($plans);
 		}
 	}

@@ -18,7 +18,8 @@ const PROJECT_CONSTANTS = {
     messagesDashboardEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/messages',
     threadEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/threads/{thread}',
     bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings',
-
+    apartmentsEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments',
+    apartmentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}',
 };
 const PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
 if (process.env.NODE_ENV === 'production') {
@@ -35,5 +36,7 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.messagesDashboardEndpoint = PRODUCTION_BASE_URI + '/api/messages';
     PROJECT_CONSTANTS.threadEndpoint = PRODUCTION_BASE_URI + '/api/apartments/threads/{thread}';
     PROJECT_CONSTANTS.bookingListEndpoint = PRODUCTION_BASE_URI + '/api/bookings';
+    PROJECT_CONSTANTS.apartmentsEndpoint = PRODUCTION_BASE_URI + '/api/apartments';
+    PROJECT_CONSTANTS.apartmentEndpoint = PRODUCTION_BASE_URI + '/api/apartments/{apartment}';
 }
 export default PROJECT_CONSTANTS;

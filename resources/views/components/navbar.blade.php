@@ -30,7 +30,7 @@
                 @endguest
                 @auth()
                     <li class="list-group-item">
-                        <a class="navbar_link" href="">Appartamenti</a>
+                        <a class="navbar_link" href="{{route('apartments_dashboard')}}">Appartamenti</a>
                     </li>
                     <li class="list-group-item">
                         <a class="navbar_link" href="{{route('show_bookings')}}">Prenotazioni</a>

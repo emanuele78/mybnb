@@ -72614,7 +72614,9 @@ var PROJECT_CONSTANTS = {
   messagesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/messages',
   messagesDashboardEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/messages',
   threadEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/threads/{thread}',
-  bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings'
+  bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings',
+  apartmentsEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments',
+  apartmentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}'
 };
 var PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
 
