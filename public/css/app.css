@@ -7,6 +7,47 @@
   height: 100%;
 }
 
+.waiting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.waiting .loading_wrapper {
+  font-size: 30px;
+  color: #1d2124;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+#reserved_days_list ul {
+  height: 400px;
+  overflow-y: scroll;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+#reserved_days_list ul li {
+  background-color: #e9ecef;
+  line-height: 40px;
+  list-style-type: none;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+}
+#reserved_days_list ul li:hover {
+  background-color: #3490dc;
+  color: white;
+}
+
+.upgrades_container {
+  max-height: 500px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10386,23 +10427,4 @@ h3 {
 
 .custom_full_border {
   border: 1px solid #dfdfdf;
-}
-
-.apartments_container .content_wrapper .row_card_content {
-  position: relative;
-}
-.apartments_container .content_wrapper .waiting {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.apartments_container .content_wrapper .waiting .loading_wrapper {
-  font-size: 30px;
-  color: #1d2124;
-  position: absolute;
-  top: 50%;
-  left: 50%;
 }

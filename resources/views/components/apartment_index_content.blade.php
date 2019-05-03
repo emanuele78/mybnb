@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="dropdown col text-right">
-                        <a href="#" class="btn btn-success">Inserisci un nuovo appartamento</a>
+                        <a href="{{route('new_apartment')}}" class="btn btn-success">Inserisci un nuovo appartamento</a>
                     </div>
                 </div>
             </div>

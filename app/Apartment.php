@@ -287,9 +287,15 @@
 			return $data;
 		}
 		
+		/**
+		 * Set the visibility of the current apartment
+		 *
+		 * @param bool $value
+		 */
 		public function visibility(bool $value) {
-		    $this->is_showed = $value;
-		    $this->update();
+			
+			$this->is_showed = $value;
+			$this->update();
 		}
 		
 	}

@@ -1,10 +1,13 @@
 {
-    "/js/apartment_index.js": "/js/apartment_index.js?id=211a5c14bece13cc042f",
+    "/js/apartment_create.js": "/js/apartment_create.js?id=20dc8af5d721401e579a",
+    "/js/apartment_index.js": "/js/apartment_index.js?id=253dac29f1e03cbb40ae",
     "/js/app.js": "/js/app.js?id=2707ccd145138f6f9c4c",
-    "/css/app.css": "/css/app.css?id=72b62e5dd5176e84731b",
+    "/css/app.css": "/css/app.css?id=db2e12d9cfefba9303e0",
     "/js/booking.js": "/js/booking.js?id=385722249be418c95d1f",
     "/js/booking_index.js": "/js/booking_index.js?id=8cc35a10d3d2c7ff0631",
+    "/js/calendar_mod.js": "/js/calendar_mod.js?id=ac1cc21ecd7e9634a2c9",
     "/js/check_availability_mod.js": "/js/check_availability_mod.js?id=f0b4b3b81f28c356a182",
+    "/js/geo_search_mod.js": "/js/geo_search_mod.js?id=75ec084abefa29c39266",
     "/js/index.js": "/js/index.js?id=fa38b0846caf1e988137",
     "/js/load_address_mod.js": "/js/load_address_mod.js?id=ff780714adb16e34a7fc",
     "/js/load_map_mod.js": "/js/load_map_mod.js?id=0b47846a7d65af75fe52",
@@ -20,6 +23,6 @@
     "/js/threads_index.js": "/js/threads_index.js?id=cde83715b47bb5efde3b",
     "/js/token_processor.js": "/js/token_processor.js?id=14b14dfb31d7e4250aae",
     "/js/user_registration.js": "/js/user_registration.js?id=6a4c4947b7b02bb81593",
-    "/js/vendor.js": "/js/vendor.js?id=3087606bd888be0e453e",
+    "/js/vendor.js": "/js/vendor.js?id=e8177fe3a1faefe843ee",
     "/css/plain.css": "/css/plain.css?id=e4c542a7f6bf6f74fdd8"
 }

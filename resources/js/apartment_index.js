@@ -82,22 +82,23 @@ function registerListenerForInPageActions() {
     $('.show_apartment').off().click(function () {
         let currentApartment = $(this).data('apartment');
         $('.waiting.' + currentApartment).show();
-        performAction(currentApartment, 'set_visible', function (success) {
-
+        changeApartmentVisibility(currentApartment, true, function () {
+            //reload
+            sendRequest();
         });
     });
     $('.hide_apartment').off().click(function () {
         let currentApartment = $(this).data('apartment');
         $('.waiting.' + currentApartment).show();
-        performAction(currentApartment, 'set_hidden', function (success) {
-
+        changeApartmentVisibility(currentApartment, false, function () {
+            //reload
+            sendRequest();
         });
     });
 }
 
-function performAction(apartment, action, callback) {
-    let url = PROJECT_MODULE.apartmentEndpoint.replace('{apartment}', apartment);
-    let success = true;
+function changeApartmentVisibility(apartment, set_visible, callback) {
+    let url = PROJECT_MODULE.apartmentVisibilityEndpoint.replace('{apartment}', apartment);
     $.ajax(url, {
         method: 'PATCH',
         headers: {
@@ -105,24 +106,20 @@ function performAction(apartment, action, callback) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            'action': action,
-        },
-        success: function (data) {
-            console.log(data);
+            'is_showed': set_visible ? 1 : 0,
         },
         error: function (e) {
-            success = false;
             console.log(e);
         },
         complete: function () {
-            sendRequest();
+            callback();
         }
     });
 }
 
-function removeCard(apartment) {
-    $('.apartment-card-' + apartment).remove();
-}
+// function removeCard(apartment) {
+//     $('.apartment-card-' + apartment).remove();
+// }
 
 // /**
 //  * Listener for accordion toggling

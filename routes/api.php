@@ -29,7 +29,7 @@
 		  //apartments dashboard
 		  Route::get('/apartments', 'Api\ApartmentController@index');
 		  //edit apartment
-		  Route::patch('/apartments/{apartment}', 'Api\ApartmentController@update');
+		  Route::patch('/apartments/{apartment}/visibility', 'Api\ApartmentVisibilityController@update');
 		  //add new message
 		  Route::post('/apartments/{apartment}/messages', 'Api\MessageController@store');
 		  //list messages received for own apartments and sent for other apartments (dashboard)
@@ -48,5 +48,9 @@
 		  Route::get('/auth/apartments/{apartment}/booking', 'ApartmentAvailabilityController@show');
 		  //get a list of all bookings
 		  Route::get('/bookings', 'Api\BookingController@index');
+		  //address search
+		  Route::get('/geo/addresses','Api\GeolocationController@index');
+		  //map from coordinates
+		  Route::get('/geo/maps/map','Api\GeolocationController@show');
 	  });
 	

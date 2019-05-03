@@ -22,16 +22,16 @@
 		//        //
 		//    }
 		//
-		//    /**
-		//     * Determine whether the user can create apartments.
-		//     *
-		//     * @param  \App\User  $user
-		//     * @return mixed
-		//     */
-		//    public function create(User $user)
-		//    {
-		//        //
-		//    }
+//		/**
+//		 * Determine whether the user can create apartments.
+//		 *
+//		 * @param  \App\User $user
+//		 * @return mixed
+//		 */
+//		public function create(User $user) {
+//
+//			return $user != null;
+//		}
 		
 		/**
 		 * Determine whether the user can update the apartment.

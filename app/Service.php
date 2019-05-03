@@ -45,4 +45,14 @@
 			
 			return Service::where('slug', $slug)->first();
 		}
+		
+		/**
+		 * Return all the services
+		 *
+		 * @return mixed
+		 */
+		public static function findAll() {
+			
+			return Service::orderBy('name')->get();
+		}
 	}

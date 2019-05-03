@@ -4,11 +4,18 @@
 	
 	use App\Apartment;
 	use App\Http\Controllers\Controller;
+	use App\Http\Requests\StoreApartmentRequest;
+	use App\Service;
 	use Auth;
 	use Illuminate\Validation\Rule;
 	
 	class ApartmentController extends Controller {
 		
+		/**
+		 * Apartments dashoboard
+		 *
+		 * @return array
+		 */
 		public function index() {
 			
 			$validated = request()->validate(
@@ -37,16 +44,31 @@
 			return $data;
 		}
 		
-		public function update(Apartment $apartment) {
+		public function update() {
+		}
+		
+		/**
+		 * Show the form to create a new apartment
+		 *
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
+		public function create() {
 			
-			$this->authorize('update', $apartment);
-			$validated = request()->validate(
-			  [
-				'action' => ['required', Rule::in(['set_hidden', 'set_visible', 'delete'])]
-			  ]);
-			if ($validated['action'] == 'set_hidden' || $validated['action'] == 'set_visible') {
-				$apartment->visibility($validated['action'] == 'set_visible');
+			if (!Auth::check()) {
+				return redirect()->route('login');
 			}
-			return response()->json(['success' => true], 200);
+			return view('layouts.apartment_create')
+			  ->with('services', Service::findAll())
+			  ->with('max_room_value', 30)
+			  ->with('max_bathroom_value', 30)
+			  ->with('max_people_value', 30);
+		}
+		
+		/**
+		 * Save new apartment
+		 */
+		public function store(StoreApartmentRequest $request) {
+			
+			return $request->validated();
 		}
 	}

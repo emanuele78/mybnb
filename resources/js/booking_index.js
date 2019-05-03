@@ -7,7 +7,7 @@ import '../../node_modules/@fullcalendar/daygrid/main.css';
 import itLocale from '@fullcalendar/core/locales/it';
 import MODAL_INFO_MODULE from "./modal_info_mod";
 
-let moment = require('moment');
+const moment = require('moment');
 
 /**
  * Entry point

@@ -22,6 +22,10 @@
 		  
 		  //apartments dashboard
 		  Route::get('/appartamenti', 'ApartmentController@index')->name('apartments_dashboard');
+		  //new apartment form
+		  Route::get('/appartamenti/nuovo', 'Api\ApartmentController@create')->name('new_apartment');
+		  //store the newly created apartment
+		  Route::post('/appartamenti/nuovo', 'Api\ApartmentController@store')->name('save_apartment');
 		  //show the apartment show view
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
