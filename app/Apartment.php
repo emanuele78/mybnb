@@ -346,4 +346,11 @@
 			return $this->hasMany(Image::class);
 		}
 		
+		/**
+		 * Delete all the data for the current apartment
+		 */
+		public function deleteAll() {
+		
+		}
+		
 	}

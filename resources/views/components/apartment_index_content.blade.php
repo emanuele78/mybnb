@@ -32,6 +32,13 @@
     Nessun appartamento trovato
 @endcomponent
 
+@component('components.modal_action')
+    @slot('modal_title','Conferma cancellazione')
+    @slot('modal_dismiss_button_text','Annulla')
+    @slot('modal_confirm_button_text','Cancella')
+    Confermi la cancellazione di questo appartamento e di tutti i dati associati ad esso?
+@endcomponent
+
 <script id="apartment-template" type="text/x-handlebars-template">
     @{{#each this}}
     <div class="card mt-3 apartment-card-@{{slug}}">
@@ -97,7 +104,7 @@
                                 @{{/if}}
                             </div>
                             <div class="mt-2">
-                                <button class="btn btn-danger">Elimina</button>
+                                <button data-apartment="@{{slug}}" class="btn btn-danger delete_apartment">Elimina</button>
                             </div>
                         </div>
                     </div>

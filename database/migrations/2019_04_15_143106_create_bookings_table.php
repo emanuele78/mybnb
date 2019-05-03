@@ -27,7 +27,7 @@
 				$table->string('user_booking_full_locality');
 				$table->string('user_booking_email');
 				
-				$table->unsignedBigInteger('apartment_id');
+				$table->unsignedBigInteger('apartment_id')->nullable();
 				$table->string('apartment_title');
 				$table->string('apartment_slug');
 				$table->unsignedBigInteger('apartment_owner_id');
@@ -43,7 +43,7 @@
 				$table->string('special_requests')->nullable();
 				$table->float('apartment_price_per_night', 8, 2);
 				$table->timestamps();
-				$table->foreign('apartment_id')->references('id')->on('apartments');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
 				$table->foreign('user_booking_id')->references('id')->on('users');
 				$table->foreign('apartment_owner_id')->references('id')->on('users');
 			});

@@ -1,6 +1,7 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars'
 import MODAL_INFO_MODULE from "./modal_info_mod";
+import MODAL_ACTION_MODULE from "./modal_action_mod";
 
 /**
  * Entry point
@@ -95,8 +96,24 @@ function registerListenerForInPageActions() {
             sendRequest();
         });
     });
+    $('.delete_apartment').off().click(function () {
+        let currentApartment = $(this).data('apartment');
+        MODAL_ACTION_MODULE.showActionModal(null, null, function () {
+            //user confirms deletion
+            deleteApartment(currentApartment, function () {
+                //reload
+                sendRequest();
+            })
+        }, null);
+    });
 }
 
+/**
+ * Change the visibility of the given apartment
+ * @param apartment
+ * @param set_visible
+ * @param callback
+ */
 function changeApartmentVisibility(apartment, set_visible, callback) {
     let url = PROJECT_MODULE.apartmentVisibilityEndpoint.replace('{apartment}', apartment);
     $.ajax(url, {
@@ -117,58 +134,27 @@ function changeApartmentVisibility(apartment, set_visible, callback) {
     });
 }
 
-// function removeCard(apartment) {
-//     $('.apartment-card-' + apartment).remove();
-// }
-
-// /**
-//  * Listener for accordion toggling
-//  */
-// function registerListenersForAccordion() {
-//     $('.expand_booking_list').off();
-//     $('.expand_booking_list').click(function () {
-//         $(this).text($(this).text() === 'Mostra elenco prenotazioni' ? 'Nascondi elenco prenotazioni' : 'Mostra elenco prenotazioni');
-//     });
-//     $('.expand_calendar').off();
-//     $('.expand_calendar').click(function () {
-//         $(this).text($(this).text() === 'Mostra calendario prenotazioni' ? 'Nascondi calendario prenotazioni' : 'Mostra calendario prenotazioni');
-//     });
-// }
-
-// /**
-//  * Show info of the given booking in a modal view
-//  * @param apartmentsWithBookings
-//  * @param reference
-//  */
-// function showBookingInfo(apartmentsWithBookings, reference) {
-//     console.log(apartmentsWithBookings);
-//     for (let apartmentWithBookings of apartmentsWithBookings) {
-//         for (let booking of apartmentWithBookings.bookings) {
-//             if (booking.booking_reference === reference) {
-//                 showModal(booking);
-//                 return;
-//             }
-//         }
-//     }
-// }
-//
-// /**
-//  * Show the given booking on a modal view
-//  * @param booking
-//  */
-// function showModal(booking) {
-//     console.log(booking);
-//     let template = Handlebars.compile($("#info-booking-template").html());
-//     Handlebars.registerHelper('processAmount', function (options) {
-//         let amount = parseFloat(options.fn(this));
-//         return amount.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-//     });
-//     $('#info_booking_content').html(template(booking));
-//     MODAL_INFO_MODULE.showInfoModal(function () {
-//         //user confirms deletion
-//         console.log("ok");
-//     });
-// }
+/**
+ * Send request to delete given apartment
+ * @param apartment
+ * @param callback
+ */
+function deleteApartment(apartment, callback) {
+    let url = PROJECT_MODULE.apartmentsEndpoint + '/' + apartment;
+    $.ajax(url, {
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function () {
+            callback();
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
 
 
 

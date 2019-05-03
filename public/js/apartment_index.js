@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modal_info_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal_info_mod */ "./resources/js/modal_info_mod.js");
+/* harmony import */ var _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal_action_mod */ "./resources/js/modal_action_mod.js");
+
 
 
 
@@ -117,7 +119,24 @@ function registerListenerForInPageActions() {
       sendRequest();
     });
   });
+  $('.delete_apartment').off().click(function () {
+    var currentApartment = $(this).data('apartment');
+    _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showActionModal(null, null, function () {
+      //user confirms deletion
+      deleteApartment(currentApartment, function () {
+        //reload
+        sendRequest();
+      });
+    }, null);
+  });
 }
+/**
+ * Change the visibility of the given apartment
+ * @param apartment
+ * @param set_visible
+ * @param callback
+ */
+
 
 function changeApartmentVisibility(apartment, set_visible, callback) {
   var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentVisibilityEndpoint.replace('{apartment}', apartment);
@@ -137,56 +156,30 @@ function changeApartmentVisibility(apartment, set_visible, callback) {
       callback();
     }
   });
-} // function removeCard(apartment) {
-//     $('.apartment-card-' + apartment).remove();
-// }
-// /**
-//  * Listener for accordion toggling
-//  */
-// function registerListenersForAccordion() {
-//     $('.expand_booking_list').off();
-//     $('.expand_booking_list').click(function () {
-//         $(this).text($(this).text() === 'Mostra elenco prenotazioni' ? 'Nascondi elenco prenotazioni' : 'Mostra elenco prenotazioni');
-//     });
-//     $('.expand_calendar').off();
-//     $('.expand_calendar').click(function () {
-//         $(this).text($(this).text() === 'Mostra calendario prenotazioni' ? 'Nascondi calendario prenotazioni' : 'Mostra calendario prenotazioni');
-//     });
-// }
-// /**
-//  * Show info of the given booking in a modal view
-//  * @param apartmentsWithBookings
-//  * @param reference
-//  */
-// function showBookingInfo(apartmentsWithBookings, reference) {
-//     console.log(apartmentsWithBookings);
-//     for (let apartmentWithBookings of apartmentsWithBookings) {
-//         for (let booking of apartmentWithBookings.bookings) {
-//             if (booking.booking_reference === reference) {
-//                 showModal(booking);
-//                 return;
-//             }
-//         }
-//     }
-// }
-//
-// /**
-//  * Show the given booking on a modal view
-//  * @param booking
-//  */
-// function showModal(booking) {
-//     console.log(booking);
-//     let template = Handlebars.compile($("#info-booking-template").html());
-//     Handlebars.registerHelper('processAmount', function (options) {
-//         let amount = parseFloat(options.fn(this));
-//         return amount.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-//     });
-//     $('#info_booking_content').html(template(booking));
-//     MODAL_INFO_MODULE.showInfoModal(function () {
-//         //user confirms deletion
-//         console.log("ok");
-//     });
-// }
+}
+/**
+ * Send request to delete given apartment
+ * @param apartment
+ * @param callback
+ */
+
+
+function deleteApartment(apartment, callback) {
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].apartmentsEndpoint + '/' + apartment;
+  $.ajax(url, {
+    method: 'DELETE',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success() {
+      callback();
+    },
+    error: function error(e) {
+      console.log(e);
+    }
+  });
+}
 
 /***/ }),
 

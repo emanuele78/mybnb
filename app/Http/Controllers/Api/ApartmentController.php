@@ -57,4 +57,15 @@
 			return response()->json(['success' => true], 200);
 		}
 		
+		/**
+		 * Destroy the given apartment
+		 *
+		 * @param Apartment $apartment
+		 * @return \Illuminate\Http\JsonResponse
+		 */
+		public function destroy(Apartment $apartment) {
+			
+			$apartment->deleteAll();
+		}
+		
 	}
