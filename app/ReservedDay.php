@@ -34,4 +34,17 @@
 			
 			return ReservedDay::where('apartment_id', $apartment_id)->get();
 		}
+		
+		/**
+		 * Reserve days if any
+		 *
+		 * @param $apartment_id
+		 * @param $reserved_days
+		 */
+		public static function addDays($apartment_id, $reserved_days) {
+			
+			foreach ($reserved_days as $reserved_day) {
+				self::create(['apartment_id' => $apartment_id, 'day' => $reserved_day]);
+			}
+		}
 	}

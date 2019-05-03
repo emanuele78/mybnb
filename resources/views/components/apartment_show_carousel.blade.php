@@ -4,14 +4,14 @@
             <div class="col">
                 <div id="apartment_carousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        @foreach($apartment->images as $image)
+                        @foreach($images as $image)
                             <li data-target="#apartment_carousel" data-slide-to="{{$loop->index}}" {{$loop->first?'class="active"':''}}></li>
                         @endforeach
                     </ol>
                     <div class="carousel-inner">
-                        @foreach($apartment->images as $image)
+                        @foreach($images as $image)
                             <div class="carousel-item {{$loop->first?'active':''}} apartment_item">
-                                <div class="apartment_image d-block w-100" style="background-image: url('{{asset('img/apartments/').'/'.$image->name}}')"></div>
+                                <div class="apartment_image d-block w-100" style="background-image: url('{{asset('img/apartments/').'/'.$image}}')"></div>
                             </div>
                         @endforeach
                     </div>

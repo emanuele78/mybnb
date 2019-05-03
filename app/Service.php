@@ -55,4 +55,18 @@
 			
 			return Service::orderBy('name')->get();
 		}
+		
+		/**
+		 * Create a new service
+		 *
+		 * @param $name
+		 * @return Service
+		 */
+		public static function addNew($name) : self {
+			
+			$service = new Service();
+			$service->name = $name;
+			$service->save();
+			return $service;
+		}
 	}

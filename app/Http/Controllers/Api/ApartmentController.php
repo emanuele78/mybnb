@@ -4,8 +4,6 @@
 	
 	use App\Apartment;
 	use App\Http\Controllers\Controller;
-	use App\Http\Requests\StoreApartmentRequest;
-	use App\Service;
 	use Auth;
 	use Illuminate\Validation\Rule;
 	
@@ -44,31 +42,19 @@
 			return $data;
 		}
 		
-		public function update() {
-		}
-		
 		/**
-		 * Show the form to create a new apartment
+		 * Update the visibility of the apartment
 		 *
-		 * @return \Illuminate\Http\RedirectResponse
+		 * @param Apartment $apartment
+		 * @return \Illuminate\Http\JsonResponse
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
 		 */
-		public function create() {
+		public function update(Apartment $apartment) {
 			
-			if (!Auth::check()) {
-				return redirect()->route('login');
-			}
-			return view('layouts.apartment_create')
-			  ->with('services', Service::findAll())
-			  ->with('max_room_value', 30)
-			  ->with('max_bathroom_value', 30)
-			  ->with('max_people_value', 30);
+			$this->authorize('update', $apartment);
+			$validated = request()->validate(['is_showed' => 'required|boolean']);
+			$apartment->visibility($validated['is_showed']);
+			return response()->json(['success' => true], 200);
 		}
 		
-		/**
-		 * Save new apartment
-		 */
-		public function store(StoreApartmentRequest $request) {
-			
-			return $request->validated();
-		}
 	}

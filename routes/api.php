@@ -29,7 +29,7 @@
 		  //apartments dashboard
 		  Route::get('/apartments', 'Api\ApartmentController@index');
 		  //edit apartment
-		  Route::patch('/apartments/{apartment}/visibility', 'Api\ApartmentVisibilityController@update');
+		  Route::patch('/apartments/{apartment}/visibility', 'Api\ApartmentController@update');
 		  //add new message
 		  Route::post('/apartments/{apartment}/messages', 'Api\MessageController@store');
 		  //list messages received for own apartments and sent for other apartments (dashboard)

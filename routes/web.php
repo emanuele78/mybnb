@@ -23,9 +23,9 @@
 		  //apartments dashboard
 		  Route::get('/appartamenti', 'ApartmentController@index')->name('apartments_dashboard');
 		  //new apartment form
-		  Route::get('/appartamenti/nuovo', 'Api\ApartmentController@create')->name('new_apartment');
+		  Route::get('/appartamenti/nuovo', 'ApartmentController@create')->name('new_apartment');
 		  //store the newly created apartment
-		  Route::post('/appartamenti/nuovo', 'Api\ApartmentController@store')->name('save_apartment');
+		  Route::post('/appartamenti/nuovo', 'ApartmentController@store')->name('save_apartment');
 		  //show the apartment show view
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
@@ -54,11 +54,11 @@
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
 	//todo to be deleted - only for debugging purposes
-	//	Route::get('/test', 'Api\ApartmentController@index');
-	Route::get(
-	  '/test', function () {
-		
-		//		return \App\Apartment::allApartments(2);
-		$user_id = 2;
-		return \App\Apartment::where('user_id', $user_id)->with('promotions')->whereHas('promotions')->get()->toArray();
-	});
+//	Route::view('/test', 'layouts/test');
+	//	Route::get(
+	//	  '/test', function () {
+	//
+	//		//		return \App\Apartment::allApartments(2);
+	//		$user_id = 2;
+	//		return \App\Apartment::where('user_id', $user_id)->with('promotions')->whereHas('promotions')->get()->toArray();
+	//	});

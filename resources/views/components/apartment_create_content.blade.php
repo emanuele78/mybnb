@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <textarea name="description" class="form-control {{$errors->has('description')?'is-invalid':null}}" rows="6" placeholder="Descrizione">{{old('description')}}</textarea>
                         <div class="invalid-feedback">
-                            La descrizione deve essere compresa tra 100 e 4000 caratteri
+                            La descrizione deve essere compresa tra 20 e 4000 caratteri
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
             </div>
             <div class="card-body">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" checked class="custom-control-input" name="is_showed" id="visibility">
+                    <input type="checkbox" {{$errors->isEmpty()||old('is_showed')?'checked':null}} class="custom-control-input" name="is_showed" value="1" id="visibility">
                     <label class="custom-control-label" for="visibility">Rendi visibile non appena inserito</label>
                 </div>
             </div>
@@ -265,16 +265,33 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        {{--<span class="text-muted">Immagine principale</span>--}}
-                        {{--<input type="file" name="main_image" class="btn btn-primary ml-1" placeholder="Scegli">--}}
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="mainImageFile">
+                        <span class="text-muted">Immagine principale</span>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="main_image" id="mainImageFile">
                             <label class="custom-file-label" for="mainImageFile">Scegli immagine</label>
+                            <div class="invalid-feedback">
+                                Immagine principale non selezionata
+                            </div>
                         </div>
                     </div>
                     <div class="col-6">
                         <span class="text-muted">Immagini secondarie (4 max)</span>
-                        <button class="btn btn-primary ml-1">scegli</button>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="firstOtherImageFile">
+                            <label class="custom-file-label" for="firstOtherImageFile">Scegli immagine</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="secondOtherImageFile">
+                            <label class="custom-file-label" for="secondOtherImageFile">Scegli immagine</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="thirdOtherImageFile">
+                            <label class="custom-file-label" for="thirdOtherImageFile">Scegli immagine</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="fourthOtherImageFile">
+                            <label class="custom-file-label" for="fourthOtherImageFile">Scegli immagine</label>
+                        </div>
                     </div>
                 </div>
             </div>

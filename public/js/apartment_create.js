@@ -14,12 +14,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _calendar_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./calendar_mod */ "./resources/js/calendar_mod.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var bs_custom_file_input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bs-custom-file-input */ "./node_modules/bs-custom-file-input/dist/bs-custom-file-input.js");
+/* harmony import */ var bs_custom_file_input__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(bs_custom_file_input__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
 
 attachListeners();
 initializeReservedDaysCalendar();
+bs_custom_file_input__WEBPACK_IMPORTED_MODULE_4___default.a.init();
 /**
  * Listener for address search button
  */

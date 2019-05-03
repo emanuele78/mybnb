@@ -82,26 +82,6 @@
 		}
 		
 		/**
-		 * Return the full name for the main image
-		 *
-		 * @return string
-		 */
-		public function mainImage(): string {
-			
-			return $this->images()->first()->name;
-		}
-		
-		/**
-		 * Eloquent relationship
-		 *
-		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-		 */
-		public function images() {
-			
-			return $this->hasMany(Image::class);
-		}
-		
-		/**
 		 * Eloquent relationship
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -192,11 +172,6 @@
 		 */
 		public function calcCurrentPrice() {
 			
-			//			if ($this->sale > 0) {
-			//
-			//				return $this->price_per_night - $this->price_per_night * $this->sale / 100;
-			//			}
-			//			return $this->price_per_night;
 			return self::calcPrice($this->sale, $this->price_per_night);
 		}
 		
@@ -296,6 +271,79 @@
 			
 			$this->is_showed = $value;
 			$this->update();
+		}
+		
+		/**
+		 * Save a new apartment for the given user with the given data
+		 *
+		 * @param $data
+		 * @param $user_id
+		 * @return void
+		 */
+		public static function createNew($data, $user_id): void {
+			
+			//apartment info
+			$apartment = new Apartment();
+			$apartment->user_id = $user_id;
+			$apartment->title = $data['title'];
+			$apartment->main_image = Image::storeFile($data['main_image']);
+			$apartment->description = $data['description'];
+			$apartment->room_count = $data['room_count'];
+			$apartment->people_count = $data['people_count'];
+			$apartment->bathroom_count = $data['bathroom_count'];
+			$apartment->square_meters = $data['square_meters'];
+			$apartment->longitude = $data['address_lng'];
+			$apartment->latitude = $data['address_lat'];
+			$apartment->price_per_night = $data['price_per_night'];
+			$apartment->max_stay = $data['max_stay'];
+			if ($data['sale'] != null) {
+				$apartment->sale = $data['sale'];
+			}
+			if (array_key_exists('is_showed', $data)) {
+				$apartment->is_showed = true;
+			}
+			$apartment->save();
+			//reserved days
+			if (array_key_exists('reserved_days', $data)) {
+				ReservedDay::addDays($apartment->id, $data['reserved_days']);
+			}
+			//additional images
+			if (array_key_exists('other_images', $data)) {
+				Image::storeAdditional($apartment->id, $data['other_images']);
+			}
+			//upgrades
+			if (array_key_exists('selected_services', $data)) {
+				Upgrade::addExistings($apartment->id, $data['selected_services'], $data['services_price']);
+			}
+			//user defined services
+			if (array_key_exists('new_services', $data)) {
+				Upgrade::addNew($apartment->id, $data['new_services'], $data['new_services_prices']);
+			}
+		}
+		
+		/**
+		 * Return array with all the image names related to the current apartment
+		 *
+		 * @return array
+		 */
+		public function allRelatedImages(): array {
+			
+			$images = [];
+			$images[] = $this->main_image;
+			foreach ($this->images()->get() as $image) {
+				$images[] = $image->name;
+			}
+			return $images;
+		}
+		
+		/**
+		 * Eloquent relationship
+		 *
+		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+		 */
+		public function images() {
+			
+			return $this->hasMany(Image::class);
 		}
 		
 	}

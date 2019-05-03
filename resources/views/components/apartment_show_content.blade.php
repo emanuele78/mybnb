@@ -101,7 +101,7 @@
         <div class="wrapper col-4">
             <div class="card full_height">
                 <div class="card-body">
-                    <h5 class="card-title">Servizi disponibili</h5>
+                    <h5 class="card-title">Servizi compresi</h5>
                     <ul>
                         @foreach($apartment->upgrades as $upgrade)
                             @if($upgrade->price_per_night==0)
@@ -115,7 +115,7 @@
         <div class="wrapper col-4">
             <div class="card full_height">
                 <div class="card-body">
-                    <h5 class="card-title">Servizi con supplemento</h5>
+                    <h5 class="card-title">Servizi su richiesta</h5>
                     <ul>
                         @foreach($apartment->upgrades as $upgrade)
                             @if($upgrade->price_per_night>0)

@@ -2,9 +2,11 @@ import PROJECT_MODULE from './app.js';
 import GEO_MODULE from "./geo_search_mod";
 import CALENDAR_MODULE from "./calendar_mod";
 import Handlebars from 'handlebars/dist/cjs/handlebars'
+import bsCustomFileInput from 'bs-custom-file-input'
 
 attachListeners();
 initializeReservedDaysCalendar();
+bsCustomFileInput.init();
 
 /**
  * Listener for address search button
