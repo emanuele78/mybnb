@@ -26,6 +26,7 @@
 					[
 					  'booking_id' => $booking->id,
 					  'name' => $first_upgrade->service->name,
+					  'slug'=> $first_upgrade->service->slug,
 					  'price_per_night' => $first_upgrade->price_per_night,
 					  'created_at' => $now,
 					  'updated_at' => $now,
@@ -33,6 +34,7 @@
 					[
 					  'booking_id' => $booking->id,
 					  'name' => $second_upgrade->service->name,
+					  'slug'=> $second_upgrade->service->slug,
 					  'price_per_night' => $second_upgrade->price_per_night,
 					  'created_at' => $now,
 					  'updated_at' => $now,

@@ -83,7 +83,11 @@
                                             @if(old('upgrades') && in_array($upgrade->service->slug, old('upgrades')))
                                                 <input name="upgrades[]" checked value="{{$upgrade->service->slug}}" type="checkbox" class="upgrade_service" data-service_name="{{$upgrade->service->slug}}" data-service_price="{{$upgrade->price_per_night}}">
                                             @else
-                                                <input name="upgrades[]" value="{{$upgrade->service->slug}}" type="checkbox" class="upgrade_service" data-service_name="{{$upgrade->service->slug}}" data-service_price="{{$upgrade->price_per_night}}">
+                                                @if($pendingUpgrades && in_array($upgrade->service->slug, $pendingUpgrades))
+                                                    <input name="upgrades[]" checked value="{{$upgrade->service->slug}}" type="checkbox" class="upgrade_service" data-service_name="{{$upgrade->service->slug}}" data-service_price="{{$upgrade->price_per_night}}">
+                                                @else
+                                                    <input name="upgrades[]" value="{{$upgrade->service->slug}}" type="checkbox" class="upgrade_service" data-service_name="{{$upgrade->service->slug}}" data-service_price="{{$upgrade->price_per_night}}">
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -107,13 +111,21 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')}}">
+                            @if(old('check_in'))
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')}}">
+                            @else
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{$stay['check_in']}}">
+                            @endif
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-in</strong>
                     </span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')}}">
+                            @if(old('check_out'))
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')}}">
+                            @else
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{$stay['check_out']}}">
+                            @endif
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-out</strong>
                     </span>
@@ -158,7 +170,11 @@
                         <h5 class="card-title">Richieste speciali</h5>
                     </div>
                     <div class="card-body">
-                        <textarea class="form-control" id="body" rows="6" name="special_requests" placeholder="Scrivi il tuo messaggio">{{ old('special_requests') }}</textarea>
+                        @if(old('special_requests'))
+                            <textarea class="form-control" id="body" rows="6" name="special_requests" placeholder="Scrivi il tuo messaggio">{{ old('special_requests') }}</textarea>
+                        @else
+                            <textarea class="form-control" id="body" rows="6" name="special_requests" placeholder="Scrivi il tuo messaggio">{{$stay['requests']}}</textarea>
+                        @endif
                     </div>
                 </div>
             </div>

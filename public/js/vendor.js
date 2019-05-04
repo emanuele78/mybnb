@@ -75194,6 +75194,8 @@ var HANDLE_AVAILABILITY = {
  */
 
 function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
+  console.log(checkIn);
+  console.log(checkOut);
   var result;
   var DAY_COUNT = dayCount(checkIn, checkOut);
   var AJAX_OPTIONS = {

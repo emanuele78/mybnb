@@ -47,6 +47,9 @@
                         @csrf
                     </form>
                 @endauth
+                <li class="list-group-item">
+                    <a class="navbar_link" href="{{route('show_faq')}}">FAQ</a>
+                </li>
             </ul>
         </div>
     </div>

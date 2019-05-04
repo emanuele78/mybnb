@@ -13,6 +13,16 @@ flatpickr('.flatpicker', {
 });
 
 /**
+ * For edit scenario
+ */
+(function () {
+    //check availability of a pending booking
+    if($('#check_in').val() != '' && $('#check_out').val() != ''){
+        check();
+    }
+})();
+
+/**
  * function that responds to event associate to upgrade checkboxes and flatpicker date.
  * Send ajax request to get availability for selected dates through module
  */

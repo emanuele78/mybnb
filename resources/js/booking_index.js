@@ -73,14 +73,21 @@ function registerListenerForDropdowns() {
 /**
  * Listener for accordion toggling
  */
-function registerListenersForAccordion() {
-    $('.expand_booking_list').off();
-    $('.expand_booking_list').click(function () {
+function registerButtonsListeners() {
+    let expandBookingElement = $('.expand_booking_list');
+    let expandCalendarElement = $('.expand_calendar');
+    expandBookingElement.off();
+    expandBookingElement.click(function () {
         $(this).text($(this).text() === 'Mostra elenco prenotazioni' ? 'Nascondi elenco prenotazioni' : 'Mostra elenco prenotazioni');
     });
-    $('.expand_calendar').off();
-    $('.expand_calendar').click(function () {
+    expandCalendarElement.off();
+    expandCalendarElement.click(function () {
         $(this).text($(this).text() === 'Mostra calendario prenotazioni' ? 'Nascondi calendario prenotazioni' : 'Mostra calendario prenotazioni');
+    });
+    $('.resume_booking').click(function (e) {
+        e.preventDefault();
+        let location = $(this).attr('href');
+        window.location.href = location.replace('booking', $(this).data('booking'));
     });
 }
 
@@ -95,7 +102,7 @@ function printResults(data) {
     } else {
         generateHtml(data, $("#other-apartments-template"));
     }
-    registerListenersForAccordion();
+    registerButtonsListeners();
 }
 
 /**

@@ -82,7 +82,7 @@
 				return (Carbon::now()->diffInMinutes($booking->created_at)) <= $max_life_pending_booking;
 			}
 			//authenticated user can be the same user who has the same booking in pending state
-			if (Auth::user()->id == $booking->user_id) {
+			if (Auth::user()->id == $booking->user_booking_id) {
 				//current user has current booking in pending state
 				return false;
 			}

@@ -19,6 +19,7 @@
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('booking_id');
 				$table->string('name', 40);
+				$table->string('slug');
 				$table->float('price_per_night', 5, 2);
 				$table->timestamps();
 				$table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');

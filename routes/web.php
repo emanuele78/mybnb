@@ -42,12 +42,16 @@
 		  Route::get('/conversazioni/{thread?}', 'ApartmentThreadController@show')->name('show_thread');
 		  //show all the bookings
 		  Route::get('/prenotazioni', 'BookingController@index')->name('show_bookings');
+		  //resume a pending booking
+		  Route::get('/prenotazioni/{booking}/modifica', 'BookingController@edit')->name('resume_booking');
 		  //download a receipt
 		  Route::get('/prenotazioni/ricevute/{booking?}', 'BookingPaymentController@show')->name('show_receipt');
 	  }
 	);
 	
 	/* these routes are not subject to token limitations */
+	//faq page - static
+	Route::view('/faq', 'layouts.faq')->name('show_faq');
 	//show the main index page
 	Route::get('/', 'LandingPageController@index')->name('home');
 	//activate the token

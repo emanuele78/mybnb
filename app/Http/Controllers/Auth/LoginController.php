@@ -25,4 +25,16 @@
 			
 			$this->middleware('guest')->except('logout');
 		}
+		
+		//todo need revision
+		public function redirectPath() {
+			
+			//			if (method_exists($this, 'redirectTo')) {
+			//				return $this->redirectTo();
+			//			}
+			//
+			//			return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+			
+			return '/faq';
+		}
 	}

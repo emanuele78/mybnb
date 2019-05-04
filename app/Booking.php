@@ -108,6 +108,7 @@
 					  [
 						'booking_id' => $booking->id,
 						'name' => $service->name,
+						'slug' => $service->slug,
 						'price_per_night' => $apartment->upgrades()->where('service_id', $service->id)->first()->price_per_night
 					  ]
 					);
@@ -367,6 +368,29 @@
 		public function bookedServices() {
 			
 			return $this->hasMany(BookedService::class);
+		}
+		
+		/**
+		 * Resume the data for a pending booking, apartment data need to be actualized
+		 *
+		 * @return array
+		 */
+		public function resume(): array {
+			
+			$data =
+			  [
+				'apartment' => $this->apartment,
+				'stay' => [
+				  'check_in' => $this->check_in->format('d-m-Y'),
+				  'check_out' => $this->check_out->format('d-m-Y'),
+				  'requests' => $this->special_requests
+				],
+				'pending_upgrades' => [],
+			  ];
+			foreach ($this->bookedServices as $bookedService) {
+				$data['pending_upgrades'][] = $bookedService->slug;
+			}
+			return $data;
 		}
 		
 	}

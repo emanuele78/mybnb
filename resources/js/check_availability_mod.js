@@ -32,6 +32,8 @@ const HANDLE_AVAILABILITY = {
  * @param csrfToken
  */
 function performCheck(checkIn, checkOut, apartment, callback, useAuth, csrfToken) {
+    console.log(checkIn);
+    console.log(checkOut);
     let result;
     const DAY_COUNT = dayCount(checkIn, checkOut);
     const AJAX_OPTIONS = {

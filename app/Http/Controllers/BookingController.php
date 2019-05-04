@@ -46,6 +46,7 @@
 		 * @return \Illuminate\Http\RedirectResponse
 		 */
 		public function store(StoreBookingRequest $request, Apartment $apartment) {
+			
 			$validated = $request->validated();
 			$user = Auth::user();
 			
@@ -82,5 +83,15 @@
 				return redirect()->route('login');
 			}
 			return view('layouts.booking_index');
+		}
+		
+		public function edit(Booking $booking) {
+			//current user has to be who made the booking and the apartment booking has to be currently registered on the system
+			$this->authorize('update', $booking);
+			$resumedBooking = $booking->resume();
+			return view('layouts.booking_edit')
+			  ->withApartment($resumedBooking['apartment'])
+			  ->withPendingUpgrades($resumedBooking['pending_upgrades'])
+			  ->withStay($resumedBooking['stay']);
 		}
 	}

@@ -16,6 +16,7 @@
 		protected $policies = [
 			 'App\Thread' => 'App\Policies\ThreadPolicy',
 			 'App\Apartment' => 'App\Policies\ApartmentPolicy',
+			 'App\Booking' => 'App\Policies\BookingPolicy',
 		];
 		
 		/**
