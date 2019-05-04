@@ -12,6 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.js */ "./resources/js/app.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal_action_mod */ "./resources/js/modal_action_mod.js");
+
 
 
 /**
@@ -88,10 +90,10 @@ function registerListenerForAccordion() {
 
 function printResults(data) {
   if ($('.dropdown-item.active').data('type') === 'my_apartments') {
-    generateHtml(data, $("#own-apartments-template"));
+    generateHtmlForOwnApartments(data);
     registerListenerForAccordion();
   } else {
-    generateHtml(data, $("#other-apartments-template"));
+    generateHtmlForOtherApartments(data);
   }
 }
 /**
@@ -104,14 +106,28 @@ function printNoResults() {
   $('.content_wrapper').html(template());
 }
 /**
- * Template for data
+ * Template for data - other apartments
  * @param data
- * @param templateElement
  */
 
 
-function generateHtml(data, templateElement) {
-  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile(templateElement.html());
+function generateHtmlForOtherApartments(data) {
+  console.log(data);
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#other-apartments-template").html());
+  handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('processImage', function (options) {
+    console.log(options.fn(this));
+    return options.fn(this);
+  });
+  $('.content_wrapper').html(template(data));
+}
+/**
+ * Template for data - own apartments
+ * @param data
+ */
+
+
+function generateHtmlForOwnApartments(data) {
+  var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#own-apartments-template").html());
   $('.content_wrapper').html(template(data));
 }
 /**
@@ -122,18 +138,23 @@ function generateHtml(data, templateElement) {
 function attachDeleteButtonsListeners() {
   $('.delete_other_apartments_thread').off().click(function () {
     var itemToBeRemoved = $(this);
-    deleteThread($(this).attr('data-thread'), function () {
-      //remove the elementdata
-      $(itemToBeRemoved).parents('.single_apartment').remove();
+    var threadId = $(this).attr('data-thread');
+    _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__["default"].showActionModal(null, null, function () {
+      deleteThread(threadId, function () {
+        //remove the elementdata
+        $(itemToBeRemoved).parents('.single_apartment').remove();
+      });
     });
   });
   $('.delete_my_apartments_thread').off().click(function () {
-    var thread = $(this).attr('data-thread');
-    deleteThread(thread, function () {
-      //remove the element inside the accordion
-      $('#thread_section_' + thread).remove(); //check for apartments without threads
+    var threadId = $(this).attr('data-thread');
+    _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__["default"].showActionModal(null, null, function () {
+      deleteThread(threadId, function () {
+        //remove the element inside the accordion
+        $('#thread_section_' + threadId).remove(); //check for apartments without threads
 
-      removeApartmentWithoutThreads();
+        removeApartmentWithoutThreads();
+      });
     });
   });
 }

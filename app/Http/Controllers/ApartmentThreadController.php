@@ -39,7 +39,7 @@
 			if (empty($validated)) {
 				$validated = ['show_by' => 'my_apartments'];
 			}
-			$viewData = $thread->getThreadDataFor(Auth::user()->id);
+			$viewData = $thread->getThreadDataFor(Auth::user()->nickname);
 			return view('layouts.thread_show')->with($viewData)->with($validated);
 		}
 		

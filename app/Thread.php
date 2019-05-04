@@ -52,13 +52,13 @@
 		/**
 		 * Return a thread if exists otherwise create new one and return it
 		 *
-		 * @param int $apartment_id
+		 * @param Apartment $apartment
 		 * @param int $with_user_id
 		 * @return Thread
 		 */
-		public static function addIfNotExists(int $apartment_id, int $with_user_id): self {
+		public static function addIfNotExists(Apartment $apartment, int $with_user_id): self {
 			
-			$thread = Thread::where('apartment_id', $apartment_id)->where('with_user_id', $with_user_id)->get()->first();
+			$thread = Thread::where('apartment_id', $apartment->id)->where('with_user_id', $with_user_id)->get()->first();
 			if ($thread) {
 				//if thread exists, return it
 				return $thread;
@@ -68,7 +68,9 @@
 			$thread->fill(
 			  [
 				'reference_id' => (string)Str::uuid(),
-				'apartment_id' => $apartment_id,
+				'apartment_id' => $apartment->id,
+				'apartment_owner_nickname' => $apartment->owner()->nickname,
+				'apartment_title' => $apartment->title,
 				'with_user_id' => $with_user_id,
 			  ])->save();
 			return $thread;
@@ -126,7 +128,7 @@
 		 * @param int $user_id
 		 * @return bool
 		 */
-		private static function hasNewMessages(int $thread_id, int $user_id): bool {
+		public static function hasNewMessages(int $thread_id, int $user_id): bool {
 			
 			return Message::where('thread_id', $thread_id)->where('recipient_id', $user_id)->where(
 			  function ($query) use ($user_id) {
@@ -167,10 +169,10 @@
 				$threadEntry =
 				  [
 					'thread_reference' => $thread['reference_id'],
-					'apartment_title' => $thread['apartment']['title'],
+					'apartment_title' => $thread['apartment_title'],
 					'apartment_slug' => $thread['apartment']['slug'],
-					'apartment_image' => $thread['apartment']['main_image'],
-					'apartment_owner' => $thread['apartment']['user']['nickname'],
+					'apartment_image' => $thread['apartment']['main_image'] ?: 'no_image.jpg',
+					'apartment_owner' => $thread['apartment_owner_nickname'],
 					'created_at' => $thread['created_at'],
 					'last_message' => $thread['updated_at'],
 					'has_new_messages' => self::hasNewMessages($thread['id'], $user_id),
@@ -226,19 +228,19 @@
 		/**
 		 * Return thread info
 		 *
-		 * @param int $user_id
+		 * @param string $nickname
 		 * @return array
 		 */
-		public function getThreadDataFor(int $user_id): array {
+		public function getThreadDataFor(string $nickname): array {
 			
 			$thread = Thread::where('reference_id', $this->reference_id)->with(['apartment.user', 'withUser'])->get()->first();
 			return [
 			  'thread_reference' => $thread->reference_id,
-			  'apartment_title' => $thread->apartment->title,
-			  'apartment_image' => $thread->apartment->main_image,
-			  'apartment_slug' => $thread->apartment->slug,
-			  'current_user_is_owner' => $thread->apartment->user_id == $user_id ?: false,
-			  'apartment_owner' => $thread->apartment->user->nickname,
+			  'apartment_title' => $thread->apartment_title,
+			  'apartment_image' => $thread->apartment()->exists() ? $thread->apartment->main_image : 'no_image.jpg',
+			  'apartment_slug' => $thread->apartment()->exists() ? $thread->apartment->slug : null,
+			  'current_user_is_owner' => $thread->apartment_owner_nickname == $nickname ?: false,
+			  'apartment_owner' => $thread->apartment_owner_nickname,
 			  'with_user' => $thread->withuser->nickname,
 			];
 		}
@@ -272,16 +274,33 @@
 		
 		/**
 		 * Delete a thread. Make thread messages visible only for counterpart. If counterpart has already deleted messages, remove them permanently
+		 *
 		 * @param User $user
 		 */
 		public function deleteThread(User $user): void {
 			
 			//first thing first find the counterpart
-			$counterpart = $user->id == $this->with_user_id ? $this->apartment->user_id : $this->with_user_id;
+			$counterpart_id = $user->id == $this->with_user_id ? User::findByNickname($this->apartment_owner_nickname)->id : $this->with_user_id;
 			//now assign to thread messages the counterpart id where visible_for is null
-			Message::where('thread_id', $this->id)->whereNull('visible_for')->update(['visible_for' => $counterpart]);
+			Message::where('thread_id', $this->id)->whereNull('visible_for')->update(['visible_for' => $counterpart_id]);
 			//finally delete messages already deleted by counterpart
 			Message::where('thread_id', $this->id)->where('visible_for', $user->id)->delete();
+		}
+		
+		/**
+		 * The given user has deleted the given apartment. Need to set visible_for property in related apartment threads messages
+		 *
+		 * @param int $apartment_id
+		 * @param user $user
+		 */
+		public static function removingApartment(int $apartment_id, user $user): void {
+			
+			//find all threads related to given apartment
+			$threads = Thread::where('apartment_id', $apartment_id)->get();
+			//set visible_for in each threads message
+			foreach ($threads as $thread) {
+				$thread->deleteThread($user);
+			}
 		}
 		
 	}

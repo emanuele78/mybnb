@@ -7,7 +7,11 @@
             @else
                 <small class="card-text text-muted my-0">Conversazione per l'appartamento</small>
             @endif
-            <a href="{{route('show',$apartment_slug)}}" id="current_apartment" data-apartment="{{$apartment_slug}}" data-thread="{{$thread_reference}}" class="card-text my-0">{{$apartment_title}}</a>
+            @if($apartment_slug)
+                <a href="{{route('show',$apartment_slug)}}" id="current_apartment" data-apartment="{{$apartment_slug}}" data-thread="{{$thread_reference}}" class="card-text my-0">{{$apartment_title}}</a>
+            @else
+                <span id="current_apartment" data-apartment="{{$apartment_slug}}" data-thread="{{$thread_reference}}" class="card-text my-0">{{$apartment_title}}</span>
+            @endif
             @if($current_user_is_owner)
                 <small class="card-text text-muted my-0">con l'utente</small>
                 <p class="card-text my-0">{{$with_user}}</p>
@@ -28,9 +32,11 @@
         @else
             <label for="body">Invia un messaggio a {{$apartment_owner}}</label>
         @endif
-        <textarea class="form-control" id="body" rows="3" name="body" required placeholder="Scrivi il tuo messaggio"></textarea>
+        <textarea class="form-control" id="body" rows="3" name="body" {{$apartment_slug?:'readonly'}} required placeholder="Scrivi il tuo messaggio"></textarea>
         <span class="invalid-feedback" role="alert"><strong>Il messaggio deve essere compreso tra 10 e 4000 caratteri</strong></span>
-        <button id="submit_message" class="btn btn-primary pl-5 pr-5 align-self-start mt-2">Invia</button>
+        @if($apartment_slug)
+            <button id="submit_message" class="btn btn-primary pl-5 pr-5 align-self-start mt-2">Invia</button>
+        @endif
     </div>
 </div>
 @component('components.modal_action')

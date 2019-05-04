@@ -65,7 +65,8 @@
 		 */
 		public function destroy(Apartment $apartment) {
 			
-			$apartment->deleteAll();
+			$apartment->deleteAll(Auth::user());
+			return response()->json(['success' => true], 200);
 		}
 		
 	}

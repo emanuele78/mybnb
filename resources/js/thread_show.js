@@ -79,15 +79,15 @@ $('#submit_message').click(function (e) {
 $('#delete_button').click(function () {
     MODAL_ACTION_MODULE.showActionModal(null, null, function () {
         //user confirms deletion
-        deleteThread();
+        deleteThread($('#current_apartment').data('thread'));
     }, null);
 });
 
 /**
  * Send request to delete current thread
  */
-function deleteThread() {
-    let url = PROJECT_MODULE.threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
+function deleteThread(thread) {
+    let url = PROJECT_MODULE.threadEndpoint.replace('{thread}', thread);
     $.ajax(url, {
         method: 'DELETE',
         headers: {

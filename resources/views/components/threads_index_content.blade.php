@@ -25,6 +25,12 @@
 @component('components.no_result_template')
     Nessuna conversazione trovata
 @endcomponent
+@component('components.modal_action')
+    @slot('modal_title','Conferma cancellazione')
+    @slot('modal_dismiss_button_text','Annulla')
+    @slot('modal_confirm_button_text','Cancella')
+    Confermi la cancellazione di questa conversazione?
+@endcomponent
 
 <script id="own-apartments-template" type="text/x-handlebars-template">
     @{{#each this as |apartment|}}
@@ -92,8 +98,17 @@
                         <div class="col-8">
                             <small class="card-text text-muted mb-0">Conversazioni per l'appartamento</small>
                             <div class="">
+                                @{{#if apartment_slug}}
                                 <a href="{{route('show')}}/@{{apartment_slug}}" class="card-text mb-0">@{{apartment_title}}</a>
+                                @{{else}}
+                                <span class="card-text mb-0">@{{apartment_title}}</span>
+                                @{{/if}}
                             </div>
+                            @{{#unless apartment_slug}}
+                            <div class="">
+                                <span class="badge badge-pill badge-danger">Appartamento non più registrato</span>
+                            </div>
+                            @{{/unless}}
                             @{{#if this.has_new_messages}}
                             <span class="badge badge-pill badge-warning">nuovi messaggi</span>
                             @{{/if}}

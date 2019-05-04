@@ -101,15 +101,15 @@ $('#submit_message').click(function (e) {
 $('#delete_button').click(function () {
   _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showActionModal(null, null, function () {
     //user confirms deletion
-    deleteThread();
+    deleteThread($('#current_apartment').data('thread'));
   }, null);
 });
 /**
  * Send request to delete current thread
  */
 
-function deleteThread() {
-  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', $('#current_apartment').data('thread'));
+function deleteThread(thread) {
+  var url = _app_js__WEBPACK_IMPORTED_MODULE_0__["default"].threadEndpoint.replace('{thread}', thread);
   $.ajax(url, {
     method: 'DELETE',
     headers: {

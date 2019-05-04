@@ -1,5 +1,6 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars'
+import MODAL_ACTION_MODULE from "./modal_action_mod";
 
 /**
  * Entry point
@@ -70,10 +71,10 @@ function registerListenerForAccordion() {
  */
 function printResults(data) {
     if ($('.dropdown-item.active').data('type') === 'my_apartments') {
-        generateHtml(data, $("#own-apartments-template"));
+        generateHtmlForOwnApartments(data);
         registerListenerForAccordion();
     } else {
-        generateHtml(data, $("#other-apartments-template"));
+        generateHtmlForOtherApartments(data);
     }
 }
 
@@ -86,12 +87,25 @@ function printNoResults() {
 }
 
 /**
- * Template for data
+ * Template for data - other apartments
  * @param data
- * @param templateElement
  */
-function generateHtml(data, templateElement) {
-    let template = Handlebars.compile(templateElement.html());
+function generateHtmlForOtherApartments(data) {
+    console.log(data);
+    let template = Handlebars.compile($("#other-apartments-template").html());
+    Handlebars.registerHelper('processImage', function (options) {
+        console.log(options.fn(this));
+        return options.fn(this);
+    });
+    $('.content_wrapper').html(template(data));
+}
+
+/**
+ * Template for data - own apartments
+ * @param data
+ */
+function generateHtmlForOwnApartments(data) {
+    let template = Handlebars.compile($("#own-apartments-template").html());
     $('.content_wrapper').html(template(data));
 }
 
@@ -102,19 +116,24 @@ function attachDeleteButtonsListeners() {
 
     $('.delete_other_apartments_thread').off().click(function () {
         let itemToBeRemoved = $(this);
-        deleteThread($(this).attr('data-thread'), function () {
-            //remove the elementdata
-            $(itemToBeRemoved).parents('.single_apartment').remove();
-        })
+        let threadId = $(this).attr('data-thread');
+        MODAL_ACTION_MODULE.showActionModal(null, null, function () {
+            deleteThread(threadId, function () {
+                //remove the elementdata
+                $(itemToBeRemoved).parents('.single_apartment').remove();
+            })
+        });
     });
     $('.delete_my_apartments_thread').off().click(function () {
-        let thread = $(this).attr('data-thread');
-        deleteThread(thread, function () {
-            //remove the element inside the accordion
-            $('#thread_section_' + thread).remove();
-            //check for apartments without threads
-            removeApartmentWithoutThreads();
-        })
+        let threadId = $(this).attr('data-thread');
+        MODAL_ACTION_MODULE.showActionModal(null, null, function () {
+            deleteThread(threadId, function () {
+                //remove the element inside the accordion
+                $('#thread_section_' + threadId).remove();
+                //check for apartments without threads
+                removeApartmentWithoutThreads();
+            });
+        });
     });
 }
 

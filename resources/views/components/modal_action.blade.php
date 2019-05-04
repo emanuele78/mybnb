@@ -9,8 +9,8 @@
             </div>
             <div class="modal-body">{{$slot}}</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-action="" id="dismiss_modal_button" data-dismiss="modal">{{$modal_dismiss_button_text}}</button>
-                <button type="button" class="btn btn-primary" data-action="" id="confirm_modal_button">{{$modal_confirm_button_text}}</button>
+                <button type="button" class="btn btn-secondary" id="dismiss_modal_button" data-dismiss="modal">{{$modal_dismiss_button_text}}</button>
+                <button type="button" class="btn btn-primary" id="confirm_modal_button">{{$modal_confirm_button_text}}</button>
             </div>
         </div>
     </div>

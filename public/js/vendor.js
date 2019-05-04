@@ -75497,23 +75497,20 @@ var HANDLE_MODULE_MESSAGE = {
 function showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
   var modalComponent = $('#modal_message');
   var confirmButton = $('#confirm_modal_button');
-  var dismissButton = $('#dismiss_modal_button'); //set data
-
-  confirmButton.attr('data-action', confirm_data);
-  dismissButton.attr('data-action', dismiss_data); //set listeners
+  var dismissButton = $('#dismiss_modal_button'); //set listeners
 
   confirmButton.off();
   dismissButton.off();
   confirmButton.click(function () {
     modalComponent.modal('hide');
 
-    if (confirm_callback !== null) {
-      confirm_callback($(this).attr('data-action'));
+    if (confirm_callback != null) {
+      confirm_callback(confirm_data);
     }
   });
   dismissButton.click(function () {
-    if (dimiss_callback !== null) {
-      dimiss_callback($(this).attr('data-action'));
+    if (dimiss_callback != null) {
+      dimiss_callback(dismiss_data);
     }
   }); //show modal component
 

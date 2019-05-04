@@ -21,7 +21,7 @@
 			
 			$validatd = $request->validated();
 			//get the thread for the sent message or create a new one if not exists
-			$thread = Thread::addIfNotExists($apartment->id, Auth::user()->id);
+			$thread = Thread::addIfNotExists($apartment, Auth::user()->id);
 			//store the new message
 			Message::add(
 			  [

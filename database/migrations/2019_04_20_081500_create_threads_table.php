@@ -19,9 +19,11 @@
 				$table->bigIncrements('id');
 				$table->string('reference_id');
 				$table->unsignedBigInteger('apartment_id')->nullable();
-				$table->unsignedBigInteger('with_user_id');
+				$table->string('apartment_owner_nickname');
+				$table->unsignedBigInteger('with_user_id')->nullable();
+				$table->string('apartment_title');
 				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
-				$table->foreign('with_user_id')->references('id')->on('users')->onDelete('cascade');
+				$table->foreign('with_user_id')->references('id')->on('users')->onDelete('set null');
 				$table->timestamps();
 			});
 		}
