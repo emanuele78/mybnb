@@ -12,7 +12,7 @@
                         <div class="col-md-9">
                             <div class="card-body">
                                 <h5 class="card-title">Stai effettuando una prenotazione all'appartamento</h5>
-                                <p class="card-text text-primary">{{$apartment->title}}</p>
+                                <a href="{{route('show').'/'.$apartment->slug}}" class="card-text text-primary">{{$apartment->title}}</a>
                                 <p class="card-text">
                                     <small class="text-muted">Proprietario {{$apartment->user->nickname}}</small>
                                 </p>
