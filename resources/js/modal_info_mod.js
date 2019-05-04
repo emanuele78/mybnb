@@ -1,3 +1,7 @@
+/**
+ * Exported object
+ * @type {{showInfoModal: HANDLE_MODULE_MESSAGE.showInfoModal}}
+ */
 const HANDLE_MODULE_MESSAGE = {
 
     showInfoModal: function (confirm_callback) {
@@ -6,6 +10,10 @@ const HANDLE_MODULE_MESSAGE = {
 
 };
 
+/**
+ * Show a modal window with only one button
+ * @param confirm_callback
+ */
 function showInfoWindow(confirm_callback) {
     let modalComponent = $('#modal_message');
     let confirmButton = $('#confirm_modal_button');
@@ -21,4 +29,7 @@ function showInfoWindow(confirm_callback) {
     modalComponent.modal('show');
 }
 
+/**
+ * default export
+ */
 export default HANDLE_MODULE_MESSAGE;

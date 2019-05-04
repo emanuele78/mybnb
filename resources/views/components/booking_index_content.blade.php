@@ -41,7 +41,11 @@
     <div class="card mt-3 single_booking">
         <div class="row no-gutters">
             <div class="col-4">
+                @{{#if apartment_active}}
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
+                @{{else}}
+                <img src="{{asset('img/apartments/no_image.jpg')}}" class="card-img" alt="">
+                @{{/if}}
             </div>
             <div class="col-8">
                 <div class="card-body">
@@ -49,8 +53,15 @@
                         <div class="col-8">
                             <small class="card-text text-muted">Appartamento prenotato</small>
                             <div class="">
+                                @{{#if apartment_active}}
                                 <a href="{{route('show')}}/@{{apartment_slug}}" class="card-text mb-0">@{{apartment_title}}</a>
+                                @{{else}}
+                                <span class="card-text mb-0">@{{apartment_title}}</span>
+                                @{{/if}}
                             </div>
+                            @{{#unless apartment_active}}
+                            <span class="badge badge-pill badge-danger">Appartamento non più registrato</span>
+                            @{{/unless}}
                         </div>
                         <div class="col-4 text-right">
                             <div class="">
@@ -124,7 +135,11 @@
     <div class="card mt-3 single_booking">
         <div class="row no-gutters">
             <div class="col-4">
+                @{{#if apartment_active}}
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
+                @{{else}}
+                <img src="{{asset('img/apartments/no_image.jpg')}}" class="card-img" alt="">
+                @{{/if}}
             </div>
             <div class="col-8">
                 <div class="card-body">
@@ -132,8 +147,17 @@
                         <div class="col-8">
                             <small class="card-text text-muted">Appartamento prenotato</small>
                             <div class="">
+                                @{{#if apartment_active}}
                                 <a href="{{route('show')}}/@{{apartment_slug}}" class="card-text mb-0">@{{apartment_title}}</a>
+                                @{{else}}
+                                <span class="card-text mb-0">@{{apartment_title}}</span>
+                                @{{/if}}
                             </div>
+                            @{{#unless apartment_active}}
+                            <div class="">
+                                <span class="badge badge-pill badge-danger">Appartamento non più registrato</span>
+                            </div>
+                            @{{/unless}}
                             <small class="card-text text-muted">Proprietario</small>
                             <p class="card-text mb-0">@{{apartment_owner_fullname}}
                                 <small class="card-text text-muted">(@{{apartment_owner_nickname}})</small>
@@ -180,7 +204,7 @@
                             </small>
                             @{{/each}}
                             @{{#ifCond this.status}}
-                            <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2">Scarica ricevuta</a>
+                            <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2" download>Scarica ricevuta</a>
                             @{{else}}
                             <button role="button" class="btn btn-warning mt-2">Riprendi prenotazione</button>
                             @{{/ifCond}}

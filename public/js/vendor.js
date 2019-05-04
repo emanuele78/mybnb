@@ -75300,6 +75300,11 @@ function dayCount(check_in, check_out) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
 
+/**
+ * Exported object
+ * @type {{searchAddress: GEO.searchAddress, searchMap: GEO.searchMap}}
+ */
+
 var GEO = {
   searchAddress: function searchAddress(searched_text, token_csrf, callback) {
     performAddressSearch(searched_text, token_csrf, callback);
@@ -75488,11 +75493,22 @@ function performRequest(apartment, callback) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * Exported object
+ * @type {{showActionModal: HANDLE_MODULE_MESSAGE.showActionModal}}
+ */
 var HANDLE_MODULE_MESSAGE = {
   showActionModal: function showActionModal(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
     showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_callback);
   }
 };
+/**
+ * Show a modal window with 2 buttons
+ * @param confirm_data
+ * @param dismiss_data
+ * @param confirm_callback
+ * @param dimiss_callback
+ */
 
 function showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_callback) {
   var modalComponent = $('#modal_message');
@@ -75516,6 +75532,10 @@ function showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_c
 
   modalComponent.modal('show');
 }
+/**
+ * default export
+ */
+
 
 /* harmony default export */ __webpack_exports__["default"] = (HANDLE_MODULE_MESSAGE);
 
@@ -75530,11 +75550,19 @@ function showActionWindow(confirm_data, dismiss_data, confirm_callback, dimiss_c
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/**
+ * Exported object
+ * @type {{showInfoModal: HANDLE_MODULE_MESSAGE.showInfoModal}}
+ */
 var HANDLE_MODULE_MESSAGE = {
   showInfoModal: function showInfoModal(confirm_callback) {
     showInfoWindow(confirm_callback);
   }
 };
+/**
+ * Show a modal window with only one button
+ * @param confirm_callback
+ */
 
 function showInfoWindow(confirm_callback) {
   var modalComponent = $('#modal_message');
@@ -75551,6 +75579,10 @@ function showInfoWindow(confirm_callback) {
 
   modalComponent.modal('show');
 }
+/**
+ * default export
+ */
+
 
 /* harmony default export */ __webpack_exports__["default"] = (HANDLE_MODULE_MESSAGE);
 

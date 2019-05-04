@@ -348,8 +348,12 @@
 		
 		/**
 		 * Delete all the data for the current apartment
+		 *
+		 * @param User $user
+		 * @throws \Exception
 		 */
 		public function deleteAll(User $user) {
+			
 			//for all the threads related to the current apartment, set visible_for property
 			Thread::removingApartment($this->id, $user);
 			//proceed with deletion

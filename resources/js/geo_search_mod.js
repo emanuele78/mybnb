@@ -1,5 +1,9 @@
 import PROJECT_MODULE from "./app";
 
+/**
+ * Exported object
+ * @type {{searchAddress: GEO.searchAddress, searchMap: GEO.searchMap}}
+ */
 const GEO = {
 
     searchAddress: function (searched_text, token_csrf, callback) {

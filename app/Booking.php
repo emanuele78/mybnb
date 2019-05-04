@@ -174,6 +174,13 @@
 			return Booking::where('apartment_id', $apartment_id)->get();
 		}
 		
+		/**
+		 * Return all the bookings made for the given user apartments
+		 *
+		 * @param int $user_id
+		 * @param bool $onlyFutureBookings
+		 * @return array
+		 */
 		public static function forUserApartments(int $user_id, bool $onlyFutureBookings) {
 			
 			$builder = self::where('apartment_owner_id', $user_id)->where('status', 'confirmed')->with('bookedServices');
@@ -183,10 +190,11 @@
 			$apartmentsWithBookings = $builder->get()->groupBy('apartment_id')->toArray();
 			$data = [];
 			//apartments loop
-			foreach ($apartmentsWithBookings as $apartmentWithBookings) {
+			foreach ($apartmentsWithBookings as $key => $apartmentWithBookings) {
 				$singleApartment =
 				  [
 					'apartment_title' => $apartmentWithBookings[0]['apartment_title'],
+					'apartment_active' => !empty($key),
 					'apartment_slug' => $apartmentWithBookings[0]['apartment_slug'],
 					'apartment_image' => $apartmentWithBookings[0]['apartment_image'],
 					'apartment_owner_nickname' => $apartmentWithBookings[0]['apartment_owner_nickname'],
@@ -229,6 +237,14 @@
 			return $data;
 		}
 		
+		/**
+		 * Return all the bookings made to other user apartments
+		 *
+		 * @param int $user_id
+		 * @param bool $onlyFutureBookings
+		 * @param bool $onlyPending
+		 * @return array
+		 */
 		public static function forOtherApartments(int $user_id, bool $onlyFutureBookings, bool $onlyPending) {
 			
 			$builder = self::where('user_booking_id', $user_id)->with('bookedServices');
@@ -243,10 +259,11 @@
 			$apartmentsWithBookings = $builder->get()->groupBy('apartment_id')->toArray();
 			$data = [];
 			//apartments loop
-			foreach ($apartmentsWithBookings as $apartmentWithBookings) {
+			foreach ($apartmentsWithBookings as $key => $apartmentWithBookings) {
 				$singleApartment =
 				  [
 					'apartment_title' => $apartmentWithBookings[0]['apartment_title'],
+					'apartment_active' => !empty($key),
 					'apartment_slug' => $apartmentWithBookings[0]['apartment_slug'],
 					'apartment_image' => $apartmentWithBookings[0]['apartment_image'],
 					'apartment_owner_nickname' => $apartmentWithBookings[0]['apartment_owner_nickname'],
@@ -291,9 +308,11 @@
 		
 		/**
 		 * Return an array of data for the current booking used to generate a receipt pdf
+		 *
 		 * @return array
 		 */
 		public function dataForInvoice() {
+			
 			$data = [
 			  'booking_reference' => $this->reference,
 			  'booking_date' => Utility::dateTimeLocale($this->updated_at, false),

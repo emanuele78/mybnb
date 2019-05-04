@@ -23,10 +23,17 @@
 		 */
 		public function create() {
 			
-			request()->session()->has('desired_path') ? request()->session()->flash('desired_path', request()->session()->get('desired_path')) : null;
 			return view('layouts.customer_create');
 		}
 		
+		/**
+		 * Store user tax info
+		 *
+		 * @param StoreCustomerRequest $request
+		 * @param BraintreeGateway $braintreeGateway
+		 * @return \Illuminate\Http\RedirectResponse
+		 * @throws \Braintree\Exception\NotFound
+		 */
 		public function store(StoreCustomerRequest $request, BraintreeGateway $braintreeGateway) {
 			
 			$validated = $request->validated();
@@ -34,9 +41,6 @@
 			
 			if ($response['success']) {
 				Customer::add($validated, $response['customer_id'], Auth::id());
-				if (request()->session()->has('desired_path')) {
-					return redirect()->to(request()->session()->get('desired_path'));
-				}
 				return redirect()->route('home');
 			}
 			return back()->withErrors(['braintree_message' => $response['message']]);

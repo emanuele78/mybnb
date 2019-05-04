@@ -57,27 +57,5 @@
 	Route::get(
 	  '/test', function () {
 		
-		$user_id = 3;
-		$threads = \App\Thread::where('with_user_id', $user_id)->whereHas(
-		  'messages', function ($query) use ($user_id) {
-			
-			$query->where('visible_for', $user_id)->orWhere('visible_for', null);
-		})->with('apartment.user')->get();
-		//		return $threads;
-		$userThreads = [];
-		foreach ($threads->toArray() as $thread) {
-			$threadEntry =
-			  [
-				'thread_reference' => $thread['reference_id'],
-				'apartment_title' => $thread['apartment_title'],
-				'apartment_slug' => $thread['apartment']['slug'],
-				'apartment_image' => $thread['apartment']['main_image'] ?: 'no_image.jpg',
-				'apartment_owner' => $thread['apartment_owner_nickname'],
-				'created_at' => $thread['created_at'],
-				'last_message' => $thread['updated_at'],
-				'has_new_messages' => \App\Thread::hasNewMessages($thread['id'], $user_id),
-			  ];
-			$userThreads[] = $threadEntry;
-		}
-		return $userThreads;
+		return \App\Booking::forOtherApartments(2, false, false);
 	});
