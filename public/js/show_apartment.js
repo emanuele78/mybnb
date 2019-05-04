@@ -96,6 +96,16 @@ $('#submit_message').click(function (e) {
     $('#submit_message').removeAttr('disabled');
   });
 });
+/**
+ * Listener for booking button
+ */
+
+$('#book_apartment').click(function (e) {
+  e.preventDefault();
+  var checkIn = $('#check_in').val();
+  var checkOut = $('#check_out').val();
+  window.location.href = $(this).attr('href') + '?check-in=' + checkIn + '&check-out=' + checkOut;
+});
 
 /***/ }),
 

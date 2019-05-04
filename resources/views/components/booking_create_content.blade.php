@@ -107,13 +107,29 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')}}">
+                            @if(old('check_in'))
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')}}">
+                            @else
+                                @if($stay)
+                                    <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{$stay['check_in']}}">
+                                @else
+                                    <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly">
+                                @endif
+                            @endif
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-in</strong>
                     </span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')}}">
+                            @if(old('check_out'))
+                                <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')}}">
+                            @else
+                                @if($stay)
+                                    <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{$stay['check_out']}}">
+                                @else
+                                    <input type="text" class="form-control col flatpicker flatpickr-input text-center" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly">
+                                @endif
+                            @endif
                             <span class="invalid-feedback" role="alert">
                         <strong>Verifica la data del check-out</strong>
                     </span>

@@ -80,3 +80,13 @@ $('#submit_message').click(function (e) {
         $('#submit_message').removeAttr('disabled');
     });
 });
+
+/**
+ * Listener for booking button
+ */
+$('#book_apartment').click(function (e) {
+    e.preventDefault();
+    let checkIn = $('#check_in').val();
+    let checkOut = $('#check_out').val();
+    window.location.href = $(this).attr('href') + '?check-in=' + checkIn + '&check-out=' + checkOut;
+});

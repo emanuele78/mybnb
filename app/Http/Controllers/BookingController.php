@@ -34,8 +34,26 @@
 				return redirect()->route('home');
 			}
 			
-			return view('layouts.booking_create')->withApartment($apartment);
+			return view('layouts.booking_create')->withApartment($apartment)->withStay($this->parseDate(request()->all()));
 			
+		}
+		
+		/**
+		 * Helper function to parse user dates if exist
+		 *
+		 * @param $data
+		 * @return array|null
+		 */
+		private function parseDate($data): ?array {
+			
+			try {
+				return [
+				  'check_in' => Carbon::createFromFormat('d-m-Y', $data['check-in'])->format('d-m-Y'),
+				  'check_out' => Carbon::createFromFormat('d-m-Y', $data['check-out'])->format('d-m-Y'),
+				];
+			} catch (\Exception $e) {
+				return null;
+			}
 		}
 		
 		/**
@@ -86,6 +104,7 @@
 		}
 		
 		public function edit(Booking $booking) {
+			
 			//current user has to be who made the booking and the apartment booking has to be currently registered on the system
 			$this->authorize('update', $booking);
 			$resumedBooking = $booking->resume();
