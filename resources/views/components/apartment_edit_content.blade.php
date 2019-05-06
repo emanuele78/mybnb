@@ -166,7 +166,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sale">Sconto</label>
-                        <input id="sale" type="number" name="sale" class="form-control {{$errors->has('sale')?'is-invalid':null}}" placeholder="%" value="{{old('sale')?:$apartment->sale}}">
+                        <input id="sale" type="number" name="sale" class="form-control {{$errors->has('sale')?'is-invalid':null}}" placeholder="%" value="{{old('sale')>0?$apartment->sale:null}}">
                         <div class="invalid-feedback">
                             Sconto non valido
                         </div>
@@ -305,7 +305,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach($apartment->images as $key => $image)
+                            @foreach($apartment->images->sortBy('index') as $key => $image)
                                 <div class="image_frame image_frame_{{$key+1}} ml-2" style="background-image: url('{{asset('img/apartments').'/'.$image->name}}')">
                                     <div class="overlay">
                                         <span class="text">Secondaria {{$key+1}}</span>
@@ -321,9 +321,15 @@
                 <div class="row">
                     <div class="col-6">
                         <span class="text-muted">Immagine principale</span>
-                        <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="main_image" id="image_file_0" disabled>
-                            <label class="custom-file-label" for="image_file_0" data-browse="Apri">Immagine selezionata</label>
+                        <div class="input-group my-2">
+                            <input type="hidden" class="changed_input_0" value="0" name="images_changed[0]">
+                            <label class="form-control input_file_label {{$errors->has('main_image')?'is-invalid':null}}" data-index="0">
+                                <span class="input_file_label_text">Inserita</span>
+                                <input type="file" data-index="0" name="main_image" class="custom_file_input" accept="image/x-png,image/jpeg">
+                            </label>
+                            <div class="input-group-append">
+                                <span class="input-group-text open_input_file" data-index="0">Apri</span>
+                            </div>
                             <div class="invalid-feedback">
                                 Immagine principale non selezionata
                             </div>
@@ -334,22 +340,20 @@
                     @endphp
                     <div class="col-6">
                         <span class="text-muted">Immagini secondarie (4 max)</span>
-                        <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_1" {{$images_count>=1?'disabled':null}}>
-                            <label class="custom-file-label" for="image_file_1" data-browse="Apri">{{$images_count>=1?'Immagine selezionata':'Scegli immagine'}}</label>
-                        </div>
-                        <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_2" {{$images_count>=2?'disabled':null}}>
-                            <label class="custom-file-label" for="image_file_2" data-browse="Apri">{{$images_count>=2?'Immagine selezionata':'Scegli immagine'}}</label>
-                        </div>
-                        <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_3" {{$images_count>=3?'disabled':null}}>
-                            <label class="custom-file-label" for="image_file_3" data-browse="Apri">{{$images_count>=3?'Immagine selezionata':'Scegli immagine'}}</label>
-                        </div>
-                        <div class="custom-file mt-2">
-                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_4" {{$images_count==4?'disabled':null}}>
-                            <label class="custom-file-label" for="image_file_4" data-browse="Apri">{{$images_count>=4?'Immagine selezionata':'Scegli immagine'}}</label>
-                        </div>
+                        @for($i=1;$i<=4;$i++)
+                            <div class="input-group my-2">
+                                @if($images_count>=$i)
+                                    <input type="hidden" class="changed_input_{{$i}}" value="0" name="images_changed[{{$i}}]">
+                                @endif
+                                <label class="form-control input_file_label" data-index="{{$i}}">
+                                    <span class="input_file_label_text">{{$images_count>=$i?'Inserita':'Scegli immagine'}}</span>
+                                    <input type="file" data-index="{{$i}}" name="other_images[]" class="custom_file_input" accept="image/x-png,image/jpeg">
+                                </label>
+                                <div class="input-group-append">
+                                    <span class="input-group-text open_input_file" data-index="{{$i}}">Apri</span>
+                                </div>
+                            </div>
+                        @endfor
                     </div>
                 </div>
             </div>
@@ -403,6 +407,16 @@
         <div class="input-group-append">
             <span class="input-group-text">Euro</span>
             <input name="new_services_prices[@{{service_name}}]" class="input-group-text" type="text">
+        </div>
+    </div>
+</script>
+<script id="image-template" type="text/x-handlebars-template">
+    <div class="image_frame image_frame_@{{image_index}}" style="background-image: url(@{{image_data}})">
+        <div class="overlay">
+            <span class="text">@{{overlay_text}}</span>
+            <div class="remove_image" data-remove="@{{image_index}}">
+                <i class="fas fa-trash"></i>
+            </div>
         </div>
     </div>
 </script>

@@ -378,7 +378,12 @@
 			$this->delete();
 		}
 		
-		public function discoverServices() {
+		/**
+		 * Return all the available services for the current apartment together with remainig (not selected) services
+		 *
+		 * @return array
+		 */
+		public function discoverServices(): array {
 			
 			$services = [];
 			foreach ($this->upgrades as $upgrade) {
@@ -399,6 +404,53 @@
 				];
 			}
 			return $services;
+		}
+		
+		public function updateInfo(array $data) {
+			
+			$this->title = $data['title'];
+			$this->description = $data['description'];
+			$this->room_count = $data['room_count'];
+			$this->people_count = $data['people_count'];
+			$this->bathroom_count = $data['bathroom_count'];
+			$this->square_meters = $data['square_meters'];
+			$this->longitude = $data['address_lng'];
+			$this->latitude = $data['address_lat'];
+			$this->price_per_night = $data['price_per_night'];
+			$this->max_stay = $data['max_stay'];
+			if ($data['sale'] != null) {
+				$this->sale = $data['sale'];
+			}
+			if (array_key_exists('is_showed', $data)) {
+				$this->is_showed = true;
+			}
+			if ($data['images_changed'][0]) {
+				$this->main_image = Image::storeFile($data['main_image']);
+			}
+			$this->save();
+			//reserved days
+			if (array_key_exists('reserved_days', $data)) {
+				ReservedDay::replaceDays($this->id, $data['reserved_days']);
+			}
+			//upgrades
+			if (array_key_exists('selected_services', $data)) {
+				Upgrade::replaceExisting($this->id, $data['selected_services'], $data['services_price']);
+			}
+			//user defined services
+			if (array_key_exists('new_services', $data)) {
+				Upgrade::addNew($this->id, $data['new_services'], $data['new_services_prices']);
+			}
+			//additional images - remove
+			for ($i = 1; $i < count($data['images_changed']); $i++) {
+				if ($data['images_changed'][$i]) {
+					Image::removeFor($this->id, $i);
+				}
+			}
+			//additional images - add new
+			if (array_key_exists('other_images', $data)) {
+				Image::storeAdditional($this->id, $data['other_images']);
+			}
+			Image::refactorIndexes($this->id);
 		}
 		
 	}

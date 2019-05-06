@@ -274,12 +274,15 @@
                     <div class="col-6">
                         <span class="text-muted">Immagine principale</span>
                         <div class="input-group my-2">
-                            <label class="form-control input_file_label" data-index="0">
+                            <label class="form-control input_file_label {{$errors->has('main_image')?'is-invalid':null}}" data-index="0">
                                 <span class="input_file_label_text">Scegli immagine</span>
                                 <input type="file" data-index="0" name="main_image" class="custom_file_input" accept="image/x-png,image/jpeg">
                             </label>
                             <div class="input-group-append">
                                 <span class="input-group-text open_input_file" data-index="0">Apri</span>
+                            </div>
+                            <div class="invalid-feedback">
+                                Immagine principale non selezionata
                             </div>
                         </div>
                     </div>

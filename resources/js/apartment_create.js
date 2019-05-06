@@ -7,6 +7,7 @@ import ADDRESS_MODULE from "./load_address_mod"
 attachListeners();
 initializeReservedDaysCalendar();
 initializeAddress();
+attachRemoveImageButtons();
 
 /**
  * Listener for address search button
@@ -161,6 +162,7 @@ function attachListeners() {
     });
     //listener for open image fake button
     $('.open_input_file').click(function () {
+        //trig input file click
         $('.custom_file_input[data-index="' + $(this).data('index') + '"]').click();
     });
     //listener for input file buttons
@@ -176,16 +178,22 @@ function attachListeners() {
 function readFile(inputElement) {
     if (inputElement[0].files && inputElement[0].files[0]) {
         let fileReader = new FileReader();
+        let index = inputElement.data('index');
         fileReader.onload = function (e) {
-            if (inputElement.data('index') == 0) {
-                previewImage(inputElement.data('index'), 'Principale', e.target.result);
+            //remove image with same index if exists
+            removeImage(index);
+            if (index == 0) {
+                previewImage(index, 'Principale', e.target.result);
             } else {
-                previewImage(inputElement.data('index'), 'Secondaria ' + inputElement.data('index'), e.target.result);
+                previewImage(index, 'Secondaria ' + index, e.target.result);
             }
             attachRemoveImageButtons();
         };
+        //read the file
         fileReader.readAsDataURL(inputElement[0].files[0]);
-        $('.input_file_label[data-index="'+ inputElement.data('index')+ '"] > .input_file_label_text').text(inputElement[0].files[0].name);
+        //set file name in label
+        let fileName = inputElement[0].files[0].name;
+        $('.input_file_label[data-index="' + index + '"] > .input_file_label_text').text(fileName);
     }
 }
 
@@ -197,10 +205,30 @@ function attachRemoveImageButtons() {
     $('.image_frame .remove_image').off().click(function () {
         //remove the element
         let elementIndex = $(this).data('remove');
-        $('.image_frame_' + elementIndex).remove();
-        //change label value
-        $('.input_file_label[data-index="'+ elementIndex+ '"] > .input_file_label_text').text('Scegli immagine');
+        removeImage(elementIndex);
+        //clear label value
+        $('.input_file_label[data-index="' + elementIndex + '"] > .input_file_label_text').text('Scegli immagine');
+        //clear input tag
+        $('.custom_file_input[data-index="' + elementIndex + '"]').val(null);
+        //set changed hidden input (only in edit)
+        setImageChanged(elementIndex);
     });
+}
+
+/**
+ * Remove image
+ * @param index
+ */
+function removeImage(index) {
+    $('.image_frame_' + index).remove();
+}
+
+/**
+ * Set hidden input to notify image change
+ * @param index
+ */
+function setImageChanged(index) {
+    $('.changed_input_' + index).val(1);
 }
 
 /**
@@ -217,6 +245,8 @@ function previewImage(image_index, overlay_text, image_data) {
             'overlay_text': overlay_text,
             'image_data': image_data,
         }));
+    //set image change flaga
+    setImageChanged(image_index);
 }
 
 /**

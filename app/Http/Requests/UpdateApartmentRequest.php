@@ -3,6 +3,7 @@
 	namespace App\Http\Requests;
 	
 	use Auth;
+	use Illuminate\Validation\Rule;
 	use Illuminate\Foundation\Http\FormRequest;
 	
 	class UpdateApartmentRequest extends FormRequest {
@@ -23,7 +24,6 @@
 		 * @return array
 		 */
 		public function rules() {
-			
 			return [
 			  'title' => 'required|min:10|max:255',
 			  'description' => 'required|min:20|max:4000',
@@ -44,9 +44,15 @@
 			  'new_services' => 'sometimes|nullable|array',
 			  'new_services.*' => 'sometimes|nullable|min:3|max:40',
 			  'new_services_prices' => 'sometimes|nullable|array',
-			  'main_image' => 'sometimes|image|max:2048|mimes:jpeg,png',
 			  'other_images' => 'sometimes|nullable|array|max:4',
 			  'other_images.*' => 'required|image|max:2048|mimes:jpeg,png',
+			  'images_changed' => 'required|array',
+			  'images_changed.*' => 'required|boolean',
+			  'main_image' => ['max:2048', 'mimes:jpeg,png', Rule::requiredIf(
+				function () {
+					
+					return $this->request->get('images_changed')[0];
+				})],
 			];
 		}
 		

@@ -18,6 +18,7 @@
 				
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('apartment_id');
+				$table->tinyInteger('index');
 				$table->string('name');
 				$table->timestamps();
 				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');

@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use DB;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class Upgrade extends Model {
@@ -26,6 +27,19 @@
 		public function service() {
 			
 			return $this->belongsTo(Service::class);
+		}
+		
+		/**
+		 * Replace existing services for the given apartment
+		 *
+		 * @param $apartment_id
+		 * @param $selected_services
+		 * @param $selected_services_prices
+		 */
+		public static function replaceExisting($apartment_id, $selected_services, $selected_services_prices) {
+			
+			DB::table('upgrades')->where('apartment_id', $apartment_id)->delete();
+			self::addExistings($apartment_id, $selected_services, $selected_services_prices);
 		}
 		
 		/**

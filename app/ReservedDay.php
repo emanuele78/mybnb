@@ -2,6 +2,7 @@
 	
 	namespace App;
 	
+	use DB;
 	use Illuminate\Database\Eloquent\Model;
 	
 	class ReservedDay extends Model {
@@ -33,6 +34,18 @@
 		public static function forApartment($apartment_id) {
 			
 			return ReservedDay::where('apartment_id', $apartment_id)->get();
+		}
+		
+		/**
+		 * Replace the reserved days for the given apartment
+		 *
+		 * @param $apartment_id
+		 * @param $reserved_days
+		 */
+		public static function replaceDays($apartment_id, $reserved_days) {
+			
+			DB::table('reserved_days')->where('apartment_id', $apartment_id)->delete();
+			self::addDays($apartment_id, $reserved_days);
 		}
 		
 		/**

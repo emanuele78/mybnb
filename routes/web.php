@@ -64,9 +64,8 @@
 	//todo to be deleted - only for debugging purposes
 	Route::get(
 	  '/test', function () {
-		
-		$data = \App\Apartment::filterBy(1, null, null);
-		$coll = collect($data);
-		$sorted = $coll->sortBy('full_price_per_night');
-		return $sorted->values()->all();
+		$apartment_id=1465;
+		$lastIndexImage = self::select('index')->where('apartment_id', $apartment_id)->orderBy('index','desc')->get()->first();
+		$i = $lastIndexImage?$lastIndexImage->index:1;
+		return "valore $i";
 	});

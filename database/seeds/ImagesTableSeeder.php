@@ -1,6 +1,7 @@
 <?php
 	
 	use App\Apartment;
+	use App\Image;
 	use Illuminate\Database\Seeder;
 	use Carbon\Carbon;
 	
@@ -25,14 +26,15 @@
 						$images_indexes[] = $index;
 					}
 				} while (count($images_indexes) < $images_per_apartment);
+				$i=1;
 				foreach ($images_indexes as $images_index) {
-					DB::table('images')->insert(
+					Image::create(
 					  [
 						'apartment_id' => $apartment->id,
 						'name' => $imageNames[$images_index],
-						'created_at' => $now,
-						'updated_at' => $now
-					  ]);
+						'index' => $i++
+					  ]
+					);
 				}
 			}
 		}

@@ -84,19 +84,12 @@
 			  ->with('max_people_value', self::$max_people_count);
 		}
 		
-		/**
-		 * Update current apartment
-		 *
-		 * @param Apartment $apartment
-		 * @param UpdateApartmentRequest $request
-		 * @return \Illuminate\Http\RedirectResponse
-		 * @throws \Illuminate\Auth\Access\AuthorizationException
-		 */
 		public function update(Apartment $apartment, UpdateApartmentRequest $request) {
 			
 			$this->authorize('update', $apartment);
-			return $request->all();
-//			return redirect()->route('apartments_dashboard');
+			$validated = $request->validated();
+			$apartment->updateInfo($validated);
+			return redirect()->route('apartments_dashboard');
 		}
 		
 	}
