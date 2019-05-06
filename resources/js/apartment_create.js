@@ -2,11 +2,11 @@ import PROJECT_MODULE from './app.js';
 import GEO_MODULE from "./geo_search_mod";
 import CALENDAR_MODULE from "./calendar_mod";
 import Handlebars from 'handlebars/dist/cjs/handlebars'
-import bsCustomFileInput from 'bs-custom-file-input'
+import ADDRESS_MODULE from "./load_address_mod"
 
 attachListeners();
 initializeReservedDaysCalendar();
-bsCustomFileInput.init();
+initializeAddress();
 
 /**
  * Listener for address search button
@@ -44,7 +44,7 @@ function showAddresses(data) {
     } else {
         let template = Handlebars.compile($("#address-search-results-template").html());
         $('.address_search_results_content').html(template(data.results));
-        attachListnerOnResultedAddress();
+        attachListenersOnResultedAddresses();
     }
     $('.address_search_results').removeClass('collapse');
 }
@@ -52,8 +52,8 @@ function showAddresses(data) {
 /**
  * Listener for single address in list
  */
-function attachListnerOnResultedAddress() {
-    $('.address_item').click(function (e) {
+function attachListenersOnResultedAddresses() {
+    $('.address_item').off().click(function (e) {
         e.preventDefault();
         //active seleceted item
         $('.address_item').removeClass('active');
@@ -159,6 +159,64 @@ function attachListeners() {
         let container = $('.upgrades_container');
         container.scrollTop(container.height());
     });
+    //listener for open image fake button
+    $('.open_input_file').click(function () {
+        $('.custom_file_input[data-index="' + $(this).data('index') + '"]').click();
+    });
+    //listener for input file buttons
+    $('.custom_file_input').on('input', function () {
+        readFile($(this));
+    });
+}
+
+/**
+ * Reading the file selected by user
+ * @param inputElement
+ */
+function readFile(inputElement) {
+    if (inputElement[0].files && inputElement[0].files[0]) {
+        let fileReader = new FileReader();
+        fileReader.onload = function (e) {
+            if (inputElement.data('index') == 0) {
+                previewImage(inputElement.data('index'), 'Principale', e.target.result);
+            } else {
+                previewImage(inputElement.data('index'), 'Secondaria ' + inputElement.data('index'), e.target.result);
+            }
+            attachRemoveImageButtons();
+        };
+        fileReader.readAsDataURL(inputElement[0].files[0]);
+        $('.input_file_label[data-index="'+ inputElement.data('index')+ '"] > .input_file_label_text').text(inputElement[0].files[0].name);
+    }
+}
+
+/**
+ * Attach listeners to remove images
+ */
+function attachRemoveImageButtons() {
+    //removing image button listener
+    $('.image_frame .remove_image').off().click(function () {
+        //remove the element
+        let elementIndex = $(this).data('remove');
+        $('.image_frame_' + elementIndex).remove();
+        //change label value
+        $('.input_file_label[data-index="'+ elementIndex+ '"] > .input_file_label_text').text('Scegli immagine');
+    });
+}
+
+/**
+ * Preview the image through handlebars template
+ * @param image_index
+ * @param overlay_text
+ * @param image_data
+ */
+function previewImage(image_index, overlay_text, image_data) {
+    let template = Handlebars.compile($("#image-template").html());
+    $('.image_container').append(template(
+        {
+            'image_index': image_index,
+            'overlay_text': overlay_text,
+            'image_data': image_data,
+        }));
 }
 
 /**
@@ -279,4 +337,21 @@ function printReservedDays(data) {
     $('.reserved_day').off().dblclick(function () {
         toggleReservedDay($(this).data('value'));
     });
+}
+
+/**
+ * In case of editing, the address need to be preload from server
+ */
+function initializeAddress() {
+    let apartmentAddressElement = $('.address_item');
+    //only for updating
+    if (apartmentAddressElement.length) {
+        ADDRESS_MODULE.getAddress(apartmentAddressElement.data('apartment'), function (response) {
+            if (response.success) {
+                apartmentAddressElement.text(response.data.full_address);
+                attachListenersOnResultedAddresses();
+                apartmentAddressElement.click();
+            }
+        });
+    }
 }

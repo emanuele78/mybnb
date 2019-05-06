@@ -206,11 +206,12 @@
 		 * @param int $user_id
 		 * @param bool|null $only_visible
 		 * @param bool|null $only_promoted
+		 * @param string $order_mode
 		 * @return array
 		 */
-		public static function filterBy(int $user_id, ?bool $only_visible, ?bool $only_promoted) {
+		public static function filterBy(int $user_id, ?bool $only_visible, ?bool $only_promoted, string $order_mode) {
 			
-			$builder = Apartment::where('user_id', $user_id)->with('promotions.promotion_plan')->orderBy('created_at');
+			$builder = Apartment::where('user_id', $user_id)->with('promotions.promotion_plan');
 			if ($only_visible !== null) {
 				$builder->where('is_showed', $only_visible);
 			}
@@ -259,7 +260,24 @@
 				}
 				$data[] = $item;
 			}
-			return $data;
+			$coll = collect($data);
+			switch ($order_mode) {
+				case  'created_at':
+				case  'updated_at':
+				case  'title':
+					$sorted = $coll->sortBy($order_mode);
+					break;
+				case 'created_at_desc':
+					$sorted = $coll->sortByDesc('created_at');
+					break;
+				case 'updated_at_desc':
+					$sorted = $coll->sortByDesc('updated_at');
+					break;
+				default:
+					$sorted = $coll->sortBy('title');
+				
+			}
+			return $sorted->values()->all();
 		}
 		
 		/**
@@ -358,6 +376,29 @@
 			Thread::removingApartment($this->id, $user);
 			//proceed with deletion
 			$this->delete();
+		}
+		
+		public function discoverServices() {
+			
+			$services = [];
+			foreach ($this->upgrades as $upgrade) {
+				$services[] = [
+				  'name' => $upgrade->service->name,
+				  'slug' => $upgrade->service->slug,
+				  'selected' => true,
+				  'price_per_night' => $upgrade->price_per_night,
+				];
+			}
+			$notSelectedServices = Service::notSelectedIn($this->id);
+			foreach ($notSelectedServices as $notSelectedService) {
+				$services[] = [
+				  'name' => $notSelectedService->name,
+				  'slug' => $notSelectedService->slug,
+				  'selected' => false,
+				  'price_per_night' => null,
+				];
+			}
+			return $services;
 		}
 		
 	}

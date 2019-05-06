@@ -146,7 +146,8 @@
 			  'streetName' => '',
 			  'municipality' => '',
 			  'postal_code' => '',
-			  'province' => ''
+			  'province' => '',
+			  'full_address' => '',
 			];
 			$uri = "/search/2/reverseGeocode/$lat,$lon.json";
 			$response = $this->client->request(
@@ -172,6 +173,9 @@
 			if (array_key_exists('countrySecondarySubdivision', $decodedJson['addresses'][0]['address'])) {
 				$address['province'] = $decodedJson['addresses'][0]['address']['countrySecondarySubdivision'];
 			}
+			if (array_key_exists('freeformAddress', $decodedJson['addresses'][0]['address'])) {
+				$address['full_address'] = $decodedJson['addresses'][0]['address']['freeformAddress'];
+			}
 			$address['response'] = true;
 			return $address;
 			
@@ -189,7 +193,8 @@
 			  'streetName' => 'via Gargantua 14',
 			  'municipality' => 'Gargantua',
 			  'postal_code' => '12345',
-			  'province' => 'GA'
+			  'province' => 'GA',
+			  'full_address' => 'via Gargantua 14, Gargantua, 12345 GA'
 			];
 		}
 	}

@@ -4,6 +4,7 @@
 	
 	use Cviebrock\EloquentSluggable\Sluggable;
 	use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Support\Facades\DB;
 	
 	class Service extends Model {
 		
@@ -62,11 +63,26 @@
 		 * @param $name
 		 * @return Service
 		 */
-		public static function addNew($name) : self {
+		public static function addNew($name): self {
 			
 			$service = new Service();
 			$service->name = $name;
 			$service->save();
 			return $service;
+		}
+		
+		/**
+		 * Return all the services not selected for the given apartment
+		 *
+		 * @param $apartment_id
+		 * @return array
+		 */
+		public static function notSelectedIn($apartment_id): array {
+			
+			return DB::table('services')->select('name', 'slug')->whereNotIn(
+			  'id', function ($query) use ($apartment_id) {
+				
+				$query->select('service_id')->from('upgrades')->where('apartment_id', $apartment_id);
+			})->get()->toArray();
 		}
 	}

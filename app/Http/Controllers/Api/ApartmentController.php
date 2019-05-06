@@ -18,26 +18,27 @@
 			
 			$validated = request()->validate(
 			  [
-				'show' => ['required', Rule::in(['all_apartments', 'only_hidden_apartments', 'only_visible_apartments', 'only_apartments_with_active_promo', 'only_apartments_without_active_promo'])]
+				'show' => ['required', Rule::in(['all_apartments', 'only_hidden_apartments', 'only_visible_apartments', 'only_apartments_with_active_promo', 'only_apartments_without_active_promo'])],
+				'order' => ['required', Rule::in(['title', 'created_at', 'updated_at', 'created_at_desc', 'updated_at_desc'])],
 			  ]
 			);
 			$user = Auth::user();
 			switch ($validated['show']) {
 				case 'only_hidden_apartments':
-					$data = Apartment::filterBy($user->id, false, null);
+					$data = Apartment::filterBy($user->id, false, null, $validated['order']);
 					break;
 				case 'only_visible_apartments':
-					$data = Apartment::filterBy($user->id, true, null);
+					$data = Apartment::filterBy($user->id, true, null, $validated['order']);
 					break;
 				case 'only_apartments_with_active_promo':
-					$data = Apartment::filterBy($user->id, null, true);
+					$data = Apartment::filterBy($user->id, null, true, $validated['order']);
 					break;
 				case 'only_apartments_without_active_promo':
-					$data = Apartment::filterBy($user->id, null, false);
+					$data = Apartment::filterBy($user->id, null, false, $validated['order']);
 					break;
 				default:
 					//all
-					$data = Apartment::filterBy($user->id, null, null);
+					$data = Apartment::filterBy($user->id, null, null, $validated['order']);
 			}
 			return $data;
 		}

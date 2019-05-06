@@ -19,13 +19,25 @@
                         </div>
                     </div>
                     <div class="dropdown col text-right">
-                        <a href="{{route('new_apartment')}}" class="btn btn-success">Inserisci un nuovo appartamento</a>
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOrderMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ordina
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownOrderMenuButton">
+                                <a class="dropdown-item dropdown_order active" data-order="title" href="#">Nome appartamento</a>
+                                <a class="dropdown-item dropdown_order" data-order="created_at" href="#">Data creazione</a>
+                                <a class="dropdown-item dropdown_order" data-order="updated_at" href="#">Data ultima modifica</a>
+                                <a class="dropdown-item dropdown_order" data-order="created_at_desc" href="#">Data creazione (ultimi per primi)</a>
+                                <a class="dropdown-item dropdown_order" data-order="updated_at_desc" href="#">Data ultima modifica (ultimi per primi)</a>
+                            </div>
+                        </div>
+                        <a href="{{route('new_apartment')}}" class="btn btn-success ml-3">Inserisci un nuovo appartamento</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="content_wrapper"></div>
+    <div class="content_wrapper mb-4"></div>
 </div>
 
 @component('components.no_result_template')
@@ -94,7 +106,7 @@
                                 <a href="" class="btn btn-warning">Sponsorizza</a>
                             </div>
                             <div class="mt-2">
-                                <a href="" class="btn btn-primary">Modifica</a>
+                                <button data-ref="{{route('edit_apartment','apartment')}}" data-apartment="@{{slug}}" class="btn btn-primary edit_apartment">Modifica</button>
                             </div>
                             <div class="mt-2">
                                 @{{#if is_visible}}

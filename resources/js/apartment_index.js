@@ -1,6 +1,5 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars'
-import MODAL_INFO_MODULE from "./modal_info_mod";
 import MODAL_ACTION_MODULE from "./modal_action_mod";
 
 /**
@@ -22,6 +21,7 @@ function sendRequest() {
         },
         data: {
             'show': $('.dropdown_show.active').data('show'),
+            'order': $('.dropdown_order.active').data('order'),
         },
         success: function (data) {
             if (data.length) {
@@ -40,9 +40,9 @@ function sendRequest() {
  * Listener for dropdowns
  */
 function registerListenerForDropdowns() {
-    $('.dropdown_filter').click(function (e) {
+    $('.dropdown_order').click(function (e) {
         e.preventDefault();
-        $('.dropdown_filter').removeClass('active');
+        $('.dropdown_order').removeClass('active');
         $(this).addClass('active');
         sendRequest();
     });
@@ -105,6 +105,10 @@ function registerListenerForInPageActions() {
                 sendRequest();
             })
         }, null);
+    });
+    $('.edit_apartment').off().click(function () {
+        let url = $(this).data('ref').replace('apartment', $(this).data('apartment'));
+        window.location.href = url;
     });
 }
 

@@ -12,9 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.js */ "./resources/js/app.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 /* harmony import */ var handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _modal_info_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal_info_mod */ "./resources/js/modal_info_mod.js");
-/* harmony import */ var _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal_action_mod */ "./resources/js/modal_action_mod.js");
-
+/* harmony import */ var _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal_action_mod */ "./resources/js/modal_action_mod.js");
 
 
 
@@ -37,7 +35,8 @@ function sendRequest() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     data: {
-      'show': $('.dropdown_show.active').data('show')
+      'show': $('.dropdown_show.active').data('show'),
+      'order': $('.dropdown_order.active').data('order')
     },
     success: function success(data) {
       if (data.length) {
@@ -57,9 +56,9 @@ function sendRequest() {
 
 
 function registerListenerForDropdowns() {
-  $('.dropdown_filter').click(function (e) {
+  $('.dropdown_order').click(function (e) {
     e.preventDefault();
-    $('.dropdown_filter').removeClass('active');
+    $('.dropdown_order').removeClass('active');
     $(this).addClass('active');
     sendRequest();
   });
@@ -121,13 +120,17 @@ function registerListenerForInPageActions() {
   });
   $('.delete_apartment').off().click(function () {
     var currentApartment = $(this).data('apartment');
-    _modal_action_mod__WEBPACK_IMPORTED_MODULE_3__["default"].showActionModal(null, null, function () {
+    _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__["default"].showActionModal(null, null, function () {
       //user confirms deletion
       deleteApartment(currentApartment, function () {
         //reload
         sendRequest();
       });
     }, null);
+  });
+  $('.edit_apartment').off().click(function () {
+    var url = $(this).data('ref').replace('apartment', $(this).data('apartment'));
+    window.location.href = url;
   });
 }
 /**

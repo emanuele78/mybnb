@@ -4,7 +4,8 @@
             <h3 class="text-center">Inserisci nuovo appartamento</h3>
         </div>
     </div>
-    <form action="{{route('save_apartment')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('update_apartment', $apartment->slug)}}" method="POST" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
         <div class="card mt-2">
             <div class="card-header">
@@ -14,14 +15,14 @@
                 <div class="card-block">
                     <div class="form-group">
                         <label for="apartment_title" class="text-muted">Titolo</label>
-                        <input id="apartment_title" name="title" type="text" class="form-control {{$errors->has('title')?'is-invalid':null}}" placeholder="Inserisci un titolo per l'appartamento" value="{{old('title')}}">
+                        <input id="apartment_title" name="title" type="text" class="form-control {{$errors->has('title')?'is-invalid':null}}" placeholder="Inserisci un titolo per l'appartamento" value="{{old('title')?:$apartment->title}}">
                         <div class="invalid-feedback">
                             Il titolo deve essere compreso tra 10 e 255 caratteri
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="apartment_description" class="text-muted">Descrizione</label>
-                        <textarea id="apartment_description" name="description" class="form-control {{$errors->has('description')?'is-invalid':null}}" rows="6" placeholder="Fornisci una descrizione per l'appartamento">{{old('description')}}</textarea>
+                        <textarea id="apartment_description" name="description" class="form-control {{$errors->has('description')?'is-invalid':null}}" rows="6" placeholder="Fornisci una descrizione per l'appartamento">{{old('description')?:$apartment->description}}</textarea>
                         <div class="invalid-feedback">
                             La descrizione deve essere compresa tra 20 e 4000 caratteri
                         </div>
@@ -56,19 +57,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row address_search_results collapse">
+                    <div class="row address_search_results">
                         <div class="col-12 mx-2 mt-1">
                             <span class="text-muted">Seleziona l'indirizzo tra i risultati trovati:</span>
                             <input type="hidden" class="address_input" name="address_lat" value="">
                             <input type="hidden" class="address_input" name="address_lng" value="">
                         </div>
                         <div class="col mx-2 mt-1 ">
-                            <div class="address_search_results_content"></div>
+                            <div class="address_search_results_content">
+                                <ul class="list-group mb-2">
+                                    <button type="button" data-apartment="{{$apartment->slug}}" data-lat="{{$apartment->latitude}}" data-lng="{{$apartment->longitude}}" class="list-group-item list-group-item-action address_item active"></button>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="waiting waiting_address collapse">
+            <div class="waiting waiting_address">
                 <div class="loading_wrapper">
                     <i class="fas fa-spinner fa-pulse"></i>
                 </div>
@@ -85,7 +90,11 @@
                         <select name="room_count" class="custom-select {{$errors->has('room_count')?'is-invalid':null}}" id="room-selection">
                             <option {{old('room_count')==null?'selected':null}}>Scegli</option>
                             @for ($i = 1; $i <= $max_room_value; $i++)
-                                <option {{old('room_count')==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @if(old('room_count'))
+                                    <option {{old('room_count')==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @else
+                                    <option {{$apartment->room_count==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @endif
                             @endfor
                         </select>
                         <div class="invalid-feedback">
@@ -97,7 +106,11 @@
                         <select name="people_count" class="custom-select {{$errors->has('people_count')?'is-invalid':null}}" id="people-selection">
                             <option {{old('people_count')==null?'selected':null}}>Scegli</option>
                             @for ($i = 1; $i <= $max_people_value; $i++)
-                                <option {{old('people_count')==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @if(old('people_count'))
+                                    <option {{old('people_count')==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @else
+                                    <option {{$apartment->people_count==$i?'selected':null}} value="{{$i}}">{{$i}}</option>
+                                @endif
                             @endfor
                         </select>
                         <div class="invalid-feedback">
@@ -109,7 +122,11 @@
                         <select name="bathroom_count" class="custom-select {{$errors->has('bathroom_count')?'is-invalid':null}}" id="bathroom-selection">
                             <option {{old('bathroom_count')==null?'selected':null}}>Scegli</option>
                             @for ($i = 1; $i <= $max_bathroom_value; $i++)
-                                <option {{old('bathroom_count')==$i?'selected':null}} name="bathroom_count" value="{{$i}}">{{$i}}</option>
+                                @if(old('people_count'))
+                                    <option {{old('bathroom_count')==$i?'selected':null}} name="bathroom_count" value="{{$i}}">{{$i}}</option>
+                                @else
+                                    <option {{$apartment->bathroom_count==$i?'selected':null}} name="bathroom_count" value="{{$i}}">{{$i}}</option>
+                                @endif
                             @endfor
                         </select>
                         <div class="invalid-feedback">
@@ -118,14 +135,14 @@
                     </div>
                     <div class="form-group">
                         <label for="square-meters">Metri quadri</label>
-                        <input id="square-meters" name="square_meters" type="number" class="form-control {{$errors->has('square_meters')?'is-invalid':null}}" placeholder="es. 100" value="{{old('square_meters')}}">
+                        <input id="square-meters" name="square_meters" type="number" class="form-control {{$errors->has('square_meters')?'is-invalid':null}}" placeholder="es. 100" value="{{old('square_meters')?:$apartment->square_meters}}">
                         <div class="invalid-feedback">
                             Inserire i metri quadri dell'appartamento
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="max-stay">Massima durata permanenza</label>
-                        <input id="max-stay" name="max_stay" type="number" class="form-control {{$errors->has('max_stay')?'is-invalid':null}}" placeholder="giorni" value="{{old('max_stay')}}">
+                        <input id="max-stay" name="max_stay" type="number" class="form-control {{$errors->has('max_stay')?'is-invalid':null}}" placeholder="giorni" value="{{old('max_stay')?:$apartment->max_stay}}">
                         <div class="invalid-feedback">
                             Inserire la durata massima del soggiorno
                         </div>
@@ -142,14 +159,14 @@
                 <div class="card-block">
                     <div class="form-group">
                         <label for="price-per-night">Prezzo a notte Euro</label>
-                        <input id="price-per-night" type="text" name="price_per_night" class="form-control {{$errors->has('price_per_night')?'is-invalid':null}}" placeholder="100.00" value="{{old('price_per_night')}}">
+                        <input id="price-per-night" type="text" name="price_per_night" class="form-control {{$errors->has('price_per_night')?'is-invalid':null}}" placeholder="100.00" value="{{old('price_per_night')?:$apartment->price_per_night}}">
                         <div class="invalid-feedback">
                             Prezzo non valido
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="sale">Sconto</label>
-                        <input id="sale" type="number" name="sale" class="form-control {{$errors->has('sale')?'is-invalid':null}}" placeholder="%" value="{{old('sale')}}">
+                        <input id="sale" type="number" name="sale" class="form-control {{$errors->has('sale')?'is-invalid':null}}" placeholder="%" value="{{old('sale')?:$apartment->sale}}">
                         <div class="invalid-feedback">
                             Sconto non valido
                         </div>
@@ -167,7 +184,7 @@
             </div>
             <div class="card-body">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" {{$errors->isEmpty()||old('is_showed')?'checked':null}} class="custom-control-input" name="is_showed" value="1" id="visibility">
+                    <input type="checkbox" {{$apartment->is_showed||old('is_showed')?'checked':null}} class="custom-control-input" name="is_showed" value="1" id="visibility">
                     <label class="custom-control-label" for="visibility">Rendi visibile non appena inserito</label>
                 </div>
             </div>
@@ -194,6 +211,14 @@
                                         </li>
                                     @endforeach
                                 </ul>
+                            @else
+                                <ul>
+                                    @foreach($apartment->reservedDays as $reservedDay)
+                                        <li class="reserved_day" data-value="{{$reservedDay->day->format('Y-m-d')}}">
+                                            <input type="hidden" name="reserved_days[]" value="{{$reservedDay->day->format('Y-m-d')}}">{{$reservedDay->day->format('d-m-Y')}}
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @endif
                         </div>
                     </div>
@@ -211,20 +236,24 @@
                         <div class="input-group my-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    @if(old('selected_services') && in_array($service->slug,old('selected_services')))
-                                        <input type="checkbox" checked name="selected_services[]" value="{{$service->slug}}">
+                                    @if(old())
+                                        @if(old('selected_services') && in_array($service['slug'],old('selected_services')))
+                                            <input type="checkbox" checked name="selected_services[]" value="{{$service['slug']}}">
+                                        @else
+                                            <input type="checkbox" name="selected_services[]" value="{{$service['slug']}}">
+                                        @endif
                                     @else
-                                        <input type="checkbox" name="selected_services[]" value="{{$service->slug}}">
+                                        <input type="checkbox" {{$service['selected']?'checked':null}} name="selected_services[]" value="{{$service['slug']}}">
                                     @endif
                                 </div>
                             </div>
-                            <input type="text" class="form-control service" value="{{$service->name}}" readonly>
+                            <input type="text" class="form-control service" value="{{$service['name']}}" readonly>
                             <div class="input-group-append">
                                 <span class="input-group-text">Euro</span>
                                 @if(old('services_price'))
-                                    <input name="services_price[{{$service->slug}}]" class="input-group-text service_price" type="text" value="{{old('services_price')[$service->slug]}}">
+                                    <input name="services_price[{{$service['slug']}}]" class="input-group-text service_price" type="text" value="{{old('services_price')[$service['slug']]}}">
                                 @else
-                                    <input name="services_price[{{$service->slug}}]" class="input-group-text service_price" type="text">
+                                    <input name="services_price[{{$service['slug']}}]" class="input-group-text service_price" type="text" value="{{$service['price_per_night']?:null}}">
                                 @endif
                             </div>
                         </div>
@@ -267,40 +296,72 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <div class="image_container"></div>
+                        <div class="image_container">
+                            <div class="image_frame image_frame_0" style="background-image: url('{{asset('img/apartments').'/'.$apartment->main_image}}')">
+                                <div class="overlay">
+                                    <span class="text">Principale</span>
+                                    <div class="remove_image" data-remove="0">
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            @foreach($apartment->images as $key => $image)
+                                <div class="image_frame image_frame_{{$key+1}} ml-2" style="background-image: url('{{asset('img/apartments').'/'.$image->name}}')">
+                                    <div class="overlay">
+                                        <span class="text">Secondaria {{$key+1}}</span>
+                                        <div class="remove_image" data-remove="{{$key+1}}">
+                                            <i class="fas fa-trash"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <span class="text-muted">Immagine principale</span>
-                        <div class="input-group my-2">
-                            <label class="form-control input_file_label" data-index="0">
-                                <span class="input_file_label_text">Scegli immagine</span>
-                                <input type="file" data-index="0" name="main_image" class="custom_file_input" accept="image/x-png,image/jpeg">
-                            </label>
-                            <div class="input-group-append">
-                                <span class="input-group-text open_input_file" data-index="0">Apri</span>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="main_image" id="image_file_0" disabled>
+                            <label class="custom-file-label" for="image_file_0" data-browse="Apri">Immagine selezionata</label>
+                            <div class="invalid-feedback">
+                                Immagine principale non selezionata
                             </div>
                         </div>
                     </div>
+                    @php
+                        $images_count = $apartment->images->count();
+                    @endphp
                     <div class="col-6">
                         <span class="text-muted">Immagini secondarie (4 max)</span>
-                        @for($i=1;$i<=4;$i++)
-                            <div class="input-group my-2">
-                                <label class="form-control input_file_label" data-index="{{$i}}">
-                                    <span class="input_file_label_text">Scegli immagine</span>
-                                    <input type="file" data-index="{{$i}}" name="other_images[]" class="custom_file_input" accept="image/x-png,image/jpeg">
-                                </label>
-                                <div class="input-group-append">
-                                    <span class="input-group-text open_input_file" data-index="{{$i}}">Apri</span>
-                                </div>
-                            </div>
-                        @endfor
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_1" {{$images_count>=1?'disabled':null}}>
+                            <label class="custom-file-label" for="image_file_1" data-browse="Apri">{{$images_count>=1?'Immagine selezionata':'Scegli immagine'}}</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_2" {{$images_count>=2?'disabled':null}}>
+                            <label class="custom-file-label" for="image_file_2" data-browse="Apri">{{$images_count>=2?'Immagine selezionata':'Scegli immagine'}}</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_3" {{$images_count>=3?'disabled':null}}>
+                            <label class="custom-file-label" for="image_file_3" data-browse="Apri">{{$images_count>=3?'Immagine selezionata':'Scegli immagine'}}</label>
+                        </div>
+                        <div class="custom-file mt-2">
+                            <input type="file" class="custom-file-input" name="other_images[]" id="image_file_4" {{$images_count==4?'disabled':null}}>
+                            <label class="custom-file-label" for="image_file_4" data-browse="Apri">{{$images_count>=4?'Immagine selezionata':'Scegli immagine'}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success w-100 mt-2 p-2">Inserisci appartamento</button>
+        <div class="row">
+            <div class="col">
+                <a href="{{route('apartments_dashboard')}}" class="btn btn-primary w-100 mt-2 p-2">Annulla</a>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success w-100 mt-2 p-2">Salva modifiche</button>
+            </div>
+        </div>
     </form>
     @if ($errors->any())
         <div class="alert alert-danger mt-2">
@@ -342,16 +403,6 @@
         <div class="input-group-append">
             <span class="input-group-text">Euro</span>
             <input name="new_services_prices[@{{service_name}}]" class="input-group-text" type="text">
-        </div>
-    </div>
-</script>
-<script id="image-template" type="text/x-handlebars-template">
-    <div class="image_frame image_frame_@{{image_index}}" style="background-image: url(@{{image_data}})">
-        <div class="overlay">
-            <span class="text">@{{overlay_text}}</span>
-            <div class="remove_image" data-remove="@{{image_index}}">
-                <i class="fas fa-trash"></i>
-            </div>
         </div>
     </div>
 </script>

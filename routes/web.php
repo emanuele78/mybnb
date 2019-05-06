@@ -26,6 +26,10 @@
 		  Route::get('/appartamenti/nuovo', 'ApartmentController@create')->name('new_apartment');
 		  //store the newly created apartment
 		  Route::post('/appartamenti/nuovo', 'ApartmentController@store')->name('save_apartment');
+		  //update apartment
+		  Route::put('/appartamenti/{apartment}', 'ApartmentController@update')->name('update_apartment');
+		  //edit apartment form
+		  Route::get('/appartamenti/{apartment?}/modifica', 'ApartmentController@edit')->name('edit_apartment');
 		  //show the apartment show view
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
@@ -61,5 +65,8 @@
 	Route::get(
 	  '/test', function () {
 		
-		return \App\Booking::forOtherApartments(2, false, false);
+		$data = \App\Apartment::filterBy(1, null, null);
+		$coll = collect($data);
+		$sorted = $coll->sortBy('full_price_per_night');
+		return $sorted->values()->all();
 	});

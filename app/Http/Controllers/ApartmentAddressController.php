@@ -13,6 +13,7 @@
 		 * @param Apartment $apartment
 		 * @param Geolocation $geolocation
 		 * @return array
+		 * @throws \GuzzleHttp\Exception\GuzzleException
 		 */
 		public function show(Apartment $apartment, Geolocation $geolocation) {
 			

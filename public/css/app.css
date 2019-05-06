@@ -10428,3 +10428,54 @@ h3 {
 .custom_full_border {
   border: 1px solid #dfdfdf;
 }
+
+.new_apartment_container .image_container {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.new_apartment_container .image_container .image_frame {
+  position: relative;
+  display: inline-block;
+  width: 320px;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+.new_apartment_container .image_container .image_frame .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+.new_apartment_container .image_container .image_frame .overlay .text {
+  line-height: 180px;
+  color: rgba(0, 0, 0, 0);
+  font-size: 25px;
+}
+.new_apartment_container .image_container .image_frame .overlay .remove_image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 25px;
+  color: white;
+  background-color: #3490dc;
+  padding: 10px;
+  cursor: pointer;
+}
+.new_apartment_container .image_container .image_frame:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.new_apartment_container .image_container .image_frame:hover .overlay .text {
+  color: white;
+}
+.new_apartment_container .custom_file_input {
+  display: none;
+}
+.new_apartment_container .open_input_file {
+  cursor: pointer;
+}
