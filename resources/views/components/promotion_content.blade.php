@@ -64,11 +64,11 @@
                                     <strong>{{\App\Utility::diffInDays($promotion['start_at'], $promotion['end_at'])}}</strong>
                                 </small>
                                 <small class="card-text text-muted d-block">Importo pagato:
-                                    <strong>Euro {{number_format($promotion['paid'],2,',','.')}}</strong>
+                                    <strong>Euro {{number_format(\App\Utility::diffInDays($promotion['start_at'],$promotion['end_at'])*$promotion['promotion_plan']['price_per_day'],2,',','.')}}</strong>
                                 </small>
                             </div>
                             <div class="col text-right">
-                                <a href="" class="btn btn-success" download>Scarica ricevuta</a>
+                                <a href="{{route('show_promo_receipt',$promotion['reference'])}}" class="btn btn-success" download>Scarica ricevuta</a>
                             </div>
                         </div>
                     </div>

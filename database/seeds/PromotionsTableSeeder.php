@@ -4,6 +4,7 @@
 	use App\PromotionPlan;
 	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
+	use Illuminate\Support\Str;
 	
 	class PromotionsTableSeeder extends Seeder {
 		
@@ -35,19 +36,19 @@
 					  [
 						[
 						  'apartment_id' => $apartment->id,
+						  'reference' => Str::uuid(),
 						  'promotion_plan_id' => $expiredPromotionPlan->id,
 						  'start_at' => $expiredPlanStartDate,
 						  'end_at' => $expiredPlanEndDate,
-						  'paid' => $expiredPromotionPlan->max_length * $expiredPromotionPlan->price_per_day,
 						  'created_at' => $startDate,
 						  'updated_at' => $startDate
 						],
 						[
 						  'apartment_id' => $apartment->id,
+						  'reference' => Str::uuid(),
 						  'promotion_plan_id' => $futurePromotionPlan->id,
 						  'start_at' => $futurePlanStartDate,
 						  'end_at' => $futurePlanEndDate,
-						  'paid' => $futurePromotionPlan->max_length * $futurePromotionPlan->price_per_day,
 						  'created_at' => $startDate,
 						  'updated_at' => $startDate
 						]
@@ -59,19 +60,19 @@
 					  [
 						[
 						  'apartment_id' => $apartment->id,
+						  'reference' => Str::uuid(),
 						  'promotion_plan_id' => $promotionPlan->id,
 						  'start_at' => $startDate,
 						  'end_at' => $endDate,
-						  'paid' => $promotionPlan->max_length * $promotionPlan->price_per_day,
 						  'created_at' => $startDate,
 						  'updated_at' => $startDate
 						],
 						[
 						  'apartment_id' => $apartment->id,
+						  'reference' => Str::uuid(),
 						  'promotion_plan_id' => $expiredPromotionPlan->id,
 						  'start_at' => $expiredPlanStartDate,
 						  'end_at' => $expiredPlanEndDate,
-						  'paid' => $expiredPromotionPlan->max_length * $expiredPromotionPlan->price_per_day,
 						  'created_at' => $startDate,
 						  'updated_at' => $startDate
 						]

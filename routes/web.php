@@ -50,8 +50,10 @@
 		  Route::get('/prenotazioni', 'BookingController@index')->name('show_bookings');
 		  //resume a pending booking
 		  Route::get('/prenotazioni/{booking}/modifica', 'BookingController@edit')->name('resume_booking');
-		  //download a receipt
+		  //download a booking receipt
 		  Route::get('/prenotazioni/ricevute/{booking?}', 'BookingPaymentController@show')->name('show_receipt');
+		  //download a booking receipt
+		  Route::get('/promozioni/ricevute/{promotion}', 'ApartmentPromotionController@show')->name('show_promo_receipt');
 	  }
 	);
 	

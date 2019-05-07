@@ -4,6 +4,7 @@
 	
 	use Carbon\Carbon;
 	use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Support\Str;
 	
 	class Promotion extends Model {
 		
@@ -18,6 +19,16 @@
 		  'start_at' => 'datetime',
 		  'end_at' => 'datetime',
 		];
+		
+		/**
+		 * Set key for route model binding
+		 *
+		 * @return string
+		 */
+		public function getRouteKeyName() {
+			
+			return 'reference';
+		}
 		
 		/**
 		 * Eloquent relationship
@@ -94,9 +105,8 @@
 		 * @param string|null $new_promotion_start
 		 * @param string $day_length
 		 * @param string $promo_type
-		 * @param float $amount
 		 */
-		public static function createFor(int $apartment_id, ?string $new_promotion_start, string $day_length, string $promo_type, float $amount): void {
+		public static function createFor(int $apartment_id, ?string $new_promotion_start, string $day_length, string $promo_type): void {
 			
 			if ($new_promotion_start) {
 				$userPromoStart = Carbon::createFromFormat('d-m-Y H:i', $new_promotion_start);
@@ -107,11 +117,35 @@
 			Promotion::create(
 			  [
 				'apartment_id' => $apartment_id,
+				'reference' => Str::uuid(),
 				'promotion_plan_id' => PromotionPlan::findByType($promo_type),
 				'start_at' => $userPromoStart,
 				'end_at' => $userPromoEnd,
-				'paid' => $amount
 			  ]);
+		}
+		
+		/**
+		 * Return promotion data for invoice
+		 *
+		 * @return array
+		 */
+		public function dataForInvoice(): array {
+			
+			$user = $this->apartment->owner();
+			return [
+			  'promo_reference' => $this->reference,
+			  'promo_date' => Utility::dateTimeLocale($this->created_at, false),
+			  'user_fullname' => $user->fullname(),
+			  'user_address' => $user->customer->streetAddress,
+			  'user_locality' => $user->fullLocality(),
+			  'user_email' => $user->email,
+			  'apartment_title' => $this->apartment->title,
+			  'days_count' => Utility::diffInDays($this->start_at, $this->end_at),
+			  'price_per_day' => $this->promotion_plan->price_per_day,
+			  'promo_start' => Utility::dateTimeLocale($this->start_at, true),
+			  'promo_end' => Utility::dateTimeLocale($this->end_at, true),
+			  'promo_type' => $this->promotion_plan->name,
+			];
 		}
 		
 	}

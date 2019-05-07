@@ -8,6 +8,7 @@
 	use App\Promotion;
 	use App\PromotionPlan;
 	use App\Services\BraintreeGateway;
+	use Barryvdh\DomPDF\Facade as PDF;
 	use Auth;
 	
 	class ApartmentPromotionController extends Controller {
@@ -38,11 +39,16 @@
 			  ->withActivePromotion($apartment->activePromotion());
 		}
 		
-		/**
-		 * receipt
-		 */
-		public function show() {
-		
+
+		public function show(Promotion $promotion) {
+			if (!Auth::check()) {
+				return redirect()->route('login');
+			}
+			if (Auth::user()->id != $promotion->apartment->owner()->id) {
+				return abort(403);
+			}
+			$pdf = PDF::loadView('pdf.promo_receipt', $promotion->dataForInvoice());
+			return $pdf->stream('invoice.pdf');
 		}
 		
 		/**

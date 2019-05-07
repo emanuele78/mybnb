@@ -17,13 +17,13 @@
 			  'promotions', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
-				$table->unsignedBigInteger('apartment_id');
+				$table->unsignedBigInteger('apartment_id')->nullable();
+				$table->string('reference');
 				$table->unsignedBigInteger('promotion_plan_id');
 				$table->dateTime('start_at');
 				$table->dateTime('end_at');
-				$table->float('paid',5,2);
 				$table->timestamps();
-				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
+				$table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
 				$table->foreign('promotion_plan_id')->references('id')->on('promotion_plans');
 			});
 		}
