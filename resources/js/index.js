@@ -1,6 +1,7 @@
 import PROJECT_MODULE from './app.js';
 import Handlebars from 'handlebars/dist/cjs/handlebars';
 import flatpickr from "flatpickr";
+import { Italian } from "flatpickr/dist/l10n/it.js"
 
 /**
  * Flatpicker initialization
@@ -8,6 +9,7 @@ import flatpickr from "flatpickr";
 flatpickr('.flatpicker', {
     clickOpens: true,
     dateFormat: "d-m-Y",
+    "locale": Italian
 });
 
 /**

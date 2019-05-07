@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import CHECK_AVAILABILITY_MODULE from "./check_availability_mod";
+import { Italian } from "flatpickr/dist/l10n/it.js"
 
 /**
  * Flatpicker initialization
@@ -7,6 +8,7 @@ import CHECK_AVAILABILITY_MODULE from "./check_availability_mod";
 flatpickr('.flatpicker', {
     clickOpens: true,
     dateFormat: "d-m-Y",
+    "locale": Italian,
     onChange: function () {
         check();
     }

@@ -12,6 +12,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/flatpickr.js");
 /* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flatpickr__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _check_availability_mod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./check_availability_mod */ "./resources/js/check_availability_mod.js");
+/* harmony import */ var flatpickr_dist_l10n_it_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flatpickr/dist/l10n/it.js */ "./node_modules/flatpickr/dist/l10n/it.js");
+/* harmony import */ var flatpickr_dist_l10n_it_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_l10n_it_js__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 /**
@@ -20,7 +23,8 @@ __webpack_require__.r(__webpack_exports__);
 
 flatpickr__WEBPACK_IMPORTED_MODULE_0___default()('.flatpicker', {
   clickOpens: true,
-  dateFormat: "d-m-Y"
+  dateFormat: "d-m-Y",
+  "locale": flatpickr_dist_l10n_it_js__WEBPACK_IMPORTED_MODULE_2__["Italian"]
 });
 /**
  * Listener for check availability button

@@ -2,6 +2,7 @@ import PROJECT_MODULE from './app.js';
 import flatpickr from "flatpickr";
 import Handlebars from 'handlebars/dist/cjs/handlebars'
 import PAYMENT_MODULE from "./payment_mod";
+import {Italian} from "flatpickr/dist/l10n/it";
 
 const MOMENT = require('moment');
 
@@ -14,6 +15,7 @@ const MOMENT = require('moment');
         clickOpens: true,
         enableTime: true,
         dateFormat: "d-m-Y H:i",
+        "locale": Italian,
         onChange: function () {
             $('.flatpickr-input').removeClass('is-invalid');
         }
