@@ -1,7 +1,7 @@
 <div class="container apartments_container">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="text-center main_title"></h3>
+            <h3 class="text-center main_title">I tuoi appartamenti</h3>
         </div>
         <div class="card-body">
             <div class="card-block">
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-4 text-right">
                             <div class="">
-                                <a href="" class="btn btn-warning">Sponsorizza</a>
+                                <button data-ref="{{route('promote','apartment')}}" data-apartment="@{{slug}}" class="btn btn-warning promote_apartment">Sponsorizza</button>
                             </div>
                             <div class="mt-2">
                                 <button data-ref="{{route('edit_apartment','apartment')}}" data-apartment="@{{slug}}" class="btn btn-primary edit_apartment">Modifica</button>

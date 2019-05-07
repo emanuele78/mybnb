@@ -10479,3 +10479,32 @@ h3 {
 .new_apartment_container .open_input_file {
   cursor: pointer;
 }
+
+.promotion_container .list_wrapper {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 500px;
+}
+.promotion_container .promo_wrapper {
+  padding: 0 10px;
+}
+.promotion_container .promo_type_card {
+  border: 2px solid lightgrey;
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+.promotion_container .promo_type_card .promo_title {
+  display: block;
+}
+.promotion_container .promo_type_card .promo_image {
+  width: 210px;
+  height: 350px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.promotion_container .promo_type_card:hover, .promotion_container .promo_type_card.active {
+  border: 2px solid royalblue;
+}

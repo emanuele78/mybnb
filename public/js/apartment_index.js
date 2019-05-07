@@ -102,6 +102,7 @@ function printNoResults() {
 
 
 function registerListenerForInPageActions() {
+  //show apartment button
   $('.show_apartment').off().click(function () {
     var currentApartment = $(this).data('apartment');
     $('.waiting.' + currentApartment).show();
@@ -109,7 +110,8 @@ function registerListenerForInPageActions() {
       //reload
       sendRequest();
     });
-  });
+  }); //hide apartment button
+
   $('.hide_apartment').off().click(function () {
     var currentApartment = $(this).data('apartment');
     $('.waiting.' + currentApartment).show();
@@ -117,7 +119,8 @@ function registerListenerForInPageActions() {
       //reload
       sendRequest();
     });
-  });
+  }); //delete apartment button
+
   $('.delete_apartment').off().click(function () {
     var currentApartment = $(this).data('apartment');
     _modal_action_mod__WEBPACK_IMPORTED_MODULE_2__["default"].showActionModal(null, null, function () {
@@ -127,10 +130,14 @@ function registerListenerForInPageActions() {
         sendRequest();
       });
     }, null);
-  });
+  }); //edit apartment button
+
   $('.edit_apartment').off().click(function () {
-    var url = $(this).data('ref').replace('apartment', $(this).data('apartment'));
-    window.location.href = url;
+    window.location.href = $(this).data('ref').replace('apartment', $(this).data('apartment'));
+  }); //promote apartment button
+
+  $('.promote_apartment').off().click(function () {
+    window.location.href = $(this).data('ref').replace('apartment', $(this).data('apartment'));
   });
 }
 /**

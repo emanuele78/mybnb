@@ -55,5 +55,9 @@
 		  Route::get('/geo/addresses', 'Api\GeolocationController@index');
 		  //map from coordinates
 		  Route::get('/geo/maps/map', 'Api\GeolocationController@show');
+		  //check if chosen promotion is valid
+		  Route::get('/auth/apartments/{apartment}/promotions/check', 'ApartmentPromotionController@index');
+		  //pay and store promotion for apartment
+		  Route::post('/auth/apartments/{apartment}/promotions/', 'ApartmentPromotionController@store');
 	  });
 	

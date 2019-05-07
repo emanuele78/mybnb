@@ -206,7 +206,6 @@
                             @{{#ifCond this.status}}
                             <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2" download>Scarica ricevuta</a>
                             @{{else}}
-                            {{--<button role="button" data-booking="@{{booking_reference}}" class="btn btn-warning resume_booking mt-2">Riprendi prenotazione</button>--}}
                             <a href="{{route('resume_booking','booking')}}" role="button" data-booking="@{{booking_reference}}" class="btn btn-warning resume_booking mt-2">Riprendi prenotazione</a>
                             @{{/ifCond}}
                         </div>

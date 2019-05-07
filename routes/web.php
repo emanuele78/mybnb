@@ -34,6 +34,8 @@
 		  Route::get('/appartamenti/{apartment?}', 'ApartmentController@show')->name('show');
 		  //show the apartment booking form
 		  Route::get('/appartamenti/{apartment}/prenota', 'BookingController@create')->name('booking');
+		  //promote
+		  Route::get('/appartamenti/{apartment}/promuovi', 'ApartmentPromotionController@create')->name('promote');
 		  //create pending booking
 		  Route::post('/appartamenti/{apartment}/pagamento', 'BookingController@store')->name('payment');
 		  //show the registration form for the customer
@@ -64,8 +66,7 @@
 	//todo to be deleted - only for debugging purposes
 	Route::get(
 	  '/test', function () {
-		$apartment_id=1465;
-		$lastIndexImage = self::select('index')->where('apartment_id', $apartment_id)->orderBy('index','desc')->get()->first();
-		$i = $lastIndexImage?$lastIndexImage->index:1;
-		return "valore $i";
+		
+		$value = \App\Promotion::calcPrice(5,'big');
+		dd($value);
 	});

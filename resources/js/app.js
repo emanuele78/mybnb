@@ -22,6 +22,8 @@ const PROJECT_CONSTANTS = {
     apartmentVisibilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/visibility',
     geoSearchAddressesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/addresses',
     geoSearchMapEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/maps/map',
+    promotionEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions/check',
+    promotionPaymentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions',
 };
 const PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
 if (process.env.NODE_ENV === 'production') {
@@ -42,5 +44,7 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.apartmentVisibilityEndpoint = PRODUCTION_BASE_URI + '/api/apartments/{apartment}/visibility';
     PROJECT_CONSTANTS.geoSearchAddressesEndpoint = PRODUCTION_BASE_URI + '/api/geo/addresses';
     PROJECT_CONSTANTS.geoSearchMapEndpoint = PRODUCTION_BASE_URI + '/api/geo/maps/map';
+    PROJECT_CONSTANTS.promotionEndpoint = PRODUCTION_BASE_URI + '/api/auth/apartments/{apartment}/promotions/check';
+    PROJECT_CONSTANTS.promotionPaymentEndpoint = PRODUCTION_BASE_URI + '/api/auth/apartments/{apartment}/promotions';
 }
 export default PROJECT_CONSTANTS;

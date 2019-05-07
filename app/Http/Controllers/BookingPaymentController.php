@@ -27,10 +27,10 @@
 			  'paymentMethodNonce' => 'required'
 			]);
 			if ($validator->fails()) {
-				return response()->json(['success' => false, 'message' => 'invalid_data'], 404);
+				return response()->json(['success' => false, 'message' => 'invalid_data'], 500);
 			}
 			if (Booking::isExpired($validator->validated()['booking_reference'], config('project.pending_booking_max_life'))) {
-				return response()->json(['success' => false, 'message' => 'expired'], 404);
+				return response()->json(['success' => false, 'message' => 'expired'], 500);
 			}
 			$reference = $validator->validated()['booking_reference'];
 			$nonce = $validator->validated()['paymentMethodNonce'];
@@ -40,7 +40,7 @@
 				$booking->confirm();
 				return response()->json(['success' => true], 200);
 			}
-			return response()->json(['success' => false, 'message' => 'braintree_error'], 404);
+			return response()->json(['success' => false, 'message' => 'braintree_error'], 500);
 		}
 		
 		/**

@@ -17,6 +17,8 @@
 			  'promotion_plans', function (Blueprint $table) {
 				
 				$table->bigIncrements('id');
+				$table->tinyInteger('active')->default(1);
+				$table->string('image');
 				$table->string('card_type',20);
 				$table->string('name',50);
 				$table->float('price_per_day', 5, 2);

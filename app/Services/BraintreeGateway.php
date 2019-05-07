@@ -82,7 +82,7 @@
 				'amount' => $amount,
 				'paymentMethodNonce' => $nonce,
 				'options' => [
-				  'submitForSettlement' => True
+				  'submitForSettlement' => true
 				]
 			  ]);
 			return $result->success;

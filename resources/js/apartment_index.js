@@ -80,6 +80,7 @@ function printNoResults() {
  * Register listener for delete and show/hide apartment buttons
  */
 function registerListenerForInPageActions() {
+    //show apartment button
     $('.show_apartment').off().click(function () {
         let currentApartment = $(this).data('apartment');
         $('.waiting.' + currentApartment).show();
@@ -88,6 +89,7 @@ function registerListenerForInPageActions() {
             sendRequest();
         });
     });
+    //hide apartment button
     $('.hide_apartment').off().click(function () {
         let currentApartment = $(this).data('apartment');
         $('.waiting.' + currentApartment).show();
@@ -96,6 +98,7 @@ function registerListenerForInPageActions() {
             sendRequest();
         });
     });
+    //delete apartment button
     $('.delete_apartment').off().click(function () {
         let currentApartment = $(this).data('apartment');
         MODAL_ACTION_MODULE.showActionModal(null, null, function () {
@@ -106,9 +109,13 @@ function registerListenerForInPageActions() {
             })
         }, null);
     });
+    //edit apartment button
     $('.edit_apartment').off().click(function () {
-        let url = $(this).data('ref').replace('apartment', $(this).data('apartment'));
-        window.location.href = url;
+        window.location.href = $(this).data('ref').replace('apartment', $(this).data('apartment'));
+    });
+    //promote apartment button
+    $('.promote_apartment').off().click(function () {
+        window.location.href = $(this).data('ref').replace('apartment', $(this).data('apartment'));
     });
 }
 

@@ -65,10 +65,24 @@
 		 */
 		public function activePromotionPlan(): string {
 			
-			return $this->promotions()->get()
+			return $this->activePromotion()->promotion_plan->card_type;
+		}
+		
+		/**
+		 * Return current active promo for apartment
+		 *
+		 * @return Promotion|null
+		 */
+		public function activePromotion(): ?Promotion {
+			
+			$activePromo = $this->promotions()->get()
 			  ->where('start_at', '<=', Carbon::now())
 			  ->where('end_at', '>=', Carbon::now())
-			  ->first()->promotion_plan->card_type;
+			  ->first();
+			if($activePromo){
+				$activePromo->load('promotion_plan');
+			}
+			return $activePromo;
 		}
 		
 		/**
