@@ -148,6 +148,14 @@ function toggleView() {
   $('.promo_detail').toggle();
   $('.payment_module').toggle();
 }
+/**
+ * If promotion not overlaps, proceed with payment
+ * @param overlaps
+ * @param startDate
+ * @param cardType
+ * @param dayLength
+ */
+
 
 function evaluateResponse(overlaps, startDate, cardType, dayLength) {
   if (overlaps) {

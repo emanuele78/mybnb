@@ -5,7 +5,10 @@
 @endpush
 @section('content')
     @include('components.apartment_payment_content')
-    @include('components.payment_form')
+    <div class="container my-3">
+        @component('components.payment_form')
+        @endcomponent
+    </div>
 @endsection
 @push('scripts')
     <script src="https://js.braintreegateway.com/web/3.44.2/js/client.min.js"></script>
