@@ -191,6 +191,13 @@
 			return self::calcPrice($this->sale, $this->price_per_night);
 		}
 		
+		/**
+		 * Calc current price per night
+		 *
+		 * @param $sale
+		 * @param $price_per_night
+		 * @return float|int
+		 */
 		public static function calcPrice($sale, $price_per_night) {
 			
 			if ($sale > 0) {
@@ -484,6 +491,16 @@
 			return self::select('price_per_night')->orderBy('price_per_night', 'desc')->take(1)->get()->first()->price_per_night;
 		}
 		
+		/**
+		 * Scope for haversine formula
+		 *
+		 * @param $query
+		 * @param $radius
+		 * @param $latitude
+		 * @param $longitude
+		 * @param $orderByDistance
+		 * @return mixed
+		 */
 		public function scopeFindInRange($query, $radius, $latitude, $longitude, $orderByDistance) {
 			
 			$haversine = "(6372 * acos(cos(radians($latitude))

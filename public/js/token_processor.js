@@ -18,6 +18,13 @@ __webpack_require__.r(__webpack_exports__);
 $('#request_token_button').click(function (e) {
   e.preventDefault();
   var emailElement = $('#email');
+
+  if (!$('#agreement_check').is(':checked')) {
+    emailElement.addClass('is-invalid');
+    $('.error_message').text('Devi accettare l\'accordo di licenza per richiedere un token');
+    return;
+  }
+
   var emailValue = emailElement.val();
 
   if (isValidEmail(emailValue)) {
@@ -25,7 +32,9 @@ $('#request_token_button').click(function (e) {
     emailElement.removeClass('is-invalid');
     requestToken(emailValue, $(this), $('#loading-element'));
   } else {
+    //invalid email
     emailElement.addClass('is-invalid');
+    $('.error_message').text('Controlla l\'e-mail inserita');
   }
 });
 /**
@@ -58,7 +67,7 @@ function requestToken(email, elementToDisable, loadingElement) {
   });
 }
 /**
- * Checks if the passed string is a valid email address
+ * Checks if the passed string is a valid email address - from StackOverflow
  * @param email
  * @returns {boolean}
  */

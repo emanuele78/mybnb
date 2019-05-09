@@ -57,6 +57,7 @@
 		
 		private function insert($thread, $sender, $recipient, $date) {
 			
+			//just for testing purposes
 			DB::table('messages')->insert(
 			  [
 				'thread_id' => $thread->id,

@@ -26,7 +26,7 @@
 						$images_indexes[] = $index;
 					}
 				} while (count($images_indexes) < $images_per_apartment);
-				$i=1;
+				$i = 1;
 				foreach ($images_indexes as $images_index) {
 					Image::create(
 					  [

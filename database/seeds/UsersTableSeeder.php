@@ -8,6 +8,7 @@
 		
 		public function run(Faker $faker) {
 			
+			//some fake users
 			$birthday = Carbon::now()->addYears(-25);
 			$now = Carbon::now();
 			$user_count = 10;

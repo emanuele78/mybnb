@@ -44,6 +44,13 @@ function performRequestForApartment(apartment, message, token, callback) {
     });
 }
 
+/**
+ * Sending messge inside a thread
+ * @param thread
+ * @param message
+ * @param token
+ * @param callback
+ */
 function performRequestForThread(thread, message, token, callback) {
     $.ajax(PROJECT_MODULE.threadEndpoint.replace('{thread}', thread), {
         method: 'POST',

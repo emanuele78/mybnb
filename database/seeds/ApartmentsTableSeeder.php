@@ -78,12 +78,12 @@
 		private function getNewLatitude($latitude, $kmToAdd) {
 			
 			$decimal_round = 7;
-			return round($latitude + ($kmToAdd / 6371) * (180 / pi()), $decimal_round);
+			return round($latitude + ($kmToAdd / 6372) * (180 / pi()), $decimal_round);
 		}
 		
 		private function getNewLongitude($latitude, $longitude, $kmToAdd) {
 			
 			$decimal_round = 7;
-			return round($longitude + ($kmToAdd / 6371) * (180 / pi()) / cos($latitude * pi() / 180), $decimal_round);
+			return round($longitude + ($kmToAdd / 6372) * (180 / pi()) / cos($latitude * pi() / 180), $decimal_round);
 		}
 	}

@@ -128,6 +128,7 @@
         </div>
     </div>
     @auth()
+        @if(auth()->user()->id != $apartment->user->id)
         <div class="row my-3">
             <div class="wrapper col">
                 <div class="card">
@@ -137,7 +138,6 @@
                 </div>
             </div>
         </div>
-        @if(auth()->user()->id != $apartment->user->id)
             <div class="row my-3">
                 <div class="wrapper col">
                     <div class="card">
@@ -146,7 +146,7 @@
                                 <div class="col-12">
                                     <input type="hidden" id="message_apartment_slug" value="{{$apartment->slug}}">
                                     <div class="form-group">
-                                        <label for="body">Invia un messaggio al proprietario, {{$apartment->user->nickname}}</label>
+                                        <label for="body">Invia un messaggio al proprietario, {{$apartment->owner()->nickname}}</label>
                                         <textarea class="form-control" id="body" rows="6" name="body" required placeholder="Scrivi il tuo messaggio"></textarea>
                                         <span class="invalid-feedback" role="alert">
                                         <strong>Il messaggio deve essere compreso tra 10 e 4000 caratteri</strong>

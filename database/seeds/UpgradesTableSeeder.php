@@ -12,6 +12,7 @@
 		 */
 		public function run() {
 			
+			//add upgrades (services) for each apartments
 			$services_per_apartment = 8;
 			$paid_services_per_apartment = 4;
 			$services = Service::get();

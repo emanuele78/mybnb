@@ -12,12 +12,15 @@
 		 */
 		public function run() {
 			
-			DB::table('tokens')->insert(
-			  [
-				'token_code' => config('project.token_debug_code'),
-				'email' => 'debug@debug.dev',
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
-			  ]);
+			if (config('project.add_debug_tokend')) {
+				//just for testing purposes
+				DB::table('tokens')->insert(
+				  [
+					'token_code' => config('project.token_debug_code'),
+					'email' => 'debug@debug.dev',
+					'created_at' => Carbon::now(),
+					'updated_at' => Carbon::now(),
+				  ]);
+			}
 		}
 	}

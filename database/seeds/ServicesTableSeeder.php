@@ -13,6 +13,7 @@
 		 */
 		public function run() {
 			
+			//some basic services
 			$services = [
 			  'aria condizionata',
 			  'bagno privato',

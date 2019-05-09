@@ -16,9 +16,9 @@
 		
 		/**
 		 * Allow only request with valid token. In case of invalid, missing or expired token, redirect to home page
+		 *
 		 * @param $request
 		 * @param Closure $next
-		 * @param TokenUtil $tokenUtil
 		 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
 		 */
 		public function handle($request, Closure $next) {

@@ -2,6 +2,9 @@ import PROJECT_MODULE from "./app";
 
 let initialized = false;
 
+/**
+ * Exported module
+ */
 const HANDLE_PAYMENT = {
 
     initialize: function (csrf, payment_endpoint, user_payload) {
@@ -10,9 +13,13 @@ const HANDLE_PAYMENT = {
             initialized = true;
         });
     }
-
 };
 
+/**
+ * Send request to get the authorization code
+ * @param csrf
+ * @param callback
+ */
 function performRequest(csrf, callback) {
     let url = PROJECT_MODULE.paymentTokenEndpoint;
     $.ajax(url, {
@@ -27,6 +34,13 @@ function performRequest(csrf, callback) {
     });
 }
 
+/**
+ * Load form for payment - from Braintree
+ * @param token
+ * @param csrf
+ * @param payment_endpoint
+ * @param user_payload
+ */
 function loadDropIn(token, csrf, payment_endpoint, user_payload) {
     braintree.client.create({
         authorization: token

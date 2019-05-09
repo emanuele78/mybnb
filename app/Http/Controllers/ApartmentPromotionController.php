@@ -39,8 +39,14 @@
 			  ->withActivePromotion($apartment->activePromotion());
 		}
 		
-
+		/**
+		 * Show a receipt for a promotion
+		 *
+		 * @param Promotion $promotion
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
 		public function show(Promotion $promotion) {
+			
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}

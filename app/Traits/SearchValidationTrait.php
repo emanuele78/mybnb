@@ -10,6 +10,11 @@
 		protected $max_people = 10;
 		protected $radius_km_data = ['min' => 10, 'max' => 100, 'step' => 1, 'default' => 20];
 		
+		/**
+		 * Base rules for a search. These are shared between simple search and advance search
+		 *
+		 * @return array
+		 */
 		private function baseRules() {
 			
 			return [

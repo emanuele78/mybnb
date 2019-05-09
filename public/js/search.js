@@ -83,7 +83,9 @@ var PRICE_SLIDER = $('#price_slider').slider();
     $('.order_by').removeClass('active');
     $(this).addClass('active');
     checkData();
-  });
+  }); //start the search
+
+  checkData();
 })();
 /**
  * Print current km radius

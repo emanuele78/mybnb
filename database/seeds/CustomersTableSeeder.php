@@ -14,6 +14,7 @@
 		 */
 		public function run(Faker $faker) {
 			
+			//every user is already a fake (not registered in braintree account) customer
 			$users = User::get();
 			$now = Carbon::now();
 			foreach ($users as $user) {

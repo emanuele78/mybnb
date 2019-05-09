@@ -1,4 +1,9 @@
-require('./bootstrap');
+try {
+    window.$ = window.jQuery = require('jquery');
+    require('bootstrap');
+} catch (e) {
+    console.log("app.js - error");
+}
 /**
  * Declaring differents endpoint for development and production
  */

@@ -14,6 +14,7 @@
 		 */
 		public function run() {
 			
+			//just for testing purposes
 			$firstUser = User::find(1);
 			$secondUser = User::find(2);
 			$thirdUser = User::find(3);

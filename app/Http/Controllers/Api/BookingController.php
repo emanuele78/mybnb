@@ -12,7 +12,7 @@
 		/**
 		 * Return list of bookings depending on user selection type
 		 *
-		 *
+		 * @return array
 		 */
 		public function index() {
 			

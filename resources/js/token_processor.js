@@ -6,13 +6,20 @@ import PROJECT_MODULE from './app.js';
 $('#request_token_button').click(function (e) {
     e.preventDefault();
     let emailElement = $('#email');
+    if(!$('#agreement_check').is(':checked')){
+        emailElement.addClass('is-invalid');
+        $('.error_message').text('Devi accettare l\'accordo di licenza per richiedere un token');
+        return;
+    }
     let emailValue = emailElement.val();
     if (isValidEmail(emailValue)) {
         //do ajax request
         emailElement.removeClass('is-invalid');
         requestToken(emailValue, $(this), $('#loading-element'));
     } else {
+        //invalid email
         emailElement.addClass('is-invalid');
+        $('.error_message').text('Controlla l\'e-mail inserita');
     }
 });
 
@@ -46,7 +53,7 @@ function requestToken(email, elementToDisable, loadingElement) {
 }
 
 /**
- * Checks if the passed string is a valid email address
+ * Checks if the passed string is a valid email address - from StackOverflow
  * @param email
  * @returns {boolean}
  */

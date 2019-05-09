@@ -14,6 +14,11 @@
 		private static $max_people_count = 30;
 		private static $max_bathroom_count = 30;
 		
+		/**
+		 * Go to user apartments dashboard
+		 *
+		 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+		 */
 		public function index() {
 			
 			if (!Auth::check()) {
@@ -84,6 +89,14 @@
 			  ->with('max_people_value', self::$max_people_count);
 		}
 		
+		/**
+		 * Update an apartment
+		 *
+		 * @param Apartment $apartment
+		 * @param UpdateApartmentRequest $request
+		 * @return \Illuminate\Http\RedirectResponse
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
+		 */
 		public function update(Apartment $apartment, UpdateApartmentRequest $request) {
 			
 			$this->authorize('update', $apartment);

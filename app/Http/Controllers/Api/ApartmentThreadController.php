@@ -28,7 +28,6 @@
 		/**
 		 * Return all the exchanged messages between two user in a thread
 		 *
-		 * @param Apartment $apartment
 		 * @param Thread $thread
 		 * @return array
 		 * @throws \Illuminate\Auth\Access\AuthorizationException

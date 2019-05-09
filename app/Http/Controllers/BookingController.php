@@ -103,6 +103,13 @@
 			return view('layouts.booking_index');
 		}
 		
+		/**
+		 * Show the form with pending booking data
+		 *
+		 * @param Booking $booking
+		 * @return mixed
+		 * @throws \Illuminate\Auth\Access\AuthorizationException
+		 */
 		public function edit(Booking $booking) {
 			
 			//current user has to be who made the booking and the apartment booking has to be currently registered on the system

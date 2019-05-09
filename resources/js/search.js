@@ -62,6 +62,8 @@ const PRICE_SLIDER = $('#price_slider').slider();
         $(this).addClass('active');
         checkData();
     });
+    //start the search
+    checkData();
 })();
 
 /**
