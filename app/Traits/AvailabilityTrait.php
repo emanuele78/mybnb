@@ -34,23 +34,28 @@
 			$bookings = Booking::forApartment($apartment->id);
 			$max_life_pending_booking = config('project.pending_booking_max_life');
 			foreach ($bookings as $booking) {
-				if ($check_in->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out)) {
-					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
-					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
-						return false;
-					}
-				} elseif (($check_in->greaterThan($booking->check_in) && $check_in->lessThan($booking->check_out)) || ($check_out->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out))) {
-					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
-					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
-						return false;
-					}
-				} elseif ($check_in->equalTo($booking->check_in) || $check_out->equalTo($booking->check_out)) {
-					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
-					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
-						return false;
-					}
-				} elseif ($booking->check_in->greaterThan($check_in) && $booking->check_out->lessThan($check_out)) {
-					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
+				//				if ($check_in->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out)) {
+				//					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
+				//					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
+				//						return false;
+				//					}
+				//				} elseif (($check_in->greaterThan($booking->check_in) && $check_in->lessThan($booking->check_out)) || ($check_out->greaterThan($booking->check_in) && $check_out->lessThan($booking->check_out))) {
+				//					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
+				//					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
+				//						return false;
+				//					}
+				//				} elseif ($check_in->equalTo($booking->check_in) || $check_out->equalTo($booking->check_out)) {
+				//					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
+				//					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
+				//						return false;
+				//					}
+				//				} elseif ($booking->check_in->greaterThan($check_in) && $booking->check_out->lessThan($check_out)) {
+				//					//need to check if overlapped bookig is confirmed or pending within max_life_pending_booking
+				//					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
+				//						return false;
+				//					}
+				//				}
+				if (($check_in->lessThan($booking->check_out)) && ($booking->check_in->lessThan($check_out))) {
 					if ($this->isBookingConfirmedOrPendingNotExpired($booking, $max_life_pending_booking)) {
 						return false;
 					}

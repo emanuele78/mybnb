@@ -1,0 +1,48 @@
+.search_results_container {
+
+	.order_by {
+		cursor: pointer;
+		display: inline-block;
+		padding-bottom: 3px;
+		margin-right: 20px;
+		border-bottom: 2px solid rgba(0, 0, 0, 0);
+
+		&:hover, &.active {
+			//text-decoration: underline;
+			border-bottom: 2px solid #3490dc;
+		}
+	}
+
+	.results_wrapper {
+
+		.loading_card {
+			.loading_icon {
+				text-align: center;
+				font-size: 30px;
+			}
+		}
+
+		.apartment_result_card {
+
+			.title_ellipsis {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				line-height: 16px;
+				max-height: 32px;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				margin-bottom: 5px;
+			}
+
+			.card_image {
+				height: 200px;
+				width: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+	}
+
+}

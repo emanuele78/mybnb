@@ -5,7 +5,6 @@ require('./bootstrap');
 const LOCAL_PORT = 8000;
 const LOCAL_BASE_URI = 'http://127.0.0.1:';
 const PROJECT_CONSTANTS = {
-    citiesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/cities',
     tokenEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/tokens',
     activationTokenEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/tokens',
     apartmentAvailabilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/booking',
@@ -24,10 +23,10 @@ const PROJECT_CONSTANTS = {
     geoSearchMapEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/maps/map',
     promotionEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions/check',
     promotionPaymentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions',
+    apartmentSearchEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/search',
 };
 const PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
 if (process.env.NODE_ENV === 'production') {
-    PROJECT_CONSTANTS.citiesEndpoint = PRODUCTION_BASE_URI + '/api/cities';
     PROJECT_CONSTANTS.tokenEndpoint = PRODUCTION_BASE_URI + '/api/tokens';
     PROJECT_CONSTANTS.activationTokenEndpoint = PRODUCTION_BASE_URI + '/tokens';
     PROJECT_CONSTANTS.apartmentAvailabilityEndpoint = PRODUCTION_BASE_URI + '/api/apartments/{apartment}/booking';
@@ -46,5 +45,6 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.geoSearchMapEndpoint = PRODUCTION_BASE_URI + '/api/geo/maps/map';
     PROJECT_CONSTANTS.promotionEndpoint = PRODUCTION_BASE_URI + '/api/auth/apartments/{apartment}/promotions/check';
     PROJECT_CONSTANTS.promotionPaymentEndpoint = PRODUCTION_BASE_URI + '/api/auth/apartments/{apartment}/promotions';
+    PROJECT_CONSTANTS.apartmentSearchEndpoint = PRODUCTION_BASE_URI + '/api/apartments/search';
 }
 export default PROJECT_CONSTANTS;

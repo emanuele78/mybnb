@@ -11,6 +11,7 @@
 		use Sluggable;
 		
 		protected $guarded = ['id', 'created_at', 'updated_at'];
+		protected $hidden = ['id', 'user_id'];
 		
 		/**
 		 * Set key for route model binding
@@ -79,7 +80,7 @@
 			  ->where('start_at', '<=', Carbon::now())
 			  ->where('end_at', '>=', Carbon::now())
 			  ->first();
-			if($activePromo){
+			if ($activePromo) {
 				$activePromo->load('promotion_plan');
 			}
 			return $activePromo;
@@ -129,17 +130,18 @@
 		 * Return a collection of $item_count promoted apartments
 		 *
 		 * @param $item_count
-		 * @return mixed
+		 * @return array
 		 */
-		public static function promoted($item_count) {
+		public static function promoted($item_count): array {
 			
-			return self::where('is_showed', true)
-			  ->whereHas(
-				'promotions', function ($query) {
-				  
-				  $query->where('start_at', '<=', Carbon::now())->where('end_at', '>=', Carbon::now());
-			  })
-			  ->take($item_count)->get();
+			return self::join('promotions', 'apartments.id', '=', 'promotions.apartment_id')
+			  ->join('promotion_plans', 'promotions.promotion_plan_id', '=', 'promotion_plans.id')
+			  ->where('promotions.start_at', '<=', Carbon::now())
+			  ->where('promotions.end_at', '>=', Carbon::now())
+			  ->where('apartments.is_showed', true)
+			  ->orderBy('promotions.created_at', 'desc')
+			  ->select(['apartments.slug', 'apartments.main_image', 'apartments.people_count', 'apartments.room_count', 'apartments.title', 'promotions.created_at', 'promotion_plans.card_type'])
+			  ->take($item_count)->get()->toArray();
 		}
 		
 		/**
@@ -420,6 +422,11 @@
 			return $services;
 		}
 		
+		/**
+		 * Update info of current apartment
+		 *
+		 * @param array $data
+		 */
 		public function updateInfo(array $data) {
 			
 			$this->title = $data['title'];
@@ -465,6 +472,97 @@
 				Image::storeAdditional($this->id, $data['other_images']);
 			}
 			Image::refactorIndexes($this->id);
+		}
+		
+		/**
+		 * Return max price found in all apartments
+		 *
+		 * @return mixed
+		 */
+		public static function findMaxPrice(): float {
+			
+			return self::select('price_per_night')->orderBy('price_per_night', 'desc')->take(1)->get()->first()->price_per_night;
+		}
+		
+		public function scopeFindInRange($query, $radius, $latitude, $longitude, $orderByDistance) {
+			
+			$haversine = "(6372 * acos(cos(radians($latitude))
+                     * cos(radians(latitude))
+                     * cos(radians(longitude)
+                     - radians($longitude))
+                     + sin(radians($latitude))
+                     * sin(radians(latitude))))";
+			$query
+			  ->select('*')
+			  ->selectRaw("{$haversine} AS distance")
+			  ->whereRaw("{$haversine} <= ?", [$radius]);
+			if ($orderByDistance) {
+				$query->orderByRaw('distance');
+			}
+			return $query;
+		}
+		
+		/**
+		 * Return apartments match given criteria
+		 *
+		 * @param $userData
+		 * @return mixed
+		 */
+		public static function search($userData, $results_for_page) {
+			
+			//retrieve city code
+			$searchedCity = config('cities')[$userData['city_code']];
+			//create builder passing city lat/long to haversine formula
+			$builder = Apartment::findInRange($userData['distance_radius'], $searchedCity['lat'], $searchedCity['lng'], $userData['order_by'] == 'distance');
+			//people query clause
+			$builder->where('people_count', '>=', $userData['people_count'])
+			  ->whereBetween('price_per_night', $userData['price_range']);
+			//selected services query clause
+			if (!empty($userData['services'])) {
+				foreach ($userData['services'] as $service) {
+					$builder->whereHas(
+					  'upgrades.service', function ($query) use ($service) {
+						
+						$query->where('slug', $service);
+					});
+				}
+			};
+			//check-in/check-out (if not null)
+			if ($userData['check_in'] != null) {
+				$max_life_pending_booking = config('project.pending_booking_max_life');
+				//if check-in was inserted, also check-out is present
+				//parse data values
+				$checkIn = Carbon::createFromFormat('d-m-Y', $userData['check_in'])->startOfDay();
+				$checkOut = Carbon::createFromFormat('d-m-Y', $userData['check_out'])->startOfDay();
+				//check if date range overlaps some reserved days set by the host
+				$builder->whereDoesntHave(
+				  'reservedDays', function ($query) use ($checkIn, $checkOut) {
+					
+					$query->where('day', '>=', $checkIn)
+					  ->where('day', '<=', $checkOut);
+				});
+				//after check if there are some booking in date range
+				$builder->whereDoesntHave(
+				  'bookings', function ($query) use ($checkIn, $checkOut, $max_life_pending_booking) {
+					
+					$query->where('check_out', '>', $checkIn)->where('check_in', '<', $checkOut)
+					  ->where(
+					  //where booking is confirmed or where booking is pending but not expired
+						function ($query) use ($max_life_pending_booking) {
+							
+							$query->where('status', 'confirmed')->orWhere(
+							  function ($query) use ($max_life_pending_booking) {
+								  
+								  $query->where('status', 'pending')->where('created_at', '>=', Carbon::now()->addMinutes(-$max_life_pending_booking));
+							  });
+						});
+				});
+			}
+			//order
+			if ($userData['order_by'] != 'distance') {
+				$builder->orderBy($userData['order_by']);
+			}
+			return $builder->paginate($results_for_page);
 		}
 		
 	}

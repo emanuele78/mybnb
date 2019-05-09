@@ -32,53 +32,29 @@
 				$endDate = Carbon::now()->addDays($promotionPlan->max_length);
 				if ($key >= 50) {
 					//one promotion expired and one future
-					DB::table('promotions')->insert(
-					  [
-						[
-						  'apartment_id' => $apartment->id,
-						  'reference' => Str::uuid(),
-						  'promotion_plan_id' => $expiredPromotionPlan->id,
-						  'start_at' => $expiredPlanStartDate,
-						  'end_at' => $expiredPlanEndDate,
-						  'created_at' => $startDate,
-						  'updated_at' => $startDate
-						],
-						[
-						  'apartment_id' => $apartment->id,
-						  'reference' => Str::uuid(),
-						  'promotion_plan_id' => $futurePromotionPlan->id,
-						  'start_at' => $futurePlanStartDate,
-						  'end_at' => $futurePlanEndDate,
-						  'created_at' => $startDate,
-						  'updated_at' => $startDate
-						]
-					  ]
-					);
+					$this->store($apartment->id, $expiredPromotionPlan->id, $expiredPlanStartDate, $expiredPlanEndDate);
+					$this->store($apartment->id, $futurePromotionPlan->id, $futurePlanStartDate, $futurePlanEndDate);
 				} else {
 					//one promotion active and one expired
-					DB::table('promotions')->insert(
-					  [
-						[
-						  'apartment_id' => $apartment->id,
-						  'reference' => Str::uuid(),
-						  'promotion_plan_id' => $promotionPlan->id,
-						  'start_at' => $startDate,
-						  'end_at' => $endDate,
-						  'created_at' => $startDate,
-						  'updated_at' => $startDate
-						],
-						[
-						  'apartment_id' => $apartment->id,
-						  'reference' => Str::uuid(),
-						  'promotion_plan_id' => $expiredPromotionPlan->id,
-						  'start_at' => $expiredPlanStartDate,
-						  'end_at' => $expiredPlanEndDate,
-						  'created_at' => $startDate,
-						  'updated_at' => $startDate
-						]
-					  ]
-					);
+					$this->store($apartment->id, $promotionPlan->id, $startDate, $endDate);
+					$this->store($apartment->id, $expiredPromotionPlan->id, $expiredPlanStartDate, $expiredPlanEndDate);
 				}
 			}
+		}
+		
+		private function store($apartment_id, $plan_id, $start, $end) {
+			
+			$randomDate = Carbon::now()->addDays(-rand(10, 100));
+			DB::table('promotions')->insert(
+			  [
+				'apartment_id' => $apartment_id,
+				'reference' => Str::uuid(),
+				'promotion_plan_id' => $plan_id,
+				'start_at' => $start,
+				'end_at' => $end,
+				'created_at' => $randomDate,
+				'updated_at' => $randomDate
+			  ]
+			);
 		}
 	}

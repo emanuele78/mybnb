@@ -3,7 +3,6 @@ import PROJECT_MODULE from "./app";
 /**
  * Exported object
  *
- * @type {{send: HANDLE_MESSAGE.send}}
  */
 const HANDLE_MESSAGE = {
 

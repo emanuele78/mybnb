@@ -91,10 +91,8 @@ function printNoResults() {
  * @param data
  */
 function generateHtmlForOtherApartments(data) {
-    console.log(data);
     let template = Handlebars.compile($("#other-apartments-template").html());
     Handlebars.registerHelper('processImage', function (options) {
-        console.log(options.fn(this));
         return options.fn(this);
     });
     $('.content_wrapper').html(template(data));

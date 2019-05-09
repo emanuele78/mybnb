@@ -112,10 +112,8 @@ function printNoResults() {
 
 
 function generateHtmlForOtherApartments(data) {
-  console.log(data);
   var template = handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile($("#other-apartments-template").html());
   handlebars_dist_cjs_handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.registerHelper('processImage', function (options) {
-    console.log(options.fn(this));
     return options.fn(this);
   });
   $('.content_wrapper').html(template(data));

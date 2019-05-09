@@ -41,7 +41,6 @@ $('#check_availability').click(function () {
     $('#check_availability').removeAttr('disabled');
     var message;
     var classColor;
-    console.log(result);
 
     switch (result) {
       case 'INVALID_CHECK_IN':

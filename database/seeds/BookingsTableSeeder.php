@@ -57,14 +57,34 @@
 				  ]
 				);
 			}
+			//now each apartment has a two future bookings, the first from one month from now
+			//the secondo from 35 days from now - user booking is not important for this testing
+			$apartments = Apartment::get();
+			$userBooking = $users->first();
+			$futureFirstBookingStart = Carbon::now()->addDays(30);
+			$futureFirstBookingEnd = Carbon::now()->addDays(30 + 2);
+			$futureSecondBookingStart = Carbon::now()->addDays(35);
+			$futureSecondBookingEnd = Carbon::now()->addDays(35 + 2);
+			foreach ($apartments as $apartment) {
+				DB::table('bookings')->insert(
+				  [
+					$this->getData($userBooking, $apartment, $futureFirstBookingStart, $futureFirstBookingEnd),
+					$this->getData($userBooking, $apartment, $futureSecondBookingStart, $futureSecondBookingEnd),
+				  ]
+				);
+			}
 		}
 		
-		private function getArrayData(User $userBooking, Apartment $bookedApartment, int &$passed_days, $pending = false) {
+		private function getArrayData(User $userBooking, Apartment $bookedApartment, int &$passed_days, $pending = false, $nights_to_stay = 2) {
 			
-			$now = Carbon::now();
-			$nights_to_stay = 2;
 			$check_in = Carbon::now()->addDays(-$passed_days);
 			$check_out = Carbon::now()->addDays(-($passed_days = $passed_days - $nights_to_stay));
+			return $this->getData($userBooking, $bookedApartment, $check_in, $check_out, $pending);
+		}
+		
+		private function getData(User $userBooking, Apartment $bookedApartment, $check_in, $check_out, $pending = false) {
+			
+			$now = Carbon::now();
 			return [
 			  'reference' => (string)Str::uuid(),
 			  'status' => $pending ? 'pending' : 'confirmed',

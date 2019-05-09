@@ -7,6 +7,10 @@
         @stack('styles')
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('css/plain.css')}}">
+        <script type="text/javascript">
+            var _iub = _iub || [];
+            _iub.csConfiguration = {"consentOnContinuedBrowsing":false,"lang":"it","siteId":1583375,"priorConsent":false,"cookiePolicyId":12084778, "banner":{ "position":"top" } };
+        </script><script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async> </script>
         <title>MyBnB | Emanuele Mazzante Portfolio</title>
     </head>
     <body>

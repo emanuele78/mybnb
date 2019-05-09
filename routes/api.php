@@ -11,8 +11,6 @@
 	Route::middleware('only_ajax')->group(
 	  function () {
 		  
-		  //get the list of the cities
-		  Route::get('/cities', 'CityController@index');
 		  //create new token
 		  Route::post('/tokens', 'TokenController@store');
 		  //get availability for a search
@@ -21,6 +19,8 @@
 		  Route::get('/apartments/{apartment}/map', 'ApartmentMapController@show');
 		  //show the address of an apartment
 		  Route::get('/apartments/{apartment}/address', 'ApartmentAddressController@show');
+		  //apartment search
+		  Route::get('/apartments/search', 'ApartmentSearchController@show');
 	  }
 	);
 	

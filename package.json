@@ -27,6 +27,7 @@
         "@fullcalendar/core": "^4.1.0",
         "@fullcalendar/daygrid": "^4.1.0",
         "@fullcalendar/interaction": "^4.1.0",
+        "bootstrap-slider": "^10.6.1",
         "flatpickr": "^4.5.7",
         "handlebars": "^4.1.2",
         "moment": "^2.24.0"

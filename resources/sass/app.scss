@@ -1,5 +1,4 @@
 // Fonts
-//@import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
 // Variables
 @import 'variables';
@@ -9,6 +8,8 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+// Slider for Bootstrap
+@import '~bootstrap-slider/dist/css/bootstrap-slider.css';
 
 //Project stylesheets
 @import 'partials/navbar';
@@ -20,3 +21,4 @@
 @import 'partials/threads';
 @import 'partials/apartment_edit';
 @import 'partials/promo';
+@import 'partials/search';

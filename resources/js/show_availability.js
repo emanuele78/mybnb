@@ -25,7 +25,6 @@ $('#check_availability').click(function () {
         $('#check_availability').removeAttr('disabled');
         let message;
         let classColor;
-        console.log(result);
         switch (result) {
             case 'INVALID_CHECK_IN':
                 checkIn.addClass('is-invalid');
