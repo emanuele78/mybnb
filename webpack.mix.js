@@ -30,6 +30,7 @@ mix.js('resources/js/app.js', 'public/js')
     .version()
     .copyDirectory('resources/fontawesome/webfonts', 'public/webfonts')
     .copyDirectory('resources/img/', 'public/img/')
+    .copy('resources/favicon','public')
     .styles(['resources/fontawesome/style.css'], 'public/css/plain.css')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
