@@ -63,6 +63,35 @@
 	}
 }
 
+.flash_message {
+	position: fixed;
+	width: 200px;
+	z-index: 16;
+	bottom: 20px;
+	right: 20px;
+	padding: 20px;
+	background-color: antiquewhite;
+	border-radius: 15px 30px 0;
+	font-size: 20px;
+	box-shadow: 5px 10px 18px #888888;
+	color: inherit;
+	animation-name: flash_message;
+	animation-duration: 2s;
+	animation-delay: 3s;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+	opacity: 1;
+}
+
+@keyframes flash_message {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
 .cities_section {
 
 	.cards_wrapper {

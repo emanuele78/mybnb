@@ -11,13 +11,14 @@
         @include('components.index_token_content')
     @endunless
     @include('components.index_content')
-    {{--todo absolute position message--}}
+    @include('components.footer')
+@endsection
+@section('body_injection')
     @if (session('flash_message'))
-        <div>
-            {{ session('flash_message') }}
+        <div class="flash_message">
+            <span>{{session('flash_message')}}</span>
         </div>
     @endif
-    @include('components.footer')
 @endsection
 @push('scripts')
     @unless($hasValidToken)

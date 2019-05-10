@@ -11995,6 +11995,50 @@ h3 {
   margin: auto;
 }
 
+.flash_message {
+  position: fixed;
+  width: 200px;
+  z-index: 16;
+  bottom: 20px;
+  right: 20px;
+  padding: 20px;
+  background-color: antiquewhite;
+  -webkit-border-radius: 15px 30px 0;
+          border-radius: 15px 30px 0;
+  font-size: 20px;
+  -webkit-box-shadow: 5px 10px 18px #888888;
+          box-shadow: 5px 10px 18px #888888;
+  color: inherit;
+  -webkit-animation-name: flash_message;
+          animation-name: flash_message;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+@-webkit-keyframes flash_message {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash_message {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .cities_section .cards_wrapper {
   display: -ms-grid;
   display: grid;

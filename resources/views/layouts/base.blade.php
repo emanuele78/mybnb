@@ -18,6 +18,7 @@
         <title>MyBnB | Emanuele Mazzante Portfolio</title>
     </head>
     <body>
+        @yield('body_injection')
         @include('components.navbar')
         <div class="base_container">
             @yield('content')
