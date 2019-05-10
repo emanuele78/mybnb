@@ -21,11 +21,13 @@
 			$this->call(UpgradesTableSeeder::class);
 			$this->call(ReservedDaysTableSeeder::class);
 			$this->call(CustomersTableSeeder::class);
-			if (!config('project.use_debug_mode_when_seeding')) {
+			if (config('project.use_debug_mode_when_seeding')) {
 				$this->call(BookingsTableSeeder::class);
 				$this->call(ThreadsTableSeeder::class);
 				$this->call(MessagesTableSeeder::class);
 				$this->call(BookedServicesTableSeeder::class);
 			}
+			//production demo seeder
+			$this->call(DemoSeeder::class);
 		}
 	}

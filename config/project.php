@@ -29,4 +29,7 @@
 	  'add_debug_token' => env('ADD_DEBUG_TOKEN', false),
 	  'enable_log_events' => env('ENABLE_LOG_EVENTS', true),
 	  'use_debug_mode_when_seeding' => env('USE_DEBUG_MODE_WHEN_SEEDING', true),
+	  'seeded_users_password' => env('SEEDED_USERS_PASSWORD', 'secret'),
+	  'demo_customer_id' => env('DEMO_CUSTOMER_ID'),
+	  'apartments_per_axys' => env('APARTMENTS_PER_AXYS'),
 	];

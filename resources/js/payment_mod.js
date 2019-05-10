@@ -153,6 +153,7 @@ function loadDropIn(token, csrf, payment_endpoint, user_payload) {
                             $('.card_payment_overlay').show();
                         },
                         success: function () {
+                            $('.card_payment_overlay').hide();
                             $('.payment_section').remove();
                             $('.payment_footer').remove();
                             $('.payment_result_message').text('Grazie per l\'acquisto');

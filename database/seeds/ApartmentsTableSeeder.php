@@ -16,7 +16,7 @@
 			
 			$this->users = User::all();
 			$rawData = Config::get('cities');
-			$apartmentsPerAxis = 5;
+			$apartmentsPerAxis = config('project.apartments_per_axys');
 			$kmToAdd = 5;
 			for ($i = 0; $i < count($rawData); $i++) {
 				//inserisco appartamento nella città

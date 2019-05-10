@@ -16,7 +16,7 @@
 				DB::table('users')->insert(
 				  [
 					'email' => $faker->unique()->email,
-					'password' => bcrypt('secret'),
+					'password' => bcrypt(config('project.seeded_users_password')),
 					'nickname' => $faker->unique()->firstName,
 					'date_of_birth' => $birthday,
 					'created_at' => $now,
