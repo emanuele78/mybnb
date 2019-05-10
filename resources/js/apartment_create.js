@@ -265,6 +265,9 @@ function serviceExists(userInput) {
     $.each($('.service'), function () {
         exists = $(this).val() === userInput ? true : exists;
     });
+    $.each($('.new_service'), function () {
+        exists = $(this).val() === userInput ? true : exists;
+    });
     return exists;
 }
 
