@@ -4,6 +4,7 @@
 	
 	use App\Booking;
 	use App\Services\BraintreeGateway;
+	use App\Utility;
 	use Auth;
 	use Barryvdh\DomPDF\Facade as PDF;
 	use Illuminate\Http\Request;
@@ -21,6 +22,7 @@
 		 */
 		public function store(Request $request, BraintreeGateway $braintreeGateway) {
 			
+			Utility::logEvent('Pay booking');
 			$validator = Validator::make(
 			  $request->all(), [
 			  'booking_reference' => 'required|exists:bookings,reference',
@@ -51,6 +53,7 @@
 		 */
 		public function show(Booking $booking) {
 			
+			Utility::logEvent('Download booking receipt');
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}

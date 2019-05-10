@@ -5,6 +5,7 @@
 	use App\Apartment;
 	use App\Services\TokenUtil;
 	use App\Traits\CityTrait;
+	use App\Utility;
 	
 	class LandingPageController extends Controller {
 		
@@ -19,6 +20,7 @@
 		 */
 		public function index(TokenUtil $tokenUtil) {
 			
+			Utility::logEvent('Load index');
 			$promotedApartmentToShow = 30;
 			return view('layouts.index')
 			  ->withHasValidToken($tokenUtil->is_allowed())

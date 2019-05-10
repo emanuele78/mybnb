@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Thread;
+	use App\Utility;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Validation\Rule;
 	
@@ -15,6 +16,7 @@
 		 */
 		public function index() {
 			
+			Utility::logEvent('Messages dashboard');
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
@@ -34,6 +36,7 @@
 		 */
 		public function show(Thread $thread) {
 			
+			Utility::logEvent('Message show page');
 			$this->authorize('view', $thread);
 			$validated = request()->validate(['show_by' => [Rule::in(['my_apartments', 'other_apartments'])]]);
 			if (empty($validated)) {

@@ -5,6 +5,7 @@
 	use App\Customer;
 	use App\Http\Requests\StoreCustomerRequest;
 	use App\Services\BraintreeGateway;
+	use App\Utility;
 	use Illuminate\Support\Facades\Auth;
 	
 	class CustomerController extends Controller {
@@ -23,6 +24,7 @@
 		 */
 		public function create() {
 			
+			Utility::logEvent('Show new customer page');
 			return view('layouts.customer_create');
 		}
 		
@@ -36,6 +38,8 @@
 		 */
 		public function store(StoreCustomerRequest $request, BraintreeGateway $braintreeGateway) {
 			
+			Utility::logEvent('Save new customer');
+			Utility::logEvent('Register customer');
 			$validated = $request->validated();
 			$response = $braintreeGateway->createCustomer($validated);
 			

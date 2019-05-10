@@ -6,6 +6,7 @@
 	use App\Http\Requests\StoreApartmentRequest;
 	use App\Http\Requests\UpdateApartmentRequest;
 	use App\Service;
+	use App\Utility;
 	use Auth;
 	
 	class ApartmentController extends Controller {
@@ -21,6 +22,7 @@
 		 */
 		public function index() {
 			
+			Utility::logEvent('Apartments dashboard');
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
@@ -35,6 +37,7 @@
 		 */
 		public function show(Apartment $apartment) {
 			
+			Utility::logEvent('Apartment show page');
 			return view('layouts.apartment_show')
 			  ->withImages($apartment->allRelatedImages())
 			  ->withApartment($apartment);
@@ -48,6 +51,7 @@
 		 */
 		public function create() {
 			
+			Utility::logEvent('Apartment create page');
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
@@ -66,6 +70,7 @@
 		 */
 		public function store(StoreApartmentRequest $request) {
 			
+			Utility::logEvent('Save new apartment');
 			$validated = $request->validated();
 			Apartment::createNew($validated, Auth::user()->id);
 			return redirect()->route('apartments_dashboard');
@@ -80,6 +85,7 @@
 		 */
 		public function edit(Apartment $apartment) {
 			
+			Utility::logEvent('Edit apartment page');
 			$this->authorize('update', $apartment);
 			return view('layouts.apartment_edit')
 			  ->with('apartment', $apartment)
@@ -99,6 +105,7 @@
 		 */
 		public function update(Apartment $apartment, UpdateApartmentRequest $request) {
 			
+			Utility::logEvent('Update apartment');
 			$this->authorize('update', $apartment);
 			$validated = $request->validated();
 			$apartment->updateInfo($validated);

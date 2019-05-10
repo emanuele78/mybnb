@@ -4,6 +4,7 @@
 	
 	use App\User;
 	use App\Http\Controllers\Controller;
+	use App\Utility;
 	use Carbon\Carbon;
 	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Support\Facades\Validator;
@@ -61,6 +62,7 @@
 		 */
 		protected function create(array $data) {
 			
+			Utility::logEvent('Register user');
 			return User::create(
 			  [
 				'nickname' => $data['nickname'],

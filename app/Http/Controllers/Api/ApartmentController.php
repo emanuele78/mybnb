@@ -4,6 +4,7 @@
 	
 	use App\Apartment;
 	use App\Http\Controllers\Controller;
+	use App\Utility;
 	use Auth;
 	use Illuminate\Validation\Rule;
 	
@@ -52,6 +53,7 @@
 		 */
 		public function update(Apartment $apartment) {
 			
+			Utility::logEvent('Change apartment visibility');
 			$this->authorize('update', $apartment);
 			$validated = request()->validate(['is_showed' => 'required|boolean']);
 			$apartment->visibility($validated['is_showed']);
@@ -67,6 +69,7 @@
 		 */
 		public function destroy(Apartment $apartment) {
 			
+			Utility::logEvent('Delete apartment');
 			$apartment->deleteAll(Auth::user());
 			return response()->json(['success' => true], 200);
 		}

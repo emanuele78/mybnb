@@ -6,6 +6,7 @@
 	use App\Booking;
 	use App\Http\Requests\StoreBookingRequest;
 	use App\Traits\AvailabilityTrait;
+	use App\Utility;
 	use Carbon\Carbon;
 	use Illuminate\Support\Facades\Auth;
 	
@@ -21,6 +22,7 @@
 		 */
 		public function create(Apartment $apartment) {
 			
+			Utility::logEvent('Booking apartment page');
 			//need some check before proceed
 			if (!Auth::check()) {
 				return redirect()->route('login');
@@ -65,6 +67,7 @@
 		 */
 		public function store(StoreBookingRequest $request, Apartment $apartment) {
 			
+			Utility::logEvent('Save booking');
 			$validated = $request->validated();
 			$user = Auth::user();
 			
@@ -97,6 +100,7 @@
 		 */
 		public function index() {
 			
+			Utility::logEvent('Bookings dashboard');
 			if (!auth::check()) {
 				return redirect()->route('login');
 			}
@@ -112,6 +116,7 @@
 		 */
 		public function edit(Booking $booking) {
 			
+			Utility::logEvent('Edit pending booking');
 			//current user has to be who made the booking and the apartment booking has to be currently registered on the system
 			$this->authorize('update', $booking);
 			$resumedBooking = $booking->resume();

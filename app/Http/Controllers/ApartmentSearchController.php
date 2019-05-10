@@ -8,6 +8,7 @@
 	use App\Service;
 	use App\Traits\CityTrait;
 	use App\Traits\SearchValidationTrait;
+	use App\Utility;
 	
 	class ApartmentSearchController extends Controller {
 		
@@ -22,6 +23,7 @@
 		 */
 		public function create(SimpleSearchRequest $request) {
 			
+			Utility::logEvent('Advance search page');
 			$validated = $request->validated();
 			$maxPrice = Apartment::findMaxPrice();
 			return view('layouts.search')

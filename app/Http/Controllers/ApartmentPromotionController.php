@@ -8,6 +8,7 @@
 	use App\Promotion;
 	use App\PromotionPlan;
 	use App\Services\BraintreeGateway;
+	use App\Utility;
 	use Barryvdh\DomPDF\Facade as PDF;
 	use Auth;
 	
@@ -21,6 +22,7 @@
 		 */
 		public function create(Apartment $apartment) {
 			
+			Utility::logEvent('New promotion page');
 			//need some check before proceed
 			if (!Auth::check()) {
 				return redirect()->route('login');
@@ -47,6 +49,7 @@
 		 */
 		public function show(Promotion $promotion) {
 			
+			Utility::logEvent('Download promotion receipt');
 			if (!Auth::check()) {
 				return redirect()->route('login');
 			}
