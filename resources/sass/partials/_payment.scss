@@ -72,3 +72,14 @@
 		background-color: #e3342f;
 	}
 }
+
+@media screen and (max-width: 576px) {
+
+	.payment_section {
+		.card_payment {
+			#submit {
+				width: 100%;
+			}
+		}
+	}
+}

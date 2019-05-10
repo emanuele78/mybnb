@@ -11,9 +11,9 @@
                             Visualizza
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item dropdown_show active" data-show="my_apartments_bookings" href="#">Prenotazioni fatte ai miei appartamenti</a>
-                            <a class="dropdown-item dropdown_show" data-show="other_apartments_bookings" href="#">Prenotazioni fatte ad altri appartamenti</a>
-                            <a class="dropdown-item dropdown_show" data-show="other_apartments_bookings_pending" href="#">Prenotazioni fatte at altri appartamenti (da confermare)</a>
+                            <a class="dropdown-item dropdown_show active" data-show="my_apartments_bookings" href="#">Prenotazioni ricevute</a>
+                            <a class="dropdown-item dropdown_show" data-show="other_apartments_bookings" href="#">Prenotazioni fatte</a>
+                            <a class="dropdown-item dropdown_show" data-show="other_apartments_bookings_pending" href="#">Prenotazioni fatte (da confermare)</a>
                         </div>
                     </div>
                     <div class="dropdown col text-right">
@@ -40,17 +40,17 @@
     @{{#each this}}
     <div class="card mt-3 single_booking">
         <div class="row no-gutters">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 @{{#if apartment_active}}
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
                 @{{else}}
                 <img src="{{asset('img/apartments/no_image.jpg')}}" class="card-img" alt="">
                 @{{/if}}
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <small class="card-text text-muted">Appartamento prenotato</small>
                             <div class="">
                                 @{{#if apartment_active}}
@@ -63,7 +63,7 @@
                             <span class="badge badge-pill badge-danger">Appartamento non più registrato</span>
                             @{{/unless}}
                         </div>
-                        <div class="col-4 text-right">
+                        <div class="col-12 col-md-4 text-right">
                             <div class="">
                                 <button class="btn btn-primary expand_booking_list" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Mostra elenco prenotazioni</button>
                             </div>
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div id="@{{apartment_slug}}" class="collapse">
-            <div class="card-body booking_section">
+            <div class="card-body pt-0 booking_section">
                 @{{#each this.bookings}}
                 <div class="booking_wrapper">
                     <hr>
@@ -134,17 +134,17 @@
     @{{#each this}}
     <div class="card mt-3 single_booking">
         <div class="row no-gutters">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 @{{#if apartment_active}}
                 <img src="{{asset('img/apartments')}}/@{{apartment_image}}" class="card-img" alt="">
                 @{{else}}
                 <img src="{{asset('img/apartments/no_image.jpg')}}" class="card-img" alt="">
                 @{{/if}}
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <small class="card-text text-muted">Appartamento prenotato</small>
                             <div class="">
                                 @{{#if apartment_active}}
@@ -164,9 +164,9 @@
                             </p>
                             <small class="card-text text-muted">@{{apartment_owner_email}}</small>
                         </div>
-                        <div class="col-4 text-right">
+                        <div class="col-12 col-md-4 text-right">
                             <div class="">
-                                <button class="btn btn-primary" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Prenotazioni fatte</button>
+                                <button class="btn btn-primary expand_booking_made" data-toggle="collapse" data-target="#@{{apartment_slug}}" aria-expanded="true">Mostra prenotazioni fatte</button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
             </div>
         </div>
         <div id="@{{apartment_slug}}" class="collapse">
-            <div class="card-body booking_section">
+            <div class="card-body booking_section pt-0">
                 @{{#each this.bookings}}
                 <div class="">
                     <hr>
@@ -203,12 +203,16 @@
                                 <strong class="text-capitalize">@{{service_name}}</strong>
                             </small>
                             @{{/each}}
-                            @{{#ifCond this.status}}
-                            <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2" download>Scarica ricevuta</a>
-                            @{{else}}
-                            <a href="{{route('resume_booking','booking')}}" role="button" data-booking="@{{booking_reference}}" class="btn btn-warning resume_booking mt-2">Riprendi prenotazione</a>
-                            @{{/ifCond}}
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-right">
+                        @{{#ifCond this.status}}
+                        <a href="{{route('show_receipt')}}/@{{booking_reference}}" class="btn btn-success mt-2 booking_made_receipt" download>Scarica ricevuta</a>
+                        @{{else}}
+                        <a href="{{route('resume_booking','booking')}}" role="button" data-booking="@{{booking_reference}}" class="btn btn-warning resume_booking mt-2">Riprendi prenotazione</a>
+                        @{{/ifCond}}
                     </div>
                 </div>
                 @{{/each}}

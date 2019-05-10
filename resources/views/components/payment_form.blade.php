@@ -10,28 +10,24 @@
                 </div>
                 <form class="panel-body">
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-12 col-sm-6">
                             <label class="control-label">Numero carta</label>
-                            <!--  Hosted Fields div container -->
                             <div class="form-control" id="card-number"></div>
                             <span class="helper-text"></span>
                         </div>
-                        <div class="form-group col-3">
+                        <div class="form-group col-12 col-sm-6">
                             <label class="control-label">Scadenza</label>
-                            <!--  Hosted Fields div container -->
                             <div class="form-control" id="expiration-month"></div>
                             <div class="form-control" id="expiration-year"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-12 col-sm-6">
                             <label class="control-label">Codice di sicurezza</label>
-                            <!--  Hosted Fields div container -->
                             <div class="form-control" id="cvv"></div>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-12 col-sm-6">
                             <label class="control-label">Codice postale</label>
-                            <!--  Hosted Fields div container -->
                             <div class="form-control" id="postal-code"></div>
                         </div>
                     </div>

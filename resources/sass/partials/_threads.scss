@@ -62,3 +62,58 @@
 .custom_full_border {
 	border: 1px solid #dfdfdf
 }
+
+@media screen and (max-width: 350px) {
+
+	.threads_container {
+		.show_threads_button, .show_other_apartments_thread, .delete_other_apartments_thread {
+			width: 100%;
+		}
+	}
+
+	.custom_container {
+		.custom_container_footer {
+			#submit_message {
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 450px) {
+
+	.threads_container {
+		.show_my_apartments_thread, .delete_my_apartments_thread {
+			width: 100%;
+		}
+
+		.show_my_apartments_thread {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+
+	.custom_container {
+		.header_image, #delete_button, #back_button {
+			display: none;
+		}
+
+		.custom_container_header {
+			height: 100px;
+
+			.header_content {
+				flex-grow: 0;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.custom_container_footer {
+			height: 150px;
+		}
+	}
+
+}

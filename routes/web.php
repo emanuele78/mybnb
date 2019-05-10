@@ -69,3 +69,5 @@
 	//activate the token
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
+	//todo to be removed
+	Route::view('test', 'layouts.customer_create');

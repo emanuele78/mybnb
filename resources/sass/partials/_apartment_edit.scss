@@ -1,4 +1,5 @@
 .new_apartment_container {
+
 	.image_container {
 		overflow-x: scroll;
 		white-space: nowrap;
@@ -56,5 +57,15 @@
 
 	.open_input_file {
 		cursor: pointer;
+	}
+}
+
+@media screen and (max-width: 500px) {
+
+	.new_apartment_container {
+
+		.form-control.service {
+			width: 85%;
+		}
 	}
 }

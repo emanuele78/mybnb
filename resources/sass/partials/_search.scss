@@ -1,15 +1,18 @@
 .search_results_container {
 
-	.order_by {
-		cursor: pointer;
-		display: inline-block;
-		padding-bottom: 3px;
-		margin-right: 20px;
-		border-bottom: 2px solid rgba(0, 0, 0, 0);
+	.order_mode {
+		text-align: right;
 
-		&:hover, &.active {
-			//text-decoration: underline;
-			border-bottom: 2px solid #3490dc;
+		.order_by {
+			cursor: pointer;
+			display: inline-block;
+			padding-bottom: 3px;
+			margin-right: 20px;
+			border-bottom: 2px solid rgba(0, 0, 0, 0);
+
+			&:hover, &.active {
+				border-bottom: 2px solid #3490dc;
+			}
 		}
 	}
 
@@ -42,7 +45,32 @@
 				background-repeat: no-repeat;
 				background-position: center;
 			}
+
+			.book_button {
+				margin: 15px;
+			}
 		}
 	}
+}
 
+@media screen and (max-width: 992px) {
+	.search_results_container {
+		.order_mode {
+			margin-top: 10px;
+			text-align: left;
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.search_results_container {
+		.results_wrapper {
+			.apartment_result_card {
+				.book_button {
+					width: 100%;
+					margin: 10px 0 0 0;
+				}
+			}
+		}
+	}
 }

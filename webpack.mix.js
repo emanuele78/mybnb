@@ -34,5 +34,14 @@ mix.js('resources/js/app.js', 'public/js')
     .styles(['resources/fontawesome/style.css'], 'public/css/plain.css')
     .sass('resources/sass/app.scss', 'public/css')
     .options({
-        processCssUrls: false
+        processCssUrls: false,
+        autoprefixer: {
+            options: {
+                grid: true,
+                browsers: [
+                    'last 20 versions', // Set really far back in hopes of generating old prefixes
+                    'ie 10-11' // Getting specific
+                ]
+            }
+        }
     });

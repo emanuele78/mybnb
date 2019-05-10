@@ -33,3 +33,39 @@
 		}
 	}
 }
+
+@media screen and (max-width: 1200px) {
+
+	.promotion_container {
+		.promo_type_card {
+			.promo_image {
+				width: 150px;
+				height: 250px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+
+	.promotion_container {
+		.promo_type_card {
+			.promo_image {
+				width: 90px;
+				height: 150px;
+			}
+		}
+		.button_proceed {
+			width: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 350px) {
+
+	.promotion_container {
+		.expand_promo_list, .download_receipt {
+			width: 100%;
+		}
+	}
+}

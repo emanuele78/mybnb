@@ -1,7 +1,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="wrapper my-4 offset-3 col-6">
+            <div class="wrapper my-4 offset-md-3 col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
                         <h3>Registrati come cliente</h3>

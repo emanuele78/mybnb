@@ -1,0 +1,18 @@
+.my_apartments_container {
+	.menu_right {
+		text-align: right;
+	}
+}
+
+@media screen and (max-width: 576px) {
+
+	.my_apartments_container {
+		.menu_right {
+			text-align: left;
+		}
+
+		.apartment_card_button {
+			display: inline-block;
+		}
+	}
+}

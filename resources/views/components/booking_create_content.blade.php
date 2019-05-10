@@ -4,7 +4,7 @@
         <input type="hidden" name="apartment_slug" value="{{$apartment->slug}}">
         <div class="row">
             <div class="wrapper col">
-                <div class="card mb-3">
+                <div class="card">
                     <div class="row no-gutters">
                         <div class="col-md-3">
                             <img src="{{asset('img/apartments')}}/{{$apartment->main_image}}" class="card-img" alt="">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="row my-3">
-            <div class="wrapper col-3">
+            <div class="wrapper col-12 col-sm-6 col-xl-3 mt-2">
                 <div class="card full_height">
                     <div class="card-body">
                         <h5 class="card-title">Dati dell'alloggio</h5>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="wrapper col-3">
+            <div class="wrapper col-12 col-sm-6 col-xl-3 mt-2">
                 <div class="card full_height">
                     <div class="card-body">
                         <h5 class="card-title">Servizi disponibili</h5>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="wrapper col-6">
+            <div class="wrapper col-12 col-xl-6 mt-2">
                 <div class="card full_height">
                     <div class="card-body">
                         <h5 class="card-title">Aggiungi servizi</h5>
@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="row my-3">
-            <div class="wrapper col-6">
+            <div class="wrapper col-12 col-sm-6 mt-2">
                 <div class="card full_height">
                     <div class="card-header text-center">
                         <h5 class="card-title">Il tuo soggiorno</h5>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="wrapper col-6">
+            <div class="wrapper col-12 col-sm-6 mt-2">
                 <div class="card full_height">
                     <div class="card-header text-center">
                         <h5>Costi</h5>

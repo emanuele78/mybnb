@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="form-row">
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="city" class="text-muted">Città di destinazione:</label>
                     <select id="city" class="form-control">
                         @foreach($citiesList as $id => $city)
@@ -16,23 +16,21 @@
                         Seleziona una città dalla lista
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="check_in" class="text-muted">Arrivo:</label>
                     <input type="text" class="form-control mr-2 flatpicker flatpickr-input text-center {{$errors->has('check_in')?'is-invalid':null}}" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{$userSearch['check_in']?:null}}">
                     <div class="invalid-feedback">
                         Controlla la data del check-in
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="check_out" class="text-muted">Partenza:</label>
                     <input type="text" class="form-control mr-2 flatpicker flatpickr-input text-center {{$errors->has('check_out')?'is-invalid':null}}" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{$userSearch['check_out']?:null}}">
                     <div class="invalid-feedback">
                         Controlla la data del check-out
                     </div>
                 </div>
-            </div>
-            <div class="form-row mt-3">
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="people" class="text-muted">Persone:</label>
                     <select id="people" name="people" class="form-control">
                         @for($i=1;$i<=$maxPeople;$i++)
@@ -40,14 +38,14 @@
                         @endfor
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="radius_slider" class="text-muted">Raggio di ricerca:
                         <span class="km_radius text-primary"></span></label>
                     <div class="form-group text-center">
                         <input id="radius_slider" data-slider-id="radius_sliderSlider" type="text" data-slider-min="{{$radiusKmData['min']}}" data-slider-max="{{$radiusKmData['max']}}" data-slider-step="{{$radiusKmData['step']}}" data-slider-value="{{$radiusKmData['default']}}"/>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-sm-6 col-xl-4 mt-2">
                     <label for="price_slider" class="text-muted">Range di prezzo:
                         <span class="price_range text-primary"></span></label>
                     <div class="form-group text-center">
@@ -58,12 +56,21 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="wrapper col-3">
-            <div class="card">
+        <div class="wrapper col-12 col-md-3 mb-2">
+            <div class="card card_service">
                 <div class="card-header">
-                    <h6>Servizi</h6>
+                    <div class="row">
+                        <div class="col">
+                            <span>Servizi</span>
+                        </div>
+                        <div class="col text-right">
+                            <button class="btn btn-link toggle_service d-md-none" data-toggle="collapse" data-target="#collapsable_service" aria-expanded="true">
+                                Mostra/Nascondi
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body collapse show" id="collapsable_service">
                     @foreach($availableServices as $availableService)
                         <div class="form-check mt-2">
                             <input class="form-check-input service_checkbox" type="checkbox" value="{{$availableService->slug}}" id="{{$availableService->slug}}">
@@ -75,14 +82,14 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper col-9">
+        <div class="wrapper col-12 col-md-9">
             <div class="card">
                 <div class="card-header border-bottom-0">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-lg-3">
                             <span class="text-muted">Risultati trovati: <span class="font-weight-bold text-primary results_count"></span></span>
                         </div>
-                        <div class="col text-right">
+                        <div class="col-12 col-lg-9 order_mode">
                             <span class="text-muted pr-4">Ordina per</span>
                             <span class="order_by active font-weight-bold text-primary" data-value="distance">Distanza</span>
                             <span class="order_by font-weight-bold text-primary" data-value="price_per_night">Prezzo</span>
@@ -99,13 +106,13 @@
     @{{#each this}}
     <div class="card apartment_result_card mt-2">
         <div class="row no-gutters">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 <div class="card_image" style="background-image: url('{{asset('img/apartments')}}/@{{main_image}}')"></div>
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
                 <div class="row">
-                    <div class="col-8">
-                        <div class="card-body">
+                    <div class="col-12 col-sm-8">
+                        <div class="card-body pb-0">
                             <small class="card-text text-muted">Titolo appartamento</small>
                             <div class="">
                                 <a href="{{route('show')}}/@{{slug}}" class="card-text font-weight-bold title_ellipsis">@{{title}}</a>
@@ -124,13 +131,13 @@
                             <small class="card-text text-muted d-block">Data inserimento:
                                 <strong>@{{created_at}}</strong>
                             </small>
-                            <small class="card-text text-muted d-block">Distanza dal luogo di ricerca:
+                            <small class="card-text text-muted d-block">Distanza dalla città:
                                 <strong>@{{#processDistance}}@{{distance}}@{{/processDistance}} km</strong>
                             </small>
                         </div>
                     </div>
-                    <div class="col-4 text-right mt-4">
-                        <button data-apartment="" class="btn btn-success mr-4">Prenota</button>
+                    <div class="col-12 col-sm-4 text-right">
+                        <button data-apartment="" class="btn btn-success book_button">Prenota</button>
                     </div>
                 </div>
             </div>

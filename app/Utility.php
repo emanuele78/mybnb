@@ -3,6 +3,7 @@
 	namespace App;
 	
 	use Carbon\Carbon;
+	use DB;
 	
 	class Utility {
 		
@@ -33,5 +34,31 @@
 		public static function diffInDays(string $firstDate, string $lastDate) {
 			
 			return Carbon::createFromFormat('Y-m-d H:i:s', $lastDate)->diffInDays(Carbon::createFromFormat('Y-m-d H:i:s', $firstDate));
+		}
+		
+		/**
+		 * Log event in common database
+		 *
+		 * @param $event
+		 */
+		public static function logEvent($event): void {
+			
+			if (config('project.enable_log_events')) {
+				DB::connection('mysql_common')
+				  ->table('events')->insert(
+					[
+					  'event' => $event,
+					  'created_at' => Carbon::now()
+					]
+				  );
+			}
+		}
+		
+		/**
+		 * Remove all events
+		 */
+		public static function clearEvents(): void {
+			
+			DB::connection('mysql_common')->table('events')->truncate();
 		}
 	}

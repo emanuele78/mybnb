@@ -4,13 +4,13 @@
             <h3 class="text-center">Promuovi il tuo appartamento</h3>
         </div>
         <div class="row no-gutters row_card_content mt-2">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
                 <img src="{{asset('img/apartments')}}/{{$apartment->main_image}}" class="card-img" alt="">
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-sm-8">
                             <small class="card-text text-muted apartment_title" data-apartment="{{$apartment->slug}}">Titolo appartamento</small>
                             <div class="">
                                 <a href="{{route('show').'/'.$apartment->slug}}" class="card-text mb-0">{{$apartment->title}}</a>
@@ -27,7 +27,7 @@
                                 </small>
                             @endif
                         </div>
-                        <div class="col-4 text-right">
+                        <div class="col-12 col-sm-4 text-right">
                             <div class="mt-1">
                                 <button class="btn btn-primary expand_promo_list" data-toggle="collapse" data-target="#promo_list" aria-expanded="true">Mostra elenco promozioni</button>
                             </div>
@@ -47,7 +47,7 @@
                     <div class="promo_wrapper">
                         <hr>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12 col-sm-6">
                                 <small class="card-text text-muted d-block">Creata il giorno:
                                     <strong>{{\App\Utility::dateTimeLocale($promotion['created_at'], false)}}</strong>
                                 </small>
@@ -67,8 +67,8 @@
                                     <strong>Euro {{number_format(\App\Utility::diffInDays($promotion['start_at'],$promotion['end_at'])*$promotion['promotion_plan']['price_per_day'],2,',','.')}}</strong>
                                 </small>
                             </div>
-                            <div class="col text-right">
-                                <a href="{{route('show_promo_receipt',$promotion['reference'])}}" class="btn btn-success" download>Scarica ricevuta</a>
+                            <div class="col-12 col-sm-6 mt-1 text-right">
+                                <a href="{{route('show_promo_receipt',$promotion['reference'])}}" class="btn btn-success download_receipt" download>Scarica ricevuta</a>
                             </div>
                         </div>
                     </div>
@@ -125,12 +125,12 @@
         </div>
         <div class="card-footer">
             <div class="row">
-                <div class="col">
+                <div class="col-12 col-sm-6">
                     <h5 class="p-2">Totale Euro
                         <span class="amount"></span>
                     </h5>
                 </div>
-                <div class="col text-right">
+                <div class="col-12 col-sm-6 text-right">
                     <button type="button" class="btn btn-success px-5 button_proceed">Procedi</button>
                 </div>
             </div>

@@ -38,3 +38,12 @@
 	}
 }
 
+@media screen and (max-width: 350px) {
+
+	.bookings_container {
+		.expand_booking_made, .resume_booking, .booking_made_receipt {
+			width: 100%;
+		}
+	}
+}
+

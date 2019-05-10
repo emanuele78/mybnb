@@ -1,9 +1,9 @@
-<div class="container my-3">
+<div class="container my-2">
     <div class="row">
-        <div class="wrapper col-9">
+        <div class="wrapper col-12 mt-2 col-lg-9">
             <div class="card full_height">
                 <div class="row no-gutters">
-                    <div class="col-4 pl-2">
+                    <div class="col-12 col-sm-4 pl-2">
                         <div class="">
                             <div class="apartment_map my-4">
                                 <img id="tomtom_map" data-apartment="{{$apartment->slug}}" class="card-img" src="{{asset('img/map_placeholder.jpg')}}">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-12 col-sm-8">
                         <div class="card-body">
                             <h5 class="card-title">{{$apartment->title}}</h5>
                             <p class="card-text">
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper col-3">
+        <div class="wrapper col-12 mt-2 col-lg-3">
             <div class="card full_height">
                 <div class="card-body">
                     <h5 class="card-title">Verifica disponibilità</h5>
@@ -62,9 +62,9 @@
         </div>
     </div>
 </div>
-<div class="container my-3">
+<div class="container my-2">
     <div class="row">
-        <div class="wrapper col-4">
+        <div class="wrapper col-12 mt-2 col-md-4">
             <div class="card full_height">
                 <div class="card-body">
                     <h5 class="card-title">Dati dell'alloggio</h5>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper col-4">
+        <div class="wrapper col-12 mt-2 col-md-4">
             <div class="card full_height">
                 <div class="card-body">
                     <h5 class="card-title">Servizi compresi</h5>
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper col-4">
+        <div class="wrapper col-12 mt-2 col-md-4">
             <div class="card full_height">
                 <div class="card-body">
                     <h5 class="card-title">Servizi su richiesta</h5>

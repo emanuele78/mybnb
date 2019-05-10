@@ -195,10 +195,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-md-8">
                         <div class="" id="reserved_days_calendar"></div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <div class="mb-1">
                             <span class="text-muted">Elenco giorni riservati (doppio click per rimuovere):</span>
                         </div>
@@ -319,7 +319,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <span class="text-muted">Immagine principale</span>
                         <div class="input-group my-2">
                             <input type="hidden" class="changed_input_0" value="0" name="images_changed[0]">
@@ -338,7 +338,7 @@
                     @php
                         $images_count = $apartment->images->count();
                     @endphp
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <span class="text-muted">Immagini secondarie (4 max)</span>
                         @for($i=1;$i<=4;$i++)
                             <div class="input-group my-2">

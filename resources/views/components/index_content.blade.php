@@ -4,7 +4,7 @@
             <div class="card-body">
                 <form action="{{route('search')}}" class="form" method="get">
                     <div class="form-row">
-                        <div class="col">
+                        <div class="col-md-3    ">
                             <select id="city" name="city_code" class="form-control my-2 mr-2">
                                 @foreach($citiesList as $city)
                                     <option value="{{$city['code']}}">{{$city['name']}}</option>
@@ -14,19 +14,19 @@
                                 Seleziona una città dalla lista
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <input type="text" class="form-control my-2 mr-2 flatpicker flatpickr-input {{$errors->has('check_in')?'is-invalid':null}}" id="check_in" placeholder="Check-in" name="check_in" readonly="readonly" value="{{old('check_in')?:null}}">
                             <div class="invalid-feedback">
                                 Controlla la data del check-in
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <input type="text" class="form-control my-2 mr-2 flatpicker flatpickr-input {{$errors->has('check_out')?'is-invalid':null}}" id="check_out" placeholder="Check-out" name="check_out" readonly="readonly" value="{{old('check_out')?:null}}">
                             <div class="invalid-feedback">
                                 Controlla la data del check-out
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <button type="submit" class="btn btn-success w-100 my-2 ">Cerca</button>
                         </div>
                     </div>

@@ -27,4 +27,5 @@
 	  'use_fake_data_for_transaction' => env('USE_FAKE_DATA_FOR_TRANSACTION', false),
 	  'client_token_safe' => env('CLIENT_TOKEN_SAFE'),
 	  'add_debug_token' => env('ADD_DEBUG_TOKEN', false),
+	  'enable_log_events' => env('ENABLE_LOG_EVENTS', true),
 	];

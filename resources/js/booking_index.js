@@ -42,11 +42,11 @@ function sendRequest() {
         },
         complete: function () {
             if ($('.dropdown_show.active').data('show') === 'my_apartments_bookings') {
-                $('.main_title').text('Prenotazioni effettuate ai tuoi appartamenti')
+                $('.main_title').text('Prenotazioni ricevute presso i tuoi appartamenti')
             } else if ($('.dropdown_show.active').data('show') === 'other_apartments_bookings') {
-                $('.main_title').text('Prenotazioni effettuate ad altri appartamenti')
+                $('.main_title').text('Prenotazioni fatte ad altri appartamenti')
             } else {
-                $('.main_title').text('Prenotazioni effettuate ad altri appartamenti (in sospeso)')
+                $('.main_title').text('Prenotazioni fatte ad altri appartamenti (in sospeso)')
             }
         }
     });
@@ -71,11 +71,12 @@ function registerListenerForDropdowns() {
 }
 
 /**
- * Listener for accordion toggling
+ * Listener for button
  */
 function registerButtonsListeners() {
     let expandBookingElement = $('.expand_booking_list');
     let expandCalendarElement = $('.expand_calendar');
+    //accordions for bookings received
     expandBookingElement.off();
     expandBookingElement.click(function () {
         $(this).text($(this).text() === 'Mostra elenco prenotazioni' ? 'Nascondi elenco prenotazioni' : 'Mostra elenco prenotazioni');
@@ -83,6 +84,12 @@ function registerButtonsListeners() {
     expandCalendarElement.off();
     expandCalendarElement.click(function () {
         $(this).text($(this).text() === 'Mostra calendario prenotazioni' ? 'Nascondi calendario prenotazioni' : 'Mostra calendario prenotazioni');
+    });
+    //accordions for bookings made
+    let expandOtherBookingsElements = $('.expand_booking_made');
+    expandOtherBookingsElements.off();
+    expandOtherBookingsElements.click(function () {
+        $(this).text($(this).text() === 'Mostra prenotazioni fatte' ? 'Nascondi prenotazioni fatte' : 'Mostra prenotazioni fatte');
     });
     $('.resume_booking').click(function (e) {
         e.preventDefault();

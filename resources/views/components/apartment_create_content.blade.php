@@ -1,6 +1,6 @@
 <div class="container new_apartment_container">
     <div class="card mt-3">
-        <div class="card-header">
+        <div class="card-header border-bottom-0">
             <h3 class="text-center">Inserisci nuovo appartamento</h3>
         </div>
     </div>
@@ -178,10 +178,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-md-8">
                         <div class="" id="reserved_days_calendar"></div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <div class="mb-1">
                             <span class="text-muted">Elenco giorni riservati (doppio click per rimuovere):</span>
                         </div>
@@ -271,7 +271,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <span class="text-muted">Immagine principale</span>
                         <div class="input-group my-2">
                             <label class="form-control input_file_label {{$errors->has('main_image')?'is-invalid':null}}" data-index="0">
@@ -286,7 +286,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <span class="text-muted">Immagini secondarie (4 max)</span>
                         @for($i=1;$i<=4;$i++)
                             <div class="input-group my-2">

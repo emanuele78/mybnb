@@ -1,4 +1,4 @@
-<div class="container apartments_container">
+<div class="container my_apartments_container">
     <div class="card mt-3">
         <div class="card-header">
             <h3 class="text-center main_title">I tuoi appartamenti</h3>
@@ -6,9 +6,9 @@
         <div class="card-body">
             <div class="card-block">
                 <div class="row">
-                    <div class="dropdown col">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Visualizza
+                    <div class="dropdown col-12 col-sm-6">
+                        <button class="btn btn-secondary dropdown-toggle mt-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mostra
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item dropdown_show active" data-show="all_apartments" href="#">Tutti gli appartamenti</a>
@@ -17,10 +17,8 @@
                             <a class="dropdown-item dropdown_show" data-show="only_apartments_with_active_promo" href="#">Solo appartamenti con promozioni attive</a>
                             <a class="dropdown-item dropdown_show" data-show="only_apartments_without_active_promo" href="#">Solo appartamenti senza promozioni attive</a>
                         </div>
-                    </div>
-                    <div class="dropdown col text-right">
-                        <div class="dropdown d-inline-block">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownOrderMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown d-inline-block ml-2">
+                            <button class="btn btn-secondary dropdown-toggle mt-1" type="button" id="dropdownOrderMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ordina
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownOrderMenuButton">
@@ -31,7 +29,9 @@
                                 <a class="dropdown-item dropdown_order" data-order="updated_at_desc" href="#">Data ultima modifica (ultimi per primi)</a>
                             </div>
                         </div>
-                        <a href="{{route('new_apartment')}}" class="btn btn-success ml-3">Inserisci un nuovo appartamento</a>
+                    </div>
+                    <div class="col-12 col-sm-6 menu_right">
+                        <a href="{{route('new_apartment')}}" class="btn btn-success mt-1">Inserisci nuovo appartamento</a>
                     </div>
                 </div>
             </div>
@@ -55,13 +55,13 @@
     @{{#each this}}
     <div class="card mt-3 apartment-card-@{{slug}}">
         <div class="row no-gutters row_card_content">
-            <div class="col-4">
+            <div class="col-md-12 col-lg-4">
                 <img src="{{asset('img/apartments')}}/@{{image}}" class="card-img" alt="">
             </div>
-            <div class="col-8">
+            <div class="col-md-12 col-lg-8">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-sm-8">
                             <small class="card-text text-muted">Titolo appartamento</small>
                             <div class="">
                                 <a href="{{route('show')}}/@{{slug}}" class="card-text mb-0">@{{title}}</a>
@@ -101,21 +101,21 @@
                             </small>
                             @{{/if}}
                         </div>
-                        <div class="col-4 text-right">
-                            <div class="">
+                        <div class="col-12 col-sm-4 text-right">
+                            <div class="mt-2 apartment_card_button">
                                 <button data-ref="{{route('promote','apartment')}}" data-apartment="@{{slug}}" class="btn btn-warning promote_apartment">Sponsorizza</button>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 apartment_card_button">
                                 <button data-ref="{{route('edit_apartment','apartment')}}" data-apartment="@{{slug}}" class="btn btn-primary edit_apartment">Modifica</button>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 apartment_card_button">
                                 @{{#if is_visible}}
                                 <button class="btn btn-danger hide_apartment" data-apartment="@{{slug}}">Nascondi</button>
                                 @{{else}}
                                 <button class="btn btn-success show_apartment" data-apartment="@{{slug}}">Rendi visibile</button>
                                 @{{/if}}
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 apartment_card_button">
                                 <button data-apartment="@{{slug}}" class="btn btn-danger delete_apartment">Elimina</button>
                             </div>
                         </div>
