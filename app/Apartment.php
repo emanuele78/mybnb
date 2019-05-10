@@ -546,6 +546,7 @@
 			};
 			//check-in/check-out (if not null)
 			if ($userData['check_in'] != null) {
+				
 				$max_life_pending_booking = config('project.pending_booking_max_life');
 				//if check-in was inserted, also check-out is present
 				//parse data values
@@ -574,6 +575,9 @@
 							  });
 						});
 				});
+				//max stay
+				$stay = $checkIn->diffInDays($checkOut);
+				$builder->where('max_stay', '>=', $stay);
 			}
 			//order
 			if ($userData['order_by'] != 'distance') {
