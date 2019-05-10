@@ -359,10 +359,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <a href="{{route('apartments_dashboard')}}" class="btn btn-primary w-100 mt-2 p-2">Annulla</a>
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <button type="submit" class="btn btn-success w-100 mt-2 p-2">Salva modifiche</button>
             </div>
         </div>

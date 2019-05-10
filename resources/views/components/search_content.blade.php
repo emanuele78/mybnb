@@ -64,7 +64,7 @@
                             <span>Servizi</span>
                         </div>
                         <div class="col text-right">
-                            <button class="btn btn-link toggle_service d-md-none" data-toggle="collapse" data-target="#collapsable_service" aria-expanded="true">
+                            <button class="btn text-primary toggle_service d-md-none" data-toggle="collapse" data-target="#collapsable_service" aria-expanded="true">
                                 Mostra/Nascondi
                             </button>
                         </div>

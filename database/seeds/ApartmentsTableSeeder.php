@@ -15,7 +15,7 @@
 		public function run(Faker $faker) {
 			
 			$this->users = User::all();
-			$rawData = \Config::get('cities');
+			$rawData = Config::get('cities');
 			$apartmentsPerAxis = 5;
 			$kmToAdd = 5;
 			for ($i = 0; $i < count($rawData); $i++) {

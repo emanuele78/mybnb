@@ -3,7 +3,6 @@
 	use App\Apartment;
 	use App\Image;
 	use Illuminate\Database\Seeder;
-	use Carbon\Carbon;
 	
 	class ImagesTableSeeder extends Seeder {
 		
@@ -17,7 +16,6 @@
 			$images_per_apartment = 3;
 			$imageNames = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', 'image6.jpg', 'image7.jpg', 'image8.jpg', 'image9.jpg', 'image10.jpg'];
 			$apartments = Apartment::get();
-			$now = Carbon::now();
 			foreach ($apartments as $apartment) {
 				$images_indexes = [];
 				do {

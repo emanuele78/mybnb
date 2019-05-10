@@ -8,6 +8,8 @@
 	
 	class PromotionsTableSeeder extends Seeder {
 		
+		protected $apartments_to_promote = 80;
+		
 		/**
 		 * Run the database seeds.
 		 *
@@ -15,10 +17,13 @@
 		 */
 		public function run() {
 			
+			if (!config('project.use_debug_mode_when_seeding')) {
+				$this->seedForProductionDemo();
+				return;
+			}
 			$future_days = 5;
-			$apartments_to_promote = 80;
 			$promotionPlans = PromotionPlan::get();
-			$apartments = Apartment::take($apartments_to_promote)->get();
+			$apartments = Apartment::take($this->apartments_to_promote)->get();
 			$expiredPlanStartDate = Carbon::now()->addDays(-10);
 			$expiredPlanEndDate = Carbon::now()->addDays(-5);
 			$startDate = Carbon::now();
@@ -39,6 +44,18 @@
 					$this->store($apartment->id, $promotionPlan->id, $startDate, $endDate);
 					$this->store($apartment->id, $expiredPromotionPlan->id, $expiredPlanStartDate, $expiredPlanEndDate);
 				}
+			}
+		}
+		
+		private function seedForProductionDemo() {
+			
+			$apartments = Apartment::take($this->apartments_to_promote)->get();
+			$startDate = Carbon::now();
+			$promotionPlans = PromotionPlan::get();
+			foreach ($apartments as $key => $apartment) {
+				$promotionPlan = $promotionPlans[rand(0, count($promotionPlans) - 1)];
+				$endDate = $startDate->copy()->addDays($promotionPlan->max_length);
+				$this->store($apartment->id, $promotionPlan->id, $startDate, $endDate);
 			}
 		}
 		

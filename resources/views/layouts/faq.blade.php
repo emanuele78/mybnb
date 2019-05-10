@@ -1,5 +1,5 @@
 @extends('layouts.base')
 
 @section('content')
-    ciao
+    @include('components.faq_content')
 @endsection

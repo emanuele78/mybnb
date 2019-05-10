@@ -61,9 +61,19 @@
 	
 	/* these routes are not subject to token limitations */
 	//faq page - static
-	Route::view('/faq', 'layouts.faq')->name('show_faq');
+	Route::get(
+	  '/faq', function () {
+		
+		\App\Utility::logEvent('Show faq page');
+		return view('layouts.faq');
+	})->name('show_faq');
 	//privacy policy
-	Route::view('/privacy', 'layouts.privacy')->name('show_privacy');
+	Route::get(
+	  '/privacy', function () {
+		
+		\App\Utility::logEvent('Show privacy page');
+		return view('layouts.privacy');
+	})->name('show_privacy');
 	//show the main index page
 	Route::get('/', 'LandingPageController@index')->name('home');
 	//activate the token

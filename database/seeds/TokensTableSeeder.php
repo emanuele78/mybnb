@@ -12,7 +12,7 @@
 		 */
 		public function run() {
 			
-			if (config('project.add_debug_tokend')) {
+			if (config('project.add_debug_token')) {
 				//just for testing purposes
 				DB::table('tokens')->insert(
 				  [
