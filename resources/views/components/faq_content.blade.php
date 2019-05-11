@@ -189,4 +189,20 @@ SOFTWARE.</pre>
             </div>
         </div>
     </div>
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <button class="btn text-primary" data-toggle="collapse" data-target="#privacy" aria-expanded="true">
+                    Dove posso trovare la privacy policy?
+                </button>
+            </h5>
+        </div>
+        <div id="privacy" class="collapse">
+            <div class="card-body">
+                <p>La puoi trovare a questa
+                    <a href="{{route('show_privacy')}}">pagina</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
