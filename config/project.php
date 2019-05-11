@@ -32,4 +32,7 @@
 	  'seeded_users_password' => env('SEEDED_USERS_PASSWORD', 'secret'),
 	  'demo_customer_id' => env('DEMO_CUSTOMER_ID'),
 	  'apartments_per_axys' => env('APARTMENTS_PER_AXYS'),
+	  'axys_distance_km' => env('AXYS_DISTANCE_KM'),
+	  'user_demo_email' => env('USER_DEMO_EMAIL'),
+	  'user_demo_password' => env('USER_DEMO_PASSWORD'),
 	];

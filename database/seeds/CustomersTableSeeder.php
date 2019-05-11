@@ -3,17 +3,15 @@
 	use App\User;
 	use Carbon\Carbon;
 	use Illuminate\Database\Seeder;
-	use Faker\Generator as Faker;
 	
 	class CustomersTableSeeder extends Seeder {
 		
 		/**
 		 * Run the database seeds.
-		 *
-		 * @param Faker $faker
 		 */
-		public function run(Faker $faker) {
+		public function run() {
 			
+			$faker = Faker\Factory::create('it_IT');
 			//every user is already a fake (not registered in braintree account) customer
 			$users = User::get();
 			$now = Carbon::now();
@@ -24,6 +22,7 @@
 					'customer_id' => $user->id,
 					'firstName' => $faker->firstName,
 					'lastName' => $faker->lastName,
+					'taxCode' => $faker->taxId(),
 					'streetAddress' => 'via Gargantua 14',
 					'locality' => 'Gargantua',
 					'postalCode' => 12345,

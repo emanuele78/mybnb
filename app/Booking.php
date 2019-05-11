@@ -57,7 +57,7 @@
 		 */
 		public function apartmentOwner() {
 			
-			return $this->belongsTo(Apartment::class, 'apartment_owner_id');
+			return $this->belongsTo(User::class, 'apartment_owner_id');
 		}
 		
 		/**
@@ -321,7 +321,9 @@
 			  'user_booking_address' => $this->user_booking_address,
 			  'user_booking_locality' => $this->user_booking_full_locality,
 			  'user_booking_email' => $this->user_booking_email,
+			  'user_booking_tax_code' => $this->user->customer->taxCode,
 			  'apartment_owner_fullname' => $this->apartment_owner_fullname,
+			  'apartment_owner_tax_code' => $this->apartmentOwner->customer->taxCode,
 			  'apartment_owner_address' => $this->apartment_owner_address,
 			  'apartment_owner_locality' => $this->apartment_owner_full_locality,
 			  'apartment_owner_email' => $this->apartment_owner_email,

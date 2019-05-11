@@ -18,7 +18,7 @@
     "/js/payment.js": "/js/payment.js?id=32cb19c3094596bdb4c8",
     "/js/payment_mod.js": "/js/payment_mod.js?id=3962dbf454c57fb35931",
     "/js/promotion.js": "/js/promotion.js?id=3f004543a85806f63a4b",
-    "/js/search.js": "/js/search.js?id=c98a0d822d166c5f8217",
+    "/js/search.js": "/js/search.js?id=016d56514b15ce541563",
     "/js/search_mod.js": "/js/search_mod.js?id=9bcebfa21d7fb7ed1191",
     "/js/send_message_mod.js": "/js/send_message_mod.js?id=7374fa97ef91608f822c",
     "/js/show_apartment.js": "/js/show_apartment.js?id=98b06445cd46e544a458",
@@ -27,6 +27,6 @@
     "/js/threads_index.js": "/js/threads_index.js?id=dcb652a0ab6f3f658a91",
     "/js/token_processor.js": "/js/token_processor.js?id=4b682a3ceaa679325553",
     "/js/user_registration.js": "/js/user_registration.js?id=6a4c4947b7b02bb81593",
-    "/js/vendor.js": "/js/vendor.js?id=0988e17ab98e027ab608",
+    "/js/vendor.js": "/js/vendor.js?id=beb0a2e3a2152b505965",
     "/css/plain.css": "/css/plain.css?id=e4c542a7f6bf6f74fdd8"
 }

@@ -40,8 +40,8 @@
 			$user = new User();
 			$user->fill(
 			  [
-				'email' => 'demo@gmail.com',
-				'password' => bcrypt('secret'),
+				'email' => config('project.user_demo_email'),
+				'password' => bcrypt(config('project.user_demo_password')),
 				'nickname' => 'Demouser',
 				'date_of_birth' => Carbon::createFromFormat('d-m-Y', '09-01-1978'),
 			  ]);
@@ -183,12 +183,14 @@
 		 */
 		public function whoWannaBeACustomerUser(User $user): void {
 			
+			$faker = Faker\Factory::create('it_IT');
 			DB::table('customers')->insert(
 			  [
 				'user_id' => $user->id,
 				'customer_id' => config('project.demo_customer_id'),
 				'firstName' => 'Mario',
 				'lastName' => 'Rossi',
+				'taxCode' => $faker->taxId(),
 				'streetAddress' => 'via XI Settembre 2001, n. 6',
 				'locality' => 'Monte San Giusto',
 				'postalCode' => 62015,

@@ -63,6 +63,7 @@ Condizioni di pagamento: pagato con carta di credito
 
                         <h3>{{$user_fullname}}</h3>
                         <pre>
+                            CF: {{$user_tax_code}}
                             {{$user_address}}
                             {{$user_locality}}
                             {{$user_email}}

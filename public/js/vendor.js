@@ -57928,6 +57928,7 @@ var PROJECT_CONSTANTS = {
   threadEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/threads/{thread}',
   bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings',
   apartmentsEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments',
+  webBookingEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/appartamenti/{apartment}/prenota',
   apartmentVisibilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/visibility',
   geoSearchAddressesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/addresses',
   geoSearchMapEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/maps/map',

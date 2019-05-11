@@ -19,6 +19,7 @@
 				$table->bigIncrements('id');
 				$table->unsignedBigInteger('user_id');
 				$table->string('customer_id')->unique();
+				$table->string('taxCode');
 				$table->string('firstName', 100);
 				$table->string('lastName', 100);
 				$table->string('streetAddress');

@@ -87,6 +87,12 @@ var PRICE_SLIDER = $('#price_slider').slider();
 
   checkData();
 })();
+
+function attachListenerForBookingButtons() {
+  $('.book_button').off().click(function () {
+    window.location.href = _app__WEBPACK_IMPORTED_MODULE_0__["default"].webBookingEndpoint.replace('{apartment}', $(this).data('apartment'));
+  });
+}
 /**
  * Print current km radius
  * @param value
@@ -192,6 +198,8 @@ function sendRequest(requestData) {
     if (_search_mod__WEBPACK_IMPORTED_MODULE_5__["default"].more_results) {
       attachListenerToScrollbar(true);
     }
+
+    attachListenerForBookingButtons();
   });
 }
 /**

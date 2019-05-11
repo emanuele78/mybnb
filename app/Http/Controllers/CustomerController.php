@@ -38,7 +38,6 @@
 		 */
 		public function store(StoreCustomerRequest $request, BraintreeGateway $braintreeGateway) {
 			
-			Utility::logEvent('Save new customer');
 			Utility::logEvent('Register customer');
 			$validated = $request->validated();
 			$response = $braintreeGateway->createCustomer($validated);

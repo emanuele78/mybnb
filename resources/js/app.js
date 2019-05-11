@@ -23,6 +23,7 @@ const PROJECT_CONSTANTS = {
     threadEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/threads/{thread}',
     bookingListEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/bookings',
     apartmentsEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments',
+    webBookingEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/appartamenti/{apartment}/prenota',
     apartmentVisibilityEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/{apartment}/visibility',
     geoSearchAddressesEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/addresses',
     geoSearchMapEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/geo/maps/map',
@@ -45,6 +46,7 @@ if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.threadEndpoint = PRODUCTION_BASE_URI + '/api/apartments/threads/{thread}';
     PROJECT_CONSTANTS.bookingListEndpoint = PRODUCTION_BASE_URI + '/api/bookings';
     PROJECT_CONSTANTS.apartmentsEndpoint = PRODUCTION_BASE_URI + '/api/apartments';
+    PROJECT_CONSTANTS.webBookingEndpoint = PRODUCTION_BASE_URI + '/appartamenti/{apartment}/prenota';
     PROJECT_CONSTANTS.apartmentVisibilityEndpoint = PRODUCTION_BASE_URI + '/api/apartments/{apartment}/visibility';
     PROJECT_CONSTANTS.geoSearchAddressesEndpoint = PRODUCTION_BASE_URI + '/api/geo/addresses';
     PROJECT_CONSTANTS.geoSearchMapEndpoint = PRODUCTION_BASE_URI + '/api/geo/maps/map';

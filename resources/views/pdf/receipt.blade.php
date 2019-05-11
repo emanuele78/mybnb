@@ -49,6 +49,7 @@
                     <td align="left" style="width: 40%;">
                         <h3>{{$apartment_owner_fullname}}</h3>
                         <pre>
+CF: {{$apartment_owner_tax_code}}
 {{$apartment_owner_address}}
 {{$apartment_owner_locality}}
 {{$apartment_owner_email}}
@@ -63,6 +64,7 @@ Condizioni di pagamento: pagato con carta di credito
 
                         <h3>{{$user_booking_fullname}}</h3>
                         <pre>
+                            CF: {{$user_booking_tax_code}}
                             {{$user_booking_address}}
                             {{$user_booking_locality}}
                             {{$user_booking_email}}

@@ -4,6 +4,7 @@
 	
 	use App\Customer;
 	use Braintree_Gateway;
+	use Laravel\Passport\Bridge\User;
 	
 	class BraintreeGateway {
 		
@@ -37,13 +38,26 @@
 			$newCustomer = $this->gateway->customer()->create();
 			$newCustomerId = $newCustomer->customer->id;
 			$data['customerId'] = $newCustomerId;
-			$result = $this->gateway->address()->create($data);
+			$result = $this->gateway->address()->create($this->createBraintreeData($data));
 			if ($result->success) {
 				return ['success' => true, 'customer_id' => $newCustomerId];
 			} else {
 				//something went wrong
 				return ['success' => false, 'message' => $result->message];
 			}
+		}
+		
+		/**
+		 * Remove tac code field
+		 *
+		 * @param $data
+		 * @return array
+		 */
+		private function createBraintreeData($data): array {
+			
+			$newData = array_slice($data, 0);
+			unset($newData['taxCode']);
+			return $newData;
 		}
 		
 		/**

@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-4 text-right">
-                        <button data-apartment="" class="btn btn-success book_button">Prenota</button>
+                        <button data-apartment="@{{slug}}" class="btn btn-success book_button">Prenota</button>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@
 			$this->users = User::all();
 			$rawData = Config::get('cities');
 			$apartmentsPerAxis = config('project.apartments_per_axys');
-			$kmToAdd = 5;
+			$kmToAdd = config('project.axys_distance_km');
 			for ($i = 0; $i < count($rawData); $i++) {
 				//inserisco appartamento nella città
 				$lat = $rawData[$i]['lat'];

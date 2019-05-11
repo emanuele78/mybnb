@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-12 col-sm-4 text-right">
                             <div class="mt-2 apartment_card_button">
-                                <button data-ref="{{route('promote','apartment')}}" data-apartment="@{{slug}}" class="btn btn-warning promote_apartment">Sponsorizza</button>
+                                <button data-ref="{{route('promote','apartment')}}" data-apartment="@{{slug}}" class="btn btn-warning promote_apartment">Promuovi</button>
                             </div>
                             <div class="mt-2 apartment_card_button">
                                 <button data-ref="{{route('edit_apartment','apartment')}}" data-apartment="@{{slug}}" class="btn btn-primary edit_apartment">Modifica</button>

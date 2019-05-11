@@ -29,6 +29,7 @@
 			  'streetAddress' => 'bail|required|string|between:2,100',
 			  'locality' => 'bail|required|string|between:2,100',
 			  'postalCode' => 'bail|required|numeric',
+			  'taxCode' => 'bail|required|string|size:16',
 			];
 		}
 	}

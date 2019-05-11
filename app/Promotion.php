@@ -136,6 +136,7 @@
 			  'promo_reference' => $this->reference,
 			  'promo_date' => Utility::dateTimeLocale($this->created_at, false),
 			  'user_fullname' => $user->fullname(),
+			  'user_tax_code' => $user->customer->taxCode,
 			  'user_address' => $user->customer->streetAddress,
 			  'user_locality' => $user->fullLocality(),
 			  'user_email' => $user->email,

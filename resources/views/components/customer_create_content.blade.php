@@ -29,6 +29,15 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="taxCode">Codice fiscale</label>
+                                <input type="text" class="form-control{{ $errors->has('taxCode') ? ' is-invalid' : '' }}" id="taxCode" name="taxCode" value="{{ old('taxCode') }}" placeholder="CF" required>
+                                @if ($errors->has('taxCode'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('taxCode') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="streetAddress">Indirizzo</label>
                                 <input type="text" class="form-control{{ $errors->has('streetAddress') ? ' is-invalid' : '' }}" id="streetAddress" name="streetAddress" value="{{ old('streetAddress') }}" placeholder="Indirizzo" required>
                                 @if ($errors->has('streetAddress'))
@@ -61,7 +70,7 @@
                 </div>
             </div>
         </div>
-        @if ($errors->any())streetAddress
+        @if ($errors->any())
             <div class="row">
                 <div class="wrapper col">
                     <div class="card">
