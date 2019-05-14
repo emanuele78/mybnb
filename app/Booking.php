@@ -357,7 +357,7 @@
 			
 			$baseAmount = $this->apartment_price_per_night;
 			foreach ($this->bookedServices()->get() as $upgrade) {
-				$baseAmount += $upgrade->price_per_night == 0 ?: $upgrade->price_per_night;
+				$baseAmount += $upgrade->price_per_night == 0 ? 0 : $upgrade->price_per_night;
 			}
 			return $baseAmount * $this->check_out->diffInDays($this->check_in);
 		}

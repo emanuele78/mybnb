@@ -39,8 +39,8 @@ mix.js('resources/js/app.js', 'public/js')
             options: {
                 grid: true,
                 browsers: [
-                    'last 20 versions', // Set really far back in hopes of generating old prefixes
-                    'ie 10-11' // Getting specific
+                    'last 20 versions',
+                    'ie 10-11'
                 ]
             }
         }

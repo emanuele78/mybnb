@@ -48,6 +48,7 @@
 				  ->table('events')->insert(
 					[
 					  'event' => $event,
+					  'app_name' => 'MY_BNB',
 					  'created_at' => Carbon::now()
 					]
 				  );
