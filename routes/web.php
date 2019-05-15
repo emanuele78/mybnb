@@ -78,4 +78,6 @@
 	Route::get('/', 'LandingPageController@index')->name('home');
 	//activate the token
 	Route::patch('/tokens/{token}', 'TokenController@update')->name('activate-token');
+	//in order to access same controller from email link
+	Route::get('/tokens/{token}', 'TokenController@update')->name('activate-token');
 	
