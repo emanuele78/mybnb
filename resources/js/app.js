@@ -31,7 +31,7 @@ const PROJECT_CONSTANTS = {
     promotionPaymentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions',
     apartmentSearchEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/search',
 };
-const PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
+const PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/demo/mybnb';
 if (process.env.NODE_ENV === 'production') {
     PROJECT_CONSTANTS.tokenEndpoint = PRODUCTION_BASE_URI + '/api/tokens';
     PROJECT_CONSTANTS.activationTokenEndpoint = PRODUCTION_BASE_URI + '/tokens';
