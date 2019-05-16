@@ -6,6 +6,7 @@ Demo di un portale in stile Airbnb per l'affitto di appartamenti online tra priv
 ![screen](../master/art/mybnb_screen_1.jpg)
 ![screen](../master/art/mybnb_screen_2.jpg)
 ![screen](../master/art/mybnb_screen_3.jpg)
+![screen](../master/art/mybnb_screen_4.jpg)
 
 ## Autore
 
