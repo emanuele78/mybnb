@@ -1,5 +1,5 @@
-<div class="container mt-4">
-    <h3 class="text-center">FAQ - TL;Dr</h3>
+<div class="container my-4">
+    <h3 class="text-center">MYBNB - FAQ</h3>
     <div class="card mt-2">
         <div class="card-header">
             <h5 class="mb-0">
@@ -24,7 +24,7 @@
         </div>
         <div id="description" class="collapse">
             <div class="card-body">
-                <p>La presente demo emula una versione molto semplificata del sito AirBnB. Gli utenti una volta registrati possono effettuare delle prenotazioni sugli appartamenti inseriti nel sistema.</p>
+                <p>La presente demo emula una versione semplificata del portale Airbnb per l'affitto di appartamenti online tra privati . Gli utenti una volta registrati possono effettuare delle prenotazioni sugli appartamenti inseriti nel sistema.</p>
                 <p>Ogni utente a sua volta può registrare degli appartamenti, sponsorizzarli, ricevere e inviare messaggi in piattaforma.</p>
                 <p>Sono presenti tre dashboard principali:</p>
                 <ul>
@@ -43,7 +43,7 @@
                     <u>Funzionalità specifiche</u>
                 </h5>
                 <span class="text-muted"><strong>Appartamenti</strong></span>
-                <p>Ogni appartamento possiede un'immagine principale, fino a un massimo di altre 4 immagini secondarie, un titolo rappresentativo, una descrizione e altre informazioni comuni. Il proprietario può scegliere di inserire una percentuale di sconto, una permanenza massima per ogni singola prenotazione e dei giorni nei quali si riserva di non accettare prenotazioni. Inoltre è possibile indicare dei servizi predefiniti o personalizzati. I servizi possono essere gratuiti o a pagamento. L'indirizzo dell'appartamento viene inserito tramite una casella di ricerca che sfrutta le
+                <p>Ogni appartamento possiede un'immagine principale, fino a un massimo di altre 4 immagini secondarie, un titolo rappresentativo, una descrizione e altre informazioni comuni. Il proprietario può scegliere se inserire una percentuale di sconto, una permanenza massima per ogni singola prenotazione e dei giorni nei quali si riserva di non accettare ospiti. Inoltre è possibile indicare dei servizi predefiniti o personalizzati. I servizi possono essere gratuiti o a pagamento. L'indirizzo dell'appartamento viene inserito tramite una casella di ricerca che sfrutta le
                     <strong>API TomTom</strong> dalle quali si ottiene una lista di possibili risultati e la relativa mappa.
                 </p>
                 <span class="text-muted"><strong>Prenotazioni</strong></span>
@@ -107,7 +107,7 @@
         </div>
         <div id="data" class="collapse">
             <div class="card-body">
-                <p>Eventuali modifiche come nuovi utenti creati, appartamenti inseriti, promozioni effettuate e altro, rimangono salvate per un periodo di tempo limitato. Con cadenza giornaliera il database ricreato da zero in modo da garantire la stessa esperienza d'uso a chinque volesse testare la presente demo.</p>
+                <p>Eventuali modifiche come nuovi utenti creati, appartamenti inseriti, promozioni effettuate e altro, rimangono salvate per un periodo di tempo limitato. Con cadenza giornaliera il database ricreato da zero in modo da garantire la stessa esperienza d'uso a chinque volesse testare la demo.</p>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
         </div>
         <div id="demo" class="collapse">
             <div class="card-body">
-                <p>E' stato appositamente inserito un utente già configurato con il quale è possibile effettuare il login nel sito. Le credenziali d'accesso sono:</p>
+                <p>E' stato appositamente inserito un utente già configurato con il quale è possibile effettuare il login. Le credenziali d'accesso sono:</p>
                 <ul>
                     <li>E-mail:
                         <strong>{{config('project.user_demo_email')}}</strong>
@@ -138,15 +138,44 @@
         <div class="card-header">
             <h5 class="mb-0">
                 <button class="btn text-primary" data-toggle="collapse" data-target="#source" aria-expanded="true">
-                    Dove posso trovare il codice sorgente? Con quale licenza è distribuito?
+                    Dove posso trovare il codice sorgente?
                 </button>
             </h5>
         </div>
         <div id="source" class="collapse">
             <div class="card-body">
                 <p>Il codice sorgente del presente progetto è disponibile su
-                    <a href="#">GitHub</a>
+                    <a href="https://github.com/emanuele78/mybnb">GitHub</a>.
                 </p>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <button class="btn text-primary" data-toggle="collapse" data-target="#license" aria-expanded="true">
+                    Dove posso chiedere informazioni per questo progetto?
+                </button>
+            </h5>
+        </div>
+        <div id="license" class="collapse">
+            <div class="card-body">
+                <p>Puoi tranquillamente scrivermi a questo
+                    <a href="mailto:ciao@emanuelemazzante.dev">indirizzo</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <button class="btn text-primary" data-toggle="collapse" data-target="#info" aria-expanded="true">
+                    Con quale licenza è distribuito il codice sorgente?
+                </button>
+            </h5>
+        </div>
+        <div id="info" class="collapse">
+            <div class="card-body">
                 <p>La licenza applicata è la
                     <strong>licenza MIT</strong>:
                 </p>
@@ -176,22 +205,6 @@ SOFTWARE.</pre>
     <div class="card mt-2">
         <div class="card-header">
             <h5 class="mb-0">
-                <button class="btn text-primary" data-toggle="collapse" data-target="#info" aria-expanded="true">
-                    Dove posso chiedere informazioni per questo progetto?
-                </button>
-            </h5>
-        </div>
-        <div id="info" class="collapse">
-            <div class="card-body">
-                <p>Puoi tranquillamente scrivermi a questo
-                    <a href="mailto:ciao@emanuelemazzante.dev">indirizzo</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="card mt-2">
-        <div class="card-header">
-            <h5 class="mb-0">
                 <button class="btn text-primary" data-toggle="collapse" data-target="#privacy" aria-expanded="true">
                     Dove posso trovare la privacy policy?
                 </button>
@@ -200,7 +213,7 @@ SOFTWARE.</pre>
         <div id="privacy" class="collapse">
             <div class="card-body">
                 <p>La puoi trovare a questa
-                    <a href="{{route('show_privacy')}}">pagina</a>
+                    <a href="{{route('show_privacy')}}">pagina</a>.
                 </p>
             </div>
         </div>

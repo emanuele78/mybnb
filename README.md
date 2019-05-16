@@ -1,5 +1,5 @@
 # MYBNB DEMO
-Demo di un portale in stile Airbnb per l'affitto di appartamenti online tra privati. Nel portale è integrato un sistema di messaggistica tra utenti, la possibilità di effettuare pagamenti per promozioni e prenotazioni attraverso l'SDK di Braintree oltre a un sistema di ricerca con diversi filtri. Per una descrizione più dettagliata fare riferimento alla [pagina delle FAQ](https://emanuelemazzante.dev/demo/mybnb/faq). 
+Demo di un portale in stile Airbnb per l'affitto di appartamenti online tra privati. Nel portale è integrato un sistema di messaggistica tra utenti, la possibilità di effettuare pagamenti per promozioni e prenotazioni attraverso l'SDK di Braintree oltre a un sistema di ricerca con diversi filtri. E' inclusa la generazione di ricevute in formato PDF per le prenotazioni e le promozioni. Per una descrizione più dettagliata fare riferimento alla [pagina delle FAQ](https://emanuelemazzante.dev/demo/mybnb/faq). 
 
 [![Generic badge](https://img.shields.io/badge/LIVEDEMO-HERE-<COLOR>.svg)](https://emanuelemazzante.dev/demo/mybnb/)
 

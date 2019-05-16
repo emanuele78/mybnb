@@ -57936,7 +57936,7 @@ var PROJECT_CONSTANTS = {
   promotionPaymentEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/auth/apartments/{apartment}/promotions',
   apartmentSearchEndpoint: LOCAL_BASE_URI + LOCAL_PORT + '/api/apartments/search'
 };
-var PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/portfolio/mybnb';
+var PRODUCTION_BASE_URI = 'https://emanuelemazzante.dev/demo/mybnb';
 
 if (false) {}
 
