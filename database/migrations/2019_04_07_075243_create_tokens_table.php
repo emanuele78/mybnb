@@ -13,15 +13,18 @@
 		 */
 		public function up() {
 			
-			Schema::create(
-			  'tokens', function (Blueprint $table) {
-				
-				$table->increments('id');
-				$table->string('token_code')->unique();
-				$table->string('email');
-				$table->dateTime('expiration')->nullable();
-				$table->timestamps();
-			});
+			if (!Schema::hasTable('tokens')) {
+				// create the table
+				Schema::create(
+				  'tokens', function (Blueprint $table) {
+					
+					$table->increments('id');
+					$table->string('token_code')->unique();
+					$table->string('email');
+					$table->dateTime('expiration')->nullable();
+					$table->timestamps();
+				});
+			}
 		}
 		
 		/**
@@ -31,6 +34,8 @@
 		 */
 		public function down() {
 			
-			Schema::dropIfExists('tokens');
+			//never drop the table
+			//			Schema::dropIfExists('tokens');
 		}
+		
 	}
