@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="date_of_birth">Data di nascita</label>
-                                <input type="text" class="form-control flatpicker flatpickr-input text-center{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="date_of_birth" name="date_of_birth" placeholder="dd-mm-aaaa" value="{{ old('date_of_birth') }}">
+                                <input type="text" class="form-control flatpicker flatpickr-input text-center{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" id="date_of_birth" name="date_of_birth" placeholder="dd-mm-aaaa" value="{{ old('date_of_birth') }}" readonly="readonly">
                                 @if ($errors->has('date_of_birth'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('date_of_birth') }}</strong>
