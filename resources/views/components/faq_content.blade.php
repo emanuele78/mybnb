@@ -161,7 +161,7 @@
         <div id="license" class="collapse">
             <div class="card-body">
                 <p>Puoi tranquillamente scrivermi a questo
-                    <a href="mailto:ciao@emanuelemazzante.dev">indirizzo</a>.
+                    <a href="mailto:{{env('WRITE_ME_ADDRESS')}}">indirizzo</a>.
                 </p>
             </div>
         </div>

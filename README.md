@@ -12,7 +12,7 @@ Demo di un portale in stile Airbnb per l'affitto di appartamenti online tra priv
 
 * **Emanuele Mazzante** - [emanuelemazzante.dev](https://emanuelemazzante.dev) 
 
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:ciao@emanuelemazzante.dev)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:e.mazzante.dev@gmail.com)
 
 ## Licenza
 
